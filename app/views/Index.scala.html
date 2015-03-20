@@ -1,0 +1,44 @@
+@(message: String)
+
+@Main("LandingPage") {
+
+<div class="container landing-header">
+  <div class="row">
+    <div class="col-sm-8 landing-header-brand">
+      <img class="landing-header-logo" src="@routes.Assets.at("images/sharesabout-logo.png")" width="64" height="64">
+      <h1>Sharesabout</h1>
+      <p>User-driven information sharing.</p>
+
+      <p>
+        <a class="sign-up-bttn" href="@routes.Application.signUp()">Sign Up</a>
+      </p>
+
+    </div>
+    <div class="col-sm-4">
+      <p>Login Crap</p>
+    </div>
+  </div>
+</div>
+
+<div class="container infogram">
+  <div class="row">
+    <div class="col-sm-6">
+      <img class="landing-header-logo" src="@routes.Assets.at("images/sharesabout-share.png")" width="350" height="350">
+      <h1>Share Info</h1>
+      <p>
+      When you're somewhere interesting, other people probably want to know 
+      what it's like there. Share things about a place for others.
+      </p>
+    </div>
+    <div class="col-sm-6">
+      <img class="landing-header-logo" src="@routes.Assets.at("images/sharesabout-look.png")" width="350" height="350">
+      <h1>Get Info</h1>
+      <p>
+      When you want to go somewhere, find out what it's like from people there
+      right now!
+      </p>
+    </div>
+  </div>
+
+</div>
+}
