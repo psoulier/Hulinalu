@@ -1,10 +1,16 @@
 @sharesabout-blue: #0079AF;
 
-h1 {
+.sharesabout-title-font {
+  font-family: 'Titillium Web', sans-serif;
+  color: @sharesabout-blue;
 }
 
-p {
+.sharesabout-para-font {
+  font-family: 'Droid Sans', sans-serif;
+  color: @sharesabout-blue;
+  font-size: 16px;
 }
+
 
 body {
   background-color: white;
@@ -12,6 +18,30 @@ body {
 
 .landing-header {
   margin-top: 25px;
+
+  h1 {
+    .sharesabout-title-font;
+    font-size: 48px;
+    line-height: 50%;
+  }
+
+  p {
+    margin-left: 74px;
+    .sharesabout-para-font;
+  }
+}
+
+
+.landing-header-brand {
+}
+
+.landing-header-logo {
+  float: left;
+  margin: 0 10px 0 0;
+}
+
+.landing-header-login {
+
 }
 
 .sign-up-bttn {
@@ -35,24 +65,13 @@ body {
 }
 
 
-.landing-header-brand {
-}
-
-.landing-header-logo {
-  float: left;
-}
-
-.landing-header-login {
-
-}
 
 .infogram {
   margin-top: 25px;
 }
 
 .infogram h1 {
-  font-family: 'Titillium Web', sans-serif;
-  color: @sharesabout-blue;
+  .sharesabout-title-font;
   text-align: center;
 }
 
