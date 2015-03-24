@@ -1,29 +1,41 @@
 package controllers;
 
-import play.*;
-import play.mvc.*;
+import play.data.Form;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.Index;
+import views.html.SignUp;
+import views.formdata.Login;
 
 import views.html.*;
 
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(Index.render("Your new application is ready."));
+        Login   data = new Login();
+
+        System.out.format("index: username: %s password: %s %n", data.username, data.password);
+
+        Form<Login> formData = Form.form(Login.class).fill(data);
+        System.out.format("index: username: %s password: %s %n", data.username, data.password);
+
+        return ok(Index.render(formData));
     }
 
-    public static Result postLogin() {
-      Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
+    public static Result login() {
+      Form<Login>           formData = Form.form(Login.class).bindFromRequest();
       Result                result;
 
       /* Check if form has any errors and return appropriate result.  */
       if (formData.hasErrors()) {
         System.out.println("Error!");
-        result = badRequest(NewContact.render(formData));
+        result = badRequest(Index.render(formData));
       }
       else {
-        ContactFormData data = formData.get();
-        ContactDB.addContact(data);
-        result = ok(NewContact.render(formData));
+        Login       data = formData.get();
+
+        //result = ok(Index.render(formData));
+        result = redirect( routes.Application.home() );
       }
 
       return result;
@@ -32,5 +44,9 @@ public class Application extends Controller {
 
     public static Result signUp() {
         return ok(SignUp.render("Your new application is ready."));
+    }
+
+    public static Result home() {
+        return ok(Home.render("Your new application is ready."));
     }
 }
