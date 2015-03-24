@@ -34,6 +34,7 @@ for reasonably popular locations, a steady feed of up-to-date
 information is produced.
 
 There are several issues that arise from such a system:
+
 1. Users that only consume data and do not participate in the information
   production.
 2. Users that generate false data - specifically when not physically present at a
@@ -43,7 +44,8 @@ There are several issues that arise from such a system:
 
 To minimize subjectivity and to allow for statistical analysis, a set of locals
 will be provided (e.g.: beach, trail, etc.) with predefined information
-categories. 
+categories. Each category will have a predefined set of selections that can
+easily be assigned a numerical value for processing.
 
 ## Producer
 The Producer component will allow a user to provide current information for a
