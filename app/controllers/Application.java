@@ -11,6 +11,8 @@ import views.html.*;
 
 public class Application extends Controller {
 
+    public final static String WEBNAME = "Sharesabout";
+
     public static Result index() {
         Login   data = new Login();
 

@@ -45,7 +45,7 @@ There are several issues that arise from such a system:
 To minimize subjectivity and to allow for statistical analysis, a set of locals
 will be provided (e.g.: beach, trail, etc.) with predefined information
 categories. Each category will have a predefined set of selections that can
-easily be assigned a numerical value for processing.
+easily be assigned a numerical value for subsequent processing.
 
 ## Producer
 The Producer component will allow a user to provide current information for a
@@ -63,10 +63,12 @@ location (as determined by location services of the device), the location will
 become available to other users for future use.
 
 ## Consumer
-The consumer UI will allow users to view various locations the associated
-conditions of that location. In terms of usability, this aspect of the application would be similar to
-many other services providing location-based information such as customer
-reviews, map location, etc. 
+The consumer UI will allow users to view various locations and the associated
+conditions of that location. In terms of usability, this aspect of the
+application would be similar to many other services providing location-based
+information such as customer reviews, map location, etc. A map will be provided
+with markers where information is available. By selecting a marker, additional
+information will be provided about that location.
 
 ## Credit System
 A "credit" system will be used to avoid the first issue from above. Users will
@@ -77,6 +79,11 @@ would generally not pose a noticeable hindrance to most users. When a user
 creates an account, they will be given a sufficient number of credits to utilize
 the system without the need to immediately "produce" information.
 
+This system may not work - especially if it becomes overly intrusive to the user
+experience. Care must be taken to ensure this system is more of a motivational
+incentive. Another option may be to use badges or another "rewards" system that
+is not compulsory.
+
 ## Data Analysis
 Data provided by users at a location will be stored with a time stamp. Basic
 statistics will be applied to data within a certain time interval to determine
@@ -84,6 +91,7 @@ the common consensus for the various conditions of a location.
 
 # Deliverable 1
 Deliverable 1 will consist of the following components:
+
 1. Landing page
 2. Sign Up
 3. Home
@@ -93,7 +101,7 @@ The landing page is simply the first page shown for users that are not logged
 in. It will describe the service the website provides, a login for
 existing users, and a link for new users to create an account. While simple in
 function, this page should be ascetically pleasing and convey the general
-concept of the website.
+concept of the service the website provides.
 
 ## Sign Up
 The sign up page will allow a user to create a new account. This will be a
@@ -112,16 +120,18 @@ Optional information will include:
 The Home page is the primary interface for the user and will contain the
 system's core functionality. It will show the users current location and provide
 the option to share information about that location if it's known to the system.
-If the location is not known, it will provide a mechanism to recommend the
+If the location is not known, it will provide a mechanism to suggest the
 location to be added or to be ignored (if, for example, its their home, office,
-etc.).
+etc.). A location that is "suggested" will only become publicly available once a
+sufficient number of users suggest the same place.
 
 This page will also provide an interface to view the conditions of various
 locations based on a category (e.g.: trails, beaches, etc.). This interface will
 allow the user to select predefined categories. Once selected, locations
 available in the system within a certain radius will be shown on a map. The user
 will be able to select markers on the map to show detailed information about
-that location.
+that location. Selecting a location will deduct credits from the user's account.
+The information associated to 
 
 # Deliverable 2
 Deliverable 1 provides only a simple mechanism for finding locations of

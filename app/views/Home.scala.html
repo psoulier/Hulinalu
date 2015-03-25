@@ -3,6 +3,185 @@
 @Main("Home") {
 
 <div class="container">
-  <h1>Your Home Page</h1>
+
+  @NavBar("Home")
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>Current Location</h1>
+      <p>
+      Your current location is not currently in the system. You can suggest the 
+      location if it's a place you'd like to share with others or you can 
+      ignore it if it's your home, office, or whatever.
+      </p>
+      <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>  Add Location</button>
+      <button type="button" class="btn btn-default"><i class="fa fa-times"></i>  Ignore Location</button>
+
+      <!--
+      <div>
+        <p>Trail Conditions:</p>
+      <label class="radio-inline">
+        <input type="radio" name="ineRadioOptions" id="ineRadio1" value="option1">Dry
+      </label>
+
+      <label class="radio-inline">
+        <input type="radio" name="ineRadioOptions" id="ineRadio2" value="option2">Damp
+      </label>
+      
+      <label class="radio-inline">
+        <input type="radio" name="ineRadioOptions" id="ineRadio3" value="option3">Soggy
+      </label>
+
+      <label class="radio-inline">
+        <input type="radio" name="ineRadioOptions" id="ineRadio3" value="option3">Muddy
+      </label>
+      </div>
+
+
+
+      <div>
+        <p>Waterfall Flow:</p>
+      <label class="radio-inline">
+        <input type="radio" name="lineRadioOptions" id="inlineRadio1" value="option1">Dry
+      </label>
+
+      <label class="radio-inline">
+        <input type="radio" name="lineRadioOptions" id="inlineRadio2" value="option2">Trickle
+      </label>
+      
+      <label class="radio-inline">
+        <input type="radio" name="lineRadioOptions" id="inlineRadio3" value="option3">Steady
+      </label>
+
+      <label class="radio-inline">
+        <input type="radio" name="lineRadioOptions" id="inlineRadio3" value="option3">Gushing
+      </label>
+      </div>
+
+
+
+      <div>
+        <p>Crowd:</p>
+
+      <label class="radio-inline">
+        <input type="radio" name="nlineRadioOptions" id="nlineRadio2" value="option2">Light
+      </label>
+      
+      <label class="radio-inline">
+        <input type="radio" name="nlineRadioOptions" id="nlineRadio3" value="option3">Moderate
+      </label>
+
+      <label class="radio-inline">
+        <input type="radio" name="nlineRadioOptions" id="nlineRadio3" value="option3">Packed
+      </label>
+      </div>
+
+
+
+
+      <div>
+        <p>Parking Availability:</p>
+      <label class="radio-inline">
+        <input type="radio" name="inlineRadioOptions" id="lineRadio1" value="option1">Plenty
+      </label>
+
+      <label class="radio-inline">
+        <input type="radio" name="inlineRadioOptions" id="lineRadio2" value="option2">Some
+      </label>
+      
+      <label class="radio-inline">
+        <input type="radio" name="inlineRadioOptions" id="lineRadio3" value="option3">Packed
+      </label>
+      </div>
+
+      
+          <button type="submit" class="btn btn-default">Submit</button>
+      
+      -->
+
+    </div>
+
+    <div class="sol-sm-6">
+      <img src=@routes.Assets.at("images/mockup-current-loc.png")/>
+    </div>
+  </div>
+
+  <div class="row location-select">
+    <div class="sol-sm-12">
+      <h4>Search Location Type</h4>
+      <select class="form-control input-sm">
+        <option>Select location type...</option>
+        <option>Trails</option>
+        <option>Beaches</option>
+      </select>
+    </div>
+  </div>
+      
+  <div class="well">
+    <div class="row">
+      <div class="col-sm-8">
+        <h3><i class="fa fa-caret-up"></i> Manoa Falls Trail</h3>
+          <p>9 updates in the last hour<br>A fun waterfall hike.</p>
+          <table class="table">
+            <thead>
+              <tr>
+              <th>Condition</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>Trail</td>
+                <td>Soggy</td>
+              </tr>
+              <tr>
+                <td>Waterfall</td>
+                <td>Gushing</td>
+              </tr>
+              <tr>
+                <td>Crowd</td>
+                <td>A lot of people</td>
+              </tr>
+              <tr>
+                <td>Parking</td>
+                <td>Limited</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-4">
+        <img src=@routes.Assets.at("images/mockup-manoa-falls.png")/>
+      </div>
+    </div>
+  </div>
+
+  <div class="well">
+    <div class="row">
+      <div class="col-sm-8">
+        <h3>Judd Trail <button type="button" class="btn btn-default"><i class="fa fa-eye"></i> View</button></h3>
+        <p>12 updates in the last hour<br>A nice hike around Nuuanu.</p>
+      </div>
+
+      <div class="col-sm-4">
+        <img src=@routes.Assets.at("images/mockup-manoa-falls.png")/>
+      </div>
+    </div>
+  </div>
+
+  <div class="well">
+    <div class="row">
+      <div class="col-sm-8">
+        <h3>Kuliouou Ridge Trail <button type="button" class="btn btn-default"><i class="fa fa-eye"></i> View</button></h3>
+        <p>4 updates in the last hour<br>A nice ridge hike.</p>
+      </div>
+
+      <div class="col-sm-4">
+        <img src=@routes.Assets.at("images/mockup-manoa-falls.png")/>
+      </div>
+    </div>
+  </div>
+
+ 
+
 </div>
 }

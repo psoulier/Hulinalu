@@ -32,14 +32,12 @@
 
 
       <div class="form-group @if(loginForm("password").hasErrors) {has-error}">
-        <div class="">
           <input class="login-input" type="text" class="form-control"
           name = "@loginForm("password").name"
           id= "@loginForm("password").id"
           value = "@loginForm("password").value"
           placeholder="Password">
           <span class="help-block">@{loginForm("password").error.map {error => error.message}}</span>
-        </div>
       </div>
 
       <div class="form-group">
