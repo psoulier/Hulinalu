@@ -23,6 +23,9 @@ interested in that location would help address this problem. In essence, the
 system will dynamically present current conditions for a location by utilizing
 the information provided by people at that location.
 
+NOTE: I'm not overly enthused about the name of the project and it will likely change.
+Finding catchy a domain name that isn't taken is challenging.
+
 #Approach
 This web application will provide two basic components: the producer and the
 consumer. The producer component allows users of the application to contribute
