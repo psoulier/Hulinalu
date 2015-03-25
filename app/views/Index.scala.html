@@ -12,10 +12,6 @@
       <h1>Sharesabout</h1>
       <p>User-driven information sharing.</p>
 
-      <div>
-        <a class="sign-up-bttn" href="@routes.Application.signUp()">Sign Up</a>
-      </div>
-
     </div>
     <div class="col-sm-4">
       @form(routes.Application.login, 'class -> "") {
@@ -43,14 +39,10 @@
       <div class="form-group">
         <div>
           <input type="submit" class="sign-up-bttn" name="login" value="Login" id="Login" />
+          <input type="submit" class="sign-up-bttn" name="login" value="Sign Up" id="SignUp" />
         </div>
-
-        <!--
-        <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default">Login</button>
-        </div>
-        -->
       </div>
+
     }
       
     </div>
