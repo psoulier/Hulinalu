@@ -1,0 +1,14 @@
+@(lat: Float)(lng: Float)
+
+@import models.LocationDB;
+
+@if(LocationDB.isAtLocation(lat, lng)) {
+
+  <p>You Are Here:</p>
+  <p>@lat</p>
+  <p>@lng</p>
+
+} else {
+  <p>You are nowhere.</p>
+}
+

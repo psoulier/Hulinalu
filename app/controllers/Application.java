@@ -3,6 +3,7 @@ package controllers;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.Routes;
 import views.html.Index;
 import views.html.SignUp;
 import views.formdata.Login;
@@ -50,5 +51,15 @@ public class Application extends Controller {
 
     public static Result home() {
         return ok(Home.render("Your new application is ready."));
+    }
+
+    public static Result currentLocation(String lat, String lng) {
+      return ok(CurrentLoc.render( Float.valueOf(lat), Float.valueOf(lng) ) );
+    }
+
+    public static Result javascriptRoutes() {
+      response().setContentType("text/javascript");
+      return ok(
+        Routes.javascriptRouter("jsRoutes", controllers.routes.javascript.Application.currentLocation()) );
     }
 }

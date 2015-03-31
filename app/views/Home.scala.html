@@ -1,108 +1,29 @@
 @(message: String)
 
-@Main("Home") {
+@Main("Home")("Bob") {
 
 <div class="container">
 
   @NavBar("Home")
 
   <div class="row">
-    <div class="col-sm-6">
+    <div id="current-loc" class="col-sm-6">
       <h1>Current Location</h1>
       <p>
-      Your current location is not currently in the system. You can suggest the 
-      location if it's a place you'd like to share with others or you can 
-      ignore it if it's your home, office, or whatever.
+      Finding your whereabouts...
       </p>
+
+
       <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>  Add Location</button>
       <button type="button" class="btn btn-default"><i class="fa fa-times"></i>  Ignore Location</button>
 
       <!--
-      <div>
-        <p>Trail Conditions:</p>
-      <label class="radio-inline">
-        <input type="radio" name="ineRadioOptions" id="ineRadio1" value="option1">Dry
-      </label>
-
-      <label class="radio-inline">
-        <input type="radio" name="ineRadioOptions" id="ineRadio2" value="option2">Damp
-      </label>
-      
-      <label class="radio-inline">
-        <input type="radio" name="ineRadioOptions" id="ineRadio3" value="option3">Soggy
-      </label>
-
-      <label class="radio-inline">
-        <input type="radio" name="ineRadioOptions" id="ineRadio3" value="option3">Muddy
-      </label>
-      </div>
-
-
-
-      <div>
-        <p>Waterfall Flow:</p>
-      <label class="radio-inline">
-        <input type="radio" name="lineRadioOptions" id="inlineRadio1" value="option1">Dry
-      </label>
-
-      <label class="radio-inline">
-        <input type="radio" name="lineRadioOptions" id="inlineRadio2" value="option2">Trickle
-      </label>
-      
-      <label class="radio-inline">
-        <input type="radio" name="lineRadioOptions" id="inlineRadio3" value="option3">Steady
-      </label>
-
-      <label class="radio-inline">
-        <input type="radio" name="lineRadioOptions" id="inlineRadio3" value="option3">Gushing
-      </label>
-      </div>
-
-
-
-      <div>
-        <p>Crowd:</p>
-
-      <label class="radio-inline">
-        <input type="radio" name="nlineRadioOptions" id="nlineRadio2" value="option2">Light
-      </label>
-      
-      <label class="radio-inline">
-        <input type="radio" name="nlineRadioOptions" id="nlineRadio3" value="option3">Moderate
-      </label>
-
-      <label class="radio-inline">
-        <input type="radio" name="nlineRadioOptions" id="nlineRadio3" value="option3">Packed
-      </label>
-      </div>
-
-
-
-
-      <div>
-        <p>Parking Availability:</p>
-      <label class="radio-inline">
-        <input type="radio" name="inlineRadioOptions" id="lineRadio1" value="option1">Plenty
-      </label>
-
-      <label class="radio-inline">
-        <input type="radio" name="inlineRadioOptions" id="lineRadio2" value="option2">Some
-      </label>
-      
-      <label class="radio-inline">
-        <input type="radio" name="inlineRadioOptions" id="lineRadio3" value="option3">Packed
-      </label>
-      </div>
-
-      
-          <button type="submit" class="btn btn-default">Submit</button>
-      
-      -->
-
+<div id="current-loc"></div>
+-->
     </div>
 
     <div class="sol-sm-6">
-      <img src=@routes.Assets.at("images/mockup-current-loc.png")/>
+      <div id="map-canvas"></div>
     </div>
   </div>
 

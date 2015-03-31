@@ -8,5 +8,10 @@ POST	/			    controllers.Application.login()
 GET     /SignUp                     controllers.Application.signUp()
 GET     /Home                       controllers.Application.home()
 
+GET	/currentLocation	    controllers.Application.currentLocation(lat: String, lng: String)
+
+# Javascript routing
+GET    /assets/javascripts/routes      controllers.Application.javascriptRoutes()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
