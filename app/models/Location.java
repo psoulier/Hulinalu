@@ -53,6 +53,17 @@ public class Location {
     conditions.add(condition);
   }
 
+  public float getLongitude() {
+    return longitude;
+  }
+
+  public float getLatitude() {
+    return latitude;
+  }
+
+  public String getName() {
+    return name;
+  }
 
 
   private float                 latitude;

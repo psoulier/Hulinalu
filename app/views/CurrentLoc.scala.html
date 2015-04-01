@@ -3,22 +3,34 @@
 @import models.LocationDB;
 @import models.Location;
 
-@displayUpdateLocation(loc: Location) = @{
+@displayUpdateLocation(loc: Location) = {
+  <h2>You Are Here:</h2>
+  <h3>"@loc.getName"</h3>
+
+  <div class="list-group">
+    <div class="list-group-item">
+      askForUpdate()
+    </div>
+    <div class="list-group-item">
+        <table width="100%">
+          <tr>
+            <td width="25%">Crowd:</td> <td width="25%">Small</td> <td width="50%"><div></div></td>
+          </tr>
+        </table>
+    </div>
+  </div>
 }
 
-@displayAddLocation(loc: Location) = @{
+@displayAddLocation() = @{
+  <p>You are nowhere.</p>
 }
 
 @if(LocationDB.isKnownLocation(lat, lng)) {
 
-  @displayUpdateLoc( LocationDB.getLocation(lat, lng) )
+  @displayUpdateLocation( LocationDB.getLocation(lat, lng) )
 
-  <p>You Are Here:</p>
-  <p>@lat</p>
-  <p>@lng</p>
 
 } else {
-  @displayAddLoc()
-  <p>You are nowhere.</p>
+  @displayAddLocation()
 }
 
