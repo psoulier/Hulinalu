@@ -1,14 +1,24 @@
 @(lat: Float)(lng: Float)
 
 @import models.LocationDB;
+@import models.Location;
 
-@if(LocationDB.isAtLocation(lat, lng)) {
+@displayUpdateLocation(loc: Location) = @{
+}
+
+@displayAddLocation(loc: Location) = @{
+}
+
+@if(LocationDB.isKnownLocation(lat, lng)) {
+
+  @displayUpdateLoc( LocationDB.getLocation(lat, lng) )
 
   <p>You Are Here:</p>
   <p>@lat</p>
   <p>@lng</p>
 
 } else {
+  @displayAddLoc()
   <p>You are nowhere.</p>
 }
 

@@ -2,6 +2,8 @@ package models;
 
 import java.util.ArrayList;
 
+// POST Building: 21.297579, -157.81648
+
 public class Location {
   public static final int   LOC_TRAIL = 1;
   public static final int   LOC_BEACH = 2;
