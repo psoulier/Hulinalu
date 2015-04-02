@@ -2,7 +2,8 @@ var map;
 
 function initialize() {
   var mapOptions = {
-    zoom: 12
+    zoom: 19,
+    maxZoom: 21
   };
   
   map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -21,7 +22,7 @@ function initialize() {
 
       map.setCenter(pos);
 
-		  jsRoutes.controllers.Application.currentLocation(position.coords.latitude, position.coords.longitude).ajax({
+      jsRoutes.controllers.Application.currentLocation(position.coords.latitude, position.coords.longitude).ajax({
 			  success: function(data) {
 				  $("#current-loc").html(data);
 			  },

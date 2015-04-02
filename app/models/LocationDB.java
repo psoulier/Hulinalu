@@ -12,6 +12,10 @@ public class LocationDB {
   }
 
   public static Boolean isKnownLocation(float lat, float lng) {
+    for (Location loc : locations) {
+      loc.isWithin(lat, lng, 15.0f);
+    }
+
     return true;
   }
 

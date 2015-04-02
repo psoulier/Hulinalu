@@ -3,13 +3,28 @@
 @import models.LocationDB;
 @import models.Location;
 
+@displayUpdateInput(feature: Location.Feature) = {
+  <label class="control-label">@feature.getName</label>
+  @for(value <- feature.getValues()) {
+    <label class="radio-inline">
+      <input type="radio" name="@feature.getName" id="@value" value="@value"> @value
+    </label>
+  }
+
+  <div class="form-group">
+      <button id="submit" type="submit" class="btn btn-default">Add</button>
+  </div>
+
+}
+
 @displayUpdateLocation(loc: Location) = {
   <h2>You Are Here:</h2>
   <h3>"@loc.getName"</h3>
+  <p>@loc.getLatitude, @loc.getLongitude</p>
 
   <div class="list-group">
     <div class="list-group-item">
-      askForUpdate()
+      @displayUpdateInput( loc.getNextConditionToUpdate() )
     </div>
     <div class="list-group-item">
         <table width="100%">
@@ -26,10 +41,7 @@
 }
 
 @if(LocationDB.isKnownLocation(lat, lng)) {
-
   @displayUpdateLocation( LocationDB.getLocation(lat, lng) )
-
-
 } else {
   @displayAddLocation()
 }
