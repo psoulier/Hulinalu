@@ -4,16 +4,21 @@
 @import models.Location;
 
 @displayUpdateInput(feature: Location.Feature) = {
-  <label class="control-label">@feature.getName</label>
-  @for(value <- feature.getValues()) {
-    <label class="radio-inline">
-      <input type="radio" name="@feature.getName" id="@value" value="@value"> @value
-    </label>
-  }
 
-  <div class="form-group">
-      <button id="submit" type="submit" class="btn btn-default">Add</button>
-  </div>
+  @form.(routes.Application.postUpdate()) {
+    <label class="control-label">@feature.getName:</label>
+    @for(value <- feature.getValues()) {
+      <label class="radio-inline">
+        <input type="radio" name="@feature.getName" id="@value" value="@value"> @value
+      </label>
+    }
+    
+
+    <div class="form-group">
+      <button id="submit" type="submit" class="btn btn-default">Update</button>
+      <button type="button" class="btn btn-default">Skip</button>
+    </div>
+  }
 
 }
 
@@ -36,13 +41,14 @@
   </div>
 }
 
-@displayAddLocation() = @{
-  <p>You are nowhere.</p>
+@displaySuggestLocation() = @{
+  <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>  Suggest Location</button>
+  <button type="button" class="btn btn-default"><i class="fa fa-times"></i>  Ignore Location</button>
 }
 
-@if(LocationDB.isKnownLocation(lat, lng)) {
-  @displayUpdateLocation( LocationDB.getLocation(lat, lng) )
+@if(LocationDB.isUserInProximity(lat, lng)) {
+  @displayUpdateLocation( LocationDB.getClosestLocation(lat, lng) )
 } else {
-  @displayAddLocation()
+  @displaySuggestLocation()
 }
 

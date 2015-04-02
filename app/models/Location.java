@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.ArrayList;
 import java.lang.Math;
 
-// POST my office: 21.297579, -157.81648
-// POST 318B: 21.31085, -157.85782
+
+/**
+ * Defines a location.
+ */
 public class Location {
   public static final int   LOC_TRAIL = 1;
   public static final int   LOC_BEACH = 2;
   public static final int   LOC_BUILDING = 3;
+
+  public static final float DD_PER_METER = 0.00001f / 1.1132f;
 
 
   /**
@@ -48,6 +52,15 @@ public class Location {
     private ArrayList<String> values;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param name
+   * @param description
+   * @param lat
+   * @param lng
+   * @param type
+   */
   public Location(String name, String description, float lat, float lng, int type) {
     this.name = name;
     this.description = description;
@@ -95,16 +108,10 @@ public class Location {
    *
    * @param lat latitude
    * @param lng longitude
-   * @param range Radial distance around location (in meters)
+   * @param radius Radial distance around location (in meters)
    */
-  public bool isWithin(float lat, float lng, float range) {
-    float d;
-
-    d = Math.sqrt( Math.pow(lat-latitude, 2.0f) + Math.pow(lng - longitude, 2.0f) );
-
-//    0.00001 = 1.1132 meters
-
-    return d < range
+  public float getDistanceFrom(float lat, float lng) {
+    return (float)Math.sqrt( Math.pow(latitude - lat, 2.0f) + Math.pow(longitude - lng, 2.0f) );
   }
 
   private float                 latitude;

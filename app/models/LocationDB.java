@@ -3,21 +3,33 @@ package models;
 import java.util.ArrayList;
 
 public class LocationDB {
+  public static final float               MAX_DISTANCE = (0.00001f / 1.1132f) * 15.0f;
   private static ArrayList<Location>      locations = new ArrayList<Location>();
 
-  public static Location getLocation(float lat, float lng) {
-    System.out.format("lat=%f lng=%f %n", lat, lng);
-    
-    return locations.get(0);
-  }
 
-  public static Boolean isKnownLocation(float lat, float lng) {
+
+  public static Location getClosestLocation(float lat, float lng) {
+    Location  closestLoc = null;
+    float     closestDist = 100000.0f;   // No such distance on Earth (literally).
+
     for (Location loc : locations) {
-      loc.isWithin(lat, lng, 15.0f);
+      float d = loc.getDistanceFrom(lat, lng);
+
+      System.out.format("name: %s dist=%f %n", loc.getName(), d);
+
+      if (d < closestDist) {
+        closestLoc = loc;
+        closestDist = d;
+      }
     }
 
-    return true;
+    return closestLoc;
   }
+
+  public static Boolean isUserInProximity(float lat, float lng) {
+    return getClosestLocation(lat, lng).getDistanceFrom(lat, lng) <= MAX_DISTANCE;
+  }
+  
 
   public static void addLocation(Location loc) {
     locations.add(loc);
