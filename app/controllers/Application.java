@@ -43,6 +43,10 @@ public class Application extends Controller {
 
       return result;
     }
+
+    public static Result postLocationUpdate() {
+      return ok(Home.render("Your new application is ready."));
+    }
     
 
     public static Result signUp() {

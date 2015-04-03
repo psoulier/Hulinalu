@@ -1,11 +1,15 @@
 @(lat: Float)(lng: Float)
 
-@import models.LocationDB;
-@import models.Location;
+@import helper._
+
+@import models.LocationDB
+@import models.Location
 
 @displayUpdateInput(feature: Location.Feature) = {
 
-  @form.(routes.Application.postUpdate()) {
+  @if(feature != None) {
+
+  @form.(routes.Application.postLocationUpdate()) {
     <label class="control-label">@feature.getName:</label>
     @for(value <- feature.getValues()) {
       <label class="radio-inline">
@@ -20,6 +24,7 @@
     </div>
   }
 
+  }
 }
 
 @displayUpdateLocation(loc: Location) = {
@@ -28,9 +33,12 @@
   <p>@loc.getLatitude, @loc.getLongitude</p>
 
   <div class="list-group">
-    <div class="list-group-item">
-      @displayUpdateInput( loc.getNextConditionToUpdate() )
-    </div>
+    @if(loc.hasFeaturesToUpdate()) {
+      <div class="list-group-item"> 
+        @displayUpdateInput( loc.getNextConditionToUpdate() )
+      </div>
+    }
+    <!--
     <div class="list-group-item">
         <table width="100%">
           <tr>
@@ -38,6 +46,7 @@
           </tr>
         </table>
     </div>
+    -->
   </div>
 }
 

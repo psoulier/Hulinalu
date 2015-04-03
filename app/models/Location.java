@@ -92,6 +92,10 @@ public class Location {
     return name;
   }
 
+  public Boolean hasFeaturesToUpdate() {
+    return !features.isEmpty();
+  }
+
   public Feature getNextFeatureToUpdate() {
     return features.get(0);
   }
