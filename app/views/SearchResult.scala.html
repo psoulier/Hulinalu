@@ -1,0 +1,32 @@
+@(location: Location)
+
+@Stars(score: Int) = {
+  @{score match {
+    case 0 => { <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> }
+    case 1 => { <i class="fa fa-star-half-full"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> }
+    case 2 => { <i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> }
+    case 3 => { <i class="fa fa-star"></i><i class="fa fa-star-half-full"></i><i class="fa fa-star-o"></i> }
+    case 4 => { <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i> }
+    case 5 => { <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-full"></i> }
+    case 6 => { <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> }
+  }}
+}
+
+@DisplayReliability(loc: Location) = {
+  <div>
+    <div class="feature-score"><p><i class="fa fa-eye"></i> @Stars(loc.getConditionReliability())</p></div>
+    <div class="feature-score"><p><i class="fa fa-globe"></i> @Stars(loc.getFeatureReliability())</p></div>
+    <div class="feature-update"><p>@loc.getUpdateCount(60) in the last hour.</p></div>
+  </div>
+}
+
+
+<div>
+  <a href="@routes.Application.locationPage(location.getName)"><h1>@location.getName</h1></a>
+  <div>
+    @DisplayReliability(location)
+  </div>
+  <p>@location.getDescription</p>
+  
+</div>
+

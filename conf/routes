@@ -7,6 +7,7 @@ GET     /                           controllers.Application.index()
 POST	/			    controllers.Application.login()
 GET     /SignUp                     controllers.Application.signUp()
 GET     /Home                       controllers.Application.home()
+GET	/LocationPage/:locQuery	    controllers.Application.locationPage(locQuery)
 
 GET	/currentLocation	    controllers.Application.currentLocation(lat: String, lng: String)
 

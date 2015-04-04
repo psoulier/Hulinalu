@@ -10,6 +10,20 @@ import models.Building;
 
 public class Global extends GlobalSettings {
   public void onStart(Application app) {
+
+
+  Location alaMoana = new Beach("Ala Moana Beach Park",
+                                "Beach on the south shore of Oahu. The beach is protected by a reef so the water is usually calm.",
+                                21.289984, 
+                                -157.847603);
+
+
+
+  Location waikiki = new Beach("Waikiki Beach",
+                               "Popular beach on the south shore of Oahu in the Waikiki area.
+                               21.276492, -157.827809);
+
+
     Location.Feature  feature;
 
     Location  manoaFalls = new Building("Capitol Place", 

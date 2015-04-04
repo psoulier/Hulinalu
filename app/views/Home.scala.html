@@ -1,5 +1,6 @@
 @(message: String)
 
+
 @Main("Home")("Bob") {
 
 <div class="container">
@@ -26,80 +27,9 @@
     </div>
   </div>
 
-  <div class="row location-select">
-    <div class="sol-sm-12">
-      <h4>Search Location Type</h4>
-      <select class="form-control input-sm">
-        <option>Select location type...</option>
-        <option>Trails</option>
-        <option>Beaches</option>
-      </select>
-    </div>
-  </div>
-      
-  <div class="well">
-    <div class="row">
-      <div class="col-sm-8">
-        <h3><i class="fa fa-caret-up"></i> Manoa Falls Trail</h3>
-          <p>9 updates in the last hour<br>A fun waterfall hike.</p>
-          <table class="table">
-            <thead>
-              <tr>
-              <th>Condition</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-              <tr>
-                <td>Trail</td>
-                <td>Soggy</td>
-              </tr>
-              <tr>
-                <td>Waterfall</td>
-                <td>Gushing</td>
-              </tr>
-              <tr>
-                <td>Crowd</td>
-                <td>A lot of people</td>
-              </tr>
-              <tr>
-                <td>Parking</td>
-                <td>Limited</td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-sm-4">
-        <img src=@routes.Assets.at("images/mockup-manoa-falls.png")/>
-      </div>
-    </div>
-  </div>
-
-  <div class="well">
-    <div class="row">
-      <div class="col-sm-8">
-        <h3>Judd Trail <button type="button" class="btn btn-default"><i class="fa fa-eye"></i> View</button></h3>
-        <p>12 updates in the last hour<br>A nice hike around Nuuanu.</p>
-      </div>
-
-      <div class="col-sm-4">
-        <img src=@routes.Assets.at("images/mockup-manoa-falls.png")/>
-      </div>
-    </div>
-  </div>
-
-  <div class="well">
-    <div class="row">
-      <div class="col-sm-8">
-        <h3>Kuliouou Ridge Trail <button type="button" class="btn btn-default"><i class="fa fa-eye"></i> View</button></h3>
-        <p>4 updates in the last hour<br>A nice ridge hike.</p>
-      </div>
-
-      <div class="col-sm-4">
-        <img src=@routes.Assets.at("images/mockup-manoa-falls.png")/>
-      </div>
-    </div>
-  </div>
+  @for(loc <- LocationDB.getLocations) {
+    @SearchResult(loc)
+  }
 
  
 

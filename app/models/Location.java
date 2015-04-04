@@ -104,6 +104,22 @@ public class Location {
     return conditions.get(0);
   }
 
+  public String getDescription() {
+    return description;
+  }
+
+  public Integer getConditionReliability() {
+    return 3;
+  }
+
+  public Integer getFeatureReliability() {
+    return 6;
+  }
+
+  public Integer getUpdateCount(int minutes) {
+    return 13;
+  }
+
   /**
    * Determines if a given coordinate is within a specified distance of this
    * location object.

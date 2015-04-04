@@ -8,6 +8,8 @@ import views.html.Index;
 import views.html.SignUp;
 import views.formdata.Login;
 
+import models.LocationDB;
+
 import views.html.*;
 
 public class Application extends Controller {
@@ -59,6 +61,10 @@ public class Application extends Controller {
 
     public static Result currentLocation(String lat, String lng) {
       return ok(CurrentLoc.render( Float.valueOf(lat), Float.valueOf(lng) ) );
+    }
+
+    public static Result locationPage(String locQuery) {
+      return ok(LocationPage.render( LocationDB.getLocation(locQuery) ));
     }
 
     public static Result javascriptRoutes() {
