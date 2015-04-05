@@ -10,9 +10,10 @@ GET     /Home                       controllers.Application.home()
 GET	/LocationPage/:locQuery	    controllers.Application.locationPage(locQuery)
 
 GET	/currentLocation	    controllers.Application.currentLocation(lat: String, lng: String)
+GET	/searchResults		    controllers.Application.searchResults(query: String)
 
 # Javascript routing
-GET    /assets/javascripts/routes      controllers.Application.javascriptRoutes()
+GET    /assets/javascripts/routes   controllers.Application.javascriptRoutes()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

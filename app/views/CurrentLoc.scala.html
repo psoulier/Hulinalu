@@ -4,25 +4,29 @@
 
 @import models.LocationDB
 @import models.Location
+@import models.Feature
 
-@displayUpdateInput(feature: Location.Feature) = {
+@displayUpdateInput(feature: Feature) = {
 
   @if(feature != None) {
 
-  @form.(routes.Application.postLocationUpdate()) {
-    <label class="control-label">@feature.getName:</label>
-    @for(value <- feature.getValues()) {
-      <label class="radio-inline">
-        <input type="radio" name="@feature.getName" id="@value" value="@value"> @value
-      </label>
-    }
-    
+    @form.(routes.Application.postLocationUpdate()) {
+      <label class="control-label">@feature.getName:</label>
+      @for(value <- feature.getValues()) {
+        <label class="radio-inline">
+          <input type="radio" name="@feature.getName" id="@value" value="@value"> @value
+        </label>
+      }
+      
 
-    <div class="form-group">
-      <button id="submit" type="submit" class="btn btn-default">Update</button>
-      <button type="button" class="btn btn-default">Skip</button>
-    </div>
-  }
+      <div class="form-group">
+        <button id="submit" type="submit" class="btn btn-default">Update</button>
+        <button type="button" class="btn btn-default">Skip</button>
+      </div>
+
+
+
+    }
 
   }
 }

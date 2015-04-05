@@ -8,8 +8,55 @@ body {
 
 @score-radius: 22px;
 
+#search-results {
+  margin-top: 20px;
+}
 
-.feature-score {
+div label input {
+  position: absolute;
+  visibility: hidden;
+}
+
+#ck-button {
+  margin:4px;
+  background-color: white;
+  overflow:auto;
+  display: inline-block;
+}
+
+#ck-button:hover {
+}
+
+#ck-button label {
+  /*
+    width: 4.0em;
+    */
+}
+
+#ck-button label span {
+    text-align: center;
+    padding: 3px 0px;
+    display: block;
+}
+
+#ck-button label input {
+    position: absolute;
+    /*
+    top: -20px;
+    */
+}
+
+#ck-button input:checked + span {
+    background-color: white;
+    color: @sharesabout-blue;
+}
+
+
+.current-loc {
+  color: black;
+}
+
+.stars-invert {
   width: 75px;
   height: @score-radius;
   border-radius: @score-radius; 

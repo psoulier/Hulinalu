@@ -15,42 +15,26 @@ public class Location {
 
   public static final float DD_PER_METER = 0.00001f / 1.1132f;
 
-
-  /**
-   * Defines a feature of the place. 
-   */
-  public static class Feature {
-    public final static int ST_UNSPECIFIED = -1;
-
-    public Feature(String name, String description, String[] values) {
-      this.name = name;
-      this.description = description;
-      this.userState = ST_UNSPECIFIED;
-      this.values = new ArrayList<String>();
-
-      for (String val : values) {
-        System.out.format("%s %n", val);
-        this.values.add(val);
-      }
+  public static class Condition extends Feature {
+    public Condition(String name, String[] values, String info) {
+      super(name, values, info);
     }
 
-
-    public String getName() {
-      return name;
+    public Condition(Condition cond) {
+      super(cond);
     }
-
-    public List<String> getValues() {
-      return values;
-    }
-
-
-    private String            name;
-    private String            description;
-    private int               userState;
-    private int               state;
-    private float             reliability;
-    private ArrayList<String> values;
   }
+
+  public static class Facility extends Feature {
+    public Facility(String name, String[] values, String info) {
+      super(name, values, info);
+    }
+
+    public Facility(Facility fac) {
+      super(fac);
+    }
+  }
+
 
   /**
    * Constructor.
@@ -68,15 +52,15 @@ public class Location {
     this.longitude = lng;
     this.type = type;
 
-    this.features = new ArrayList<Feature>();
-    this.conditions = new ArrayList<Feature>();
+    this.facilities = new ArrayList<Facility>();
+    this.conditions = new ArrayList<Condition>();
   }
 
-  public void addFeature(Feature feature) {
-    features.add(feature);
+  public void addFacility(Facility facility) {
+    facilities.add(facility);
   }
 
-  public void addCondition(Feature condition) {
+  public void addCondition(Condition condition) {
     conditions.add(condition);
   }
 
@@ -93,11 +77,11 @@ public class Location {
   }
 
   public Boolean hasFeaturesToUpdate() {
-    return !features.isEmpty();
+    return !facilities.isEmpty();
   }
 
   public Feature getNextFeatureToUpdate() {
-    return features.get(0);
+    return facilities.get(0);
   }
 
   public Feature getNextConditionToUpdate() {
@@ -108,11 +92,19 @@ public class Location {
     return description;
   }
 
+  public List<Condition> getConditions() {
+    return conditions;
+  }
+
+  public List<Facility> getFacilities() {
+    return facilities;
+  }
+
   public Integer getConditionReliability() {
     return 3;
   }
 
-  public Integer getFeatureReliability() {
+  public Integer getFacilityReliability() {
     return 6;
   }
 
@@ -134,13 +126,13 @@ public class Location {
     return (float)Math.sqrt( Math.pow(latitude - lat, 2.0f) + Math.pow(longitude - lng, 2.0f) );
   }
 
-  private float                 latitude;
-  private float                 longitude;
-  private String                name;
-  private String                description;
-  private int                   type;
-  protected ArrayList<Feature>  features;
-  protected ArrayList<Feature>  conditions;
+  private float                   latitude;
+  private float                   longitude;
+  private String                  name;
+  private String                  description;
+  private int                     type;
+  protected ArrayList<Facility>   facilities;
+  protected ArrayList<Condition>  conditions;
 
   
 }

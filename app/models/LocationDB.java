@@ -50,6 +50,21 @@ public class LocationDB {
     return locResult;
   }
 
+  public static List<Location> getLocations(String searchQuery) {
+    ArrayList<Location> results = new ArrayList<Location>();
+
+    for (Location loc : locations) {
+      String name = new String( loc.getName().toLowerCase() );
+
+      searchQuery = searchQuery.toLowerCase();
+      if ( name.indexOf(searchQuery) >= 0 ) {
+        results.add(loc);
+      }
+    }
+
+    return results;
+  }
+
   public static void addLocation(Location loc) {
     locations.add(loc);
   }

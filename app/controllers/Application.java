@@ -67,6 +67,10 @@ public class Application extends Controller {
       return ok(LocationPage.render( LocationDB.getLocation(locQuery) ));
     }
 
+    public static Result searchResults(String query) {
+      return ok(SearchResult.render( LocationDB.getLocations(query) ));
+    }
+
     public static Result javascriptRoutes() {
       response().setContentType("text/javascript");
       return ok(

@@ -1,6 +1,47 @@
+@import utility._
 @(location: Location)
 
 @Main("Home")("Bob") {
-  <h1>@location.getName</h1>
-}
+  @NavBar("Home")
 
+  <h1>@location.getName</h1>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5">
+        <h3>Geographical Features</h3>
+          <table class="table">
+            <tbody>
+            @for(feat <- location.getFacilities()) {
+              <tr>
+                <td style="width: 150px">@feat.getName</td> 
+                <td style"width: 75px">@feat.getValue</td> 
+                <td style="width: 75px">@Stars(feat.getReliability())</td></tr>
+            }
+            </tbody>
+          </table>
+      </div>
+
+      <div class="col-sm-5">
+        <h3>Current Conditions</h3>
+          <table class="table">
+            @for(cond <- location.getConditions()) {
+              <tr><td>@cond.getName</td> <td>@cond.getValue</td> <td>@Stars(cond.getReliability())</td></tr>
+            }
+          </table>
+      </div>
+
+      <div class="col-sm-2">
+        <h3>Legend</h3>
+          <p>@Stars(0) = Unknown</p>
+          <p>@Stars(2) = Poor</p>
+          <p>@Stars(4) = Fair</p>
+          <p>@Stars(6) = Excellent</p>
+      </div>
+
+
+    </div>
+  </div>
+
+}
+  
