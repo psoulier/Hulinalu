@@ -1,4 +1,4 @@
-@(page: String)
+@(page: String, isLandingPage: Boolean)
 
       <!-- Responsive navbar -->
       <!--
@@ -11,9 +11,11 @@
               <!--  Display three horizontal lines when navbar collapsed. -->
             <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
           </button>
+          @if(isLandingPage == false) {
           <a class="navbar-brand sa-brand" href="@routes.Application.index()">
-            <img alt="Sharesabout" src=@routes.Assets.at("images/sharesabout-logo.png") width="48" height="48">
+            <p>Hulinalu</p>
           </a>
+          }
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">

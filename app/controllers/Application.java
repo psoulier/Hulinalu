@@ -17,33 +17,23 @@ public class Application extends Controller {
     public final static String WEBNAME = "Sharesabout";
 
     public static Result index() {
-        Login   data = new Login();
+      String x = Form.form().bindFromRequest().get("q");
 
-        System.out.format("index: username: %s password: %s %n", data.username, data.password);
+      System.out.format("poop=%s%n", x);
 
-        Form<Login> formData = Form.form(Login.class).fill(data);
-        System.out.format("index: username: %s password: %s %n", data.username, data.password);
+      if (x == null) {
+        return ok(Index.render());
+      } else {
+        return ok( SignUp.render(x) );
+      }
+    }
 
-        return ok(Index.render(formData));
+    public static Result query(String queryData) {
+      return ok( SignUp.render(queryData) );
     }
 
     public static Result login() {
-      Form<Login>           formData = Form.form(Login.class).bindFromRequest();
-      Result                result;
-
-      /* Check if form has any errors and return appropriate result.  */
-      if (formData.hasErrors()) {
-        System.out.println("Error!");
-        result = badRequest(Index.render(formData));
-      }
-      else {
-        Login       data = formData.get();
-
-        //result = ok(Index.render(formData));
-        result = redirect( routes.Application.home() );
-      }
-
-      return result;
+      return ok(Index.render());
     }
 
     public static Result postLocationUpdate() {

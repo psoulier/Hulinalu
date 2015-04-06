@@ -54,9 +54,8 @@
   </div>
 }
 
-@displaySuggestLocation() = @{
-  <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>  Suggest Location</button>
-  <button type="button" class="btn btn-default"><i class="fa fa-times"></i>  Ignore Location</button>
+@displaySuggestLocation() = {
+  <p>You're not currently at a known beach. Add a <a href="#">new beach</a></p>
 }
 
 @if(LocationDB.isUserInProximity(lat, lng)) {

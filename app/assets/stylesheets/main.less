@@ -1,12 +1,67 @@
 @sharesabout-blue: #0079AF;
+@score-radius: 22px;
 
-body {
-  background-color: white;
-  margin-top: 0px;
-  padding-top: 0;
+html {
+  height: 100%;
 }
 
-@score-radius: 22px;
+body {
+  background-image: url('../images/index-background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  height: 100%;
+}
+
+.heading {
+  text-align: center;
+  padding-bottom: 50px;
+
+  h1 {
+    font-family: "Pacifico";
+    font-size: 56px;
+    color: white;
+  }
+
+  p {
+    font-family: "Droid Sans";
+    font-size: 18px;
+    color: white;
+  }
+}
+
+.navbar-brand {
+  p {
+    font-family: "Pacifico";
+    font-size: 32px;
+    color: white;
+  }
+}
+
+.mine {
+  background: rgba(256,256,256,0.5);
+}
+
+.search-box {
+  border-radius: 5px;
+  padding: 15px;
+  border: white solid 1px;
+  background: rgba(255,255,255,0.3);
+}
+
+.landing-page {
+  margin-top: 150px;
+
+}
+
+.map-canvas {
+  border: solid white 2px;
+  border-radius: 5px;
+}
+
+.current-loc {
+  margin: 10px 0px 0 0 ;
+}
 
 #search-results {
   margin-top: 20px;
@@ -52,9 +107,6 @@ div label input {
 }
 
 
-.current-loc {
-  color: black;
-}
 
 .stars-invert {
   width: 75px;

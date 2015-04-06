@@ -1,75 +1,44 @@
-@(loginForm: Form[views.formdata.Login])
-
 @import helper._
 
 
-@Main("LandingPage")("frank") {
+@Main("Hulinalu")(true) {
 
-<div class="container landing-header">
-  <div class="row">
-    <div class="col-sm-8 landing-header-brand">
-      <img class="landing-header-logo" src="@routes.Assets.at("images/sharesabout-logo.png")" width="64" height="64">
-      <h1>Sharesabout</h1>
-      <p>User-driven information sharing.</p>
-
+<div class="container landing-page">
+  <div class="row heading">
+    <div class=col-sm-12">
+      <h1>Hulinalu</h1>
+      <p>Find beaches and surf and share about the ones you've been to.</p>
     </div>
-    <div class="col-sm-4">
-      @form(routes.Application.login, 'class -> "") {
+  </div>
 
-      
-      <div class="form-group @if(loginForm("username").hasErrors) {has-error}">
-          <input class="login-input" type="text" class="form-control"
-          name = "@loginForm("username").name"
-          id= "@loginForm("username").id"
-          value = "@loginForm("username").value"
-          placeholder="Mobile Phone or E-mail">
-          <span class="help-block">@{loginForm("username").error.map {error => error.message}}</span>
-      </div>
+  <div class="row">
+    <!-- A Center box containing the landing page controls. -->
+    <div class="col-sm-6 col-sm-offset-3 search-box">
+      <div class="row">
+        <div class="col-sm-12">
+            @form(routes.Application.index()) {
+          <div class="input-group">
 
-
-      <div class="form-group @if(loginForm("password").hasErrors) {has-error}">
-          <input class="login-input" type="text" class="form-control"
-          name = "@loginForm("password").name"
-          id= "@loginForm("password").id"
-          value = "@loginForm("password").value"
-          placeholder="Password">
-          <span class="help-block">@{loginForm("password").error.map {error => error.message}}</span>
-      </div>
-
-      <div class="form-group">
-        <div>
-          <input type="submit" class="sign-up-bttn" name="login" value="Login" id="Login" />
-          <input type="submit" class="sign-up-bttn" name="login" value="Sign Up" id="SignUp" />
+            <input type="text" name="q" class="form-control mine" placeholder="Search for...">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+          </div>
+            }
         </div>
       </div>
 
-    }
-      
+      <div class="row current-loc">
+        <div class="col-xs-7" id="update-loc">
+          <p>Finding your current location <i class="fa fa-spinner fa-pulse"></i></p>
+        </div>
+        
+        <div class="col-xs-5 map-canvas" id="map-canvas">
+        </div>
+      </div>
+    
     </div>
-  </div>
-</div>
 
-<div class="container infogram">
-  <div class="row">
-    <div class="col-sm-6">
-      <p>
-      <img src="@routes.Assets.at("images/sharesabout-share.png")" width="350" height="350">
-      </p>
-      <h1>Share Info</h1>
-      <p>
-      When you're somewhere interesting, other people probably want to know 
-      what it's like there. Share things about a place for others.
-      </p>
-    </div>
-    <div class="col-sm-6">
-      <img src="@routes.Assets.at("images/sharesabout-look.png")" width="350" height="350">
-      <h1>Get Info</h1>
-      <p>
-      When you want to go somewhere, find out what it's like from people there
-      right now!
-      </p>
-    </div>
   </div>
-
 </div>
 }

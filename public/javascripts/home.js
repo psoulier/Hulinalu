@@ -2,12 +2,14 @@ var map;
 
 function initialize() {
   var mapOptions = {
-    zoom: 19,
+    zoom: 15,
     maxZoom: 21
   };
+      console.log("Here I AM!!!!!");
   
   map = new google.maps.Map(document.getElementById('map-canvas'),
 		  mapOptions);
+      console.log("Here I AM!!!!!");
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -21,10 +23,12 @@ function initialize() {
 		  });
 
       map.setCenter(pos);
+      
+      console.log("Here I AM!!!!!");
 
       jsRoutes.controllers.Application.currentLocation(position.coords.latitude, position.coords.longitude).ajax({
 			  success: function(data) {
-				  $("#current-loc").html(data);
+				  $("#update-loc").html(data);
 			  },
 			  error: function() {
 				  alert("Oh darn!");
