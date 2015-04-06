@@ -1,4 +1,5 @@
 @sharesabout-blue: #0079AF;
+@deep-blue: #055B80;
 @score-radius: 22px;
 
 html {
@@ -13,23 +14,7 @@ body {
   height: 100%;
 }
 
-.heading {
-  text-align: center;
-  padding-bottom: 50px;
-
-  h1 {
-    font-family: "Pacifico";
-    font-size: 56px;
-    color: white;
-  }
-
-  p {
-    font-family: "Droid Sans";
-    font-size: 18px;
-    color: white;
-  }
-}
-
+/* NavBar styling. */
 .navbar-brand {
   p {
     font-family: "Pacifico";
@@ -38,20 +23,60 @@ body {
   }
 }
 
-.mine {
-  background: rgba(256,256,256,0.5);
+.landing-page {
+  margin-top: 150px;
 }
 
-.search-box {
+/* Styling for the main/landing page. */
+.heading {
+  text-align: center;
+  padding-bottom: 50px;
+
+  h1 {
+    font-family: "Pacifico";
+    font-size: 56px;
+    color: white;
+    border-bottom: solid white 3px;
+    display: table;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  p {
+    font-family: "Raleway";
+    font-size: 18px;
+    color: white;
+  }
+}
+
+.main-p-text {
+  font-family: "Raleway";
+  font-weight: 600;
+  font-size: 14px;
+  color: @deep-blue;
+}
+
+.main-box {
   border-radius: 5px;
   padding: 15px;
   border: white solid 1px;
-  background: rgba(255,255,255,0.3);
+  background: rgba(235,241,250, 0.6);
+
+  p {
+    .main-p-text;
+  }
 }
 
-.landing-page {
-  margin-top: 150px;
 
+.form-control::-webkit-input-placeholder { font-family: "Raleway"; }
+.form-control:-moz-placeholder { font-family: "Raleway"; }
+.form-control::-moz-placeholder { font-family: "Raleway"; }
+.form-control:-ms-input-placeholder { font-family: "Raleway"; }
+
+.query-box {
+  background: rgba(256,256,256,0.8);
+  font-family: "Raleway";
+  color: @deep-blue;
 }
 
 .map-canvas {
@@ -60,7 +85,10 @@ body {
 }
 
 .current-loc {
-  margin: 10px 0px 0 0 ;
+  margin: 10px 0px 0 0;
+  p {
+    .main-p-text;
+  }
 }
 
 #search-results {
@@ -143,20 +171,6 @@ div label input {
   height: 200px;
 }
 
-.sa-brand {
-  a {
-    .sharesabout-title-font;
-    font-size: 32px;
-    text-align: center;
-    vertical-align: center;
-    line-height: 100%;
-  }
-
-  img {
-    float: left;
-  }
-}
-
 .location-select {
   width: 250px;
   margin: 10px 5px;
@@ -183,18 +197,6 @@ div label input {
   }
 }
 
-
-.landing-header-brand {
-}
-
-.landing-header-logo {
-  float: left;
-  margin: 0 10px 0 0;
-}
-
-.landing-header-login {
-
-}
 
 .sign-up-bttn {
   border: solid 3px @sharesabout-blue;

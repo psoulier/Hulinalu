@@ -9,6 +9,9 @@ import views.html.SignUp;
 import views.formdata.Login;
 
 import models.LocationDB;
+import models.Location;
+
+import java.util.List;
 
 import views.html.*;
 
@@ -17,14 +20,17 @@ public class Application extends Controller {
     public final static String WEBNAME = "Sharesabout";
 
     public static Result index() {
-      String x = Form.form().bindFromRequest().get("q");
+      String queryData = Form.form().bindFromRequest().get("q");
 
-      System.out.format("poop=%s%n", x);
 
-      if (x == null) {
+      if (queryData == null) {
         return ok(Index.render());
       } else {
-        return ok( SignUp.render(x) );
+        List<Location>  locationList;
+
+        locationList = LocationDB.searchLocations(queryData);
+
+        return ok( SearchResult.render(locationList) );
       }
     }
 
@@ -58,7 +64,7 @@ public class Application extends Controller {
     }
 
     public static Result searchResults(String query) {
-      return ok(SearchResult.render( LocationDB.getLocations(query) ));
+      return ok(SearchResult.render( LocationDB.searchLocations(query) ));
     }
 
     public static Result javascriptRoutes() {

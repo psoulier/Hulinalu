@@ -55,7 +55,10 @@
 }
 
 @displaySuggestLocation() = {
-  <p>You're not currently at a known beach. Add a <a href="#">new beach</a></p>
+  <p>
+  You're not currently around any known beaches. Sign in to see your <em><a href="#">secret beaches</a></em> 
+  or add a new beach location.
+  </p>
 }
 
 @if(LocationDB.isUserInProximity(lat, lng)) {

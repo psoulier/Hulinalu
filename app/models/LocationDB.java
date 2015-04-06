@@ -50,7 +50,7 @@ public class LocationDB {
     return locResult;
   }
 
-  public static List<Location> getLocations(String searchQuery) {
+  public static List<Location> searchLocations(String searchQuery) {
     ArrayList<Location> results = new ArrayList<Location>();
 
     for (Location loc : locations) {
