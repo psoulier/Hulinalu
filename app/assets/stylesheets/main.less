@@ -43,14 +43,14 @@ body {
   }
 
   p {
-    font-family: "Raleway";
+    font-family: "Muli";
     font-size: 18px;
     color: white;
   }
 }
 
 .main-p-text {
-  font-family: "Raleway";
+  font-family: "Muli";
   font-weight: 600;
   font-size: 14px;
   color: @deep-blue;
@@ -91,8 +91,27 @@ body {
   }
 }
 
-#search-results {
+.search-results {
+  h1 {
+    font-family: "Open Sans Condensed";
+    font-size: 36px;
+    color: white;
+  }
+}
+
+#search-results-list {
   margin-top: 20px;
+}
+
+.search-result {
+  h1 {
+    font-family: "Open Sans Condensed";
+    font-size: 24px;
+  }
+
+  p {
+    .main-p-text;
+  }
 }
 
 div label input {

@@ -30,7 +30,7 @@ public class Application extends Controller {
 
         locationList = LocationDB.searchLocations(queryData);
 
-        return ok( SearchResult.render(locationList) );
+        return ok( SearchResults.render(locationList) );
       }
     }
 
@@ -38,18 +38,6 @@ public class Application extends Controller {
       return ok( SignUp.render(queryData) );
     }
 
-    public static Result login() {
-      return ok(Index.render());
-    }
-
-    public static Result postLocationUpdate() {
-      return ok(Home.render("Your new application is ready."));
-    }
-    
-
-    public static Result signUp() {
-        return ok(SignUp.render("Your new application is ready."));
-    }
 
     public static Result home() {
         return ok(Home.render("Your new application is ready."));
@@ -61,10 +49,6 @@ public class Application extends Controller {
 
     public static Result locationPage(String locQuery) {
       return ok(LocationPage.render( LocationDB.getLocation(locQuery) ));
-    }
-
-    public static Result searchResults(String query) {
-      return ok(SearchResult.render( LocationDB.searchLocations(query) ));
     }
 
     public static Result javascriptRoutes() {

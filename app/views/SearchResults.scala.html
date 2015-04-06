@@ -1,0 +1,50 @@
+@(locations: List[Location])
+
+@import utility._
+
+@Main("Hulinalu")(false) {
+
+
+<div class="container">
+  <div class="row search-results">
+    <div class="col-sm-12">
+      <h1>Results</h1>
+    </div>
+  </div>
+
+  <div id="search-results-list" class="row">
+    <div class="col-sm-12">
+        <div class="list-group">
+
+
+          <div class="col-sm-12">
+              <div class="list-group">
+                @for(loc <- locations) {
+                  <div class="list-group-item search-result">
+                    <div class="row">
+                      <div class="col-sm-8">
+                        <a href="@routes.Application.locationPage(loc.getName)"><h1>@loc.getName</h1></a>
+                        <div>
+                          <div class="stars-invert"><p><i class="fa fa-eye"></i> @Stars(loc.getConditionReliability())</p></div>
+                          <div class="stars-invert"><p><i class="fa fa-globe"></i> @Stars(loc.getFacilityReliability())</p></div>
+                          <div class="feature-update"><p>@loc.getUpdateCount(60) in the last hour.</p></div>
+                        </div>
+                        <p>@loc.getDescription</p>
+                      </div>
+
+                      <div class="col-sm-2">
+                        <p><img src="https://maps.googleapis.com/maps/api/staticmap?center=@loc.getLatitude,@loc.getLongitude&size=100x100&zoom=12"</p>
+                      </div>
+                    </div>
+                  </div>
+                }
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+
