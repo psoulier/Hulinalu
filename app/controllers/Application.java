@@ -30,7 +30,7 @@ public class Application extends Controller {
 
         locationList = LocationDB.searchLocations(queryData);
 
-        return ok( SearchResults.render(locationList) );
+        return ok( SearchResults.render(locationList, queryData) );
       }
     }
 

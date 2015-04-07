@@ -56,6 +56,8 @@ body {
   color: @deep-blue;
 }
 
+
+
 .main-box {
   border-radius: 5px;
   padding: 15px;
@@ -91,7 +93,23 @@ body {
   }
 }
 
+.no-results {
+  margin: 0 auto;
+  text-align: center;
+  background-color: rgba(235,241,250, 0.6);
+  border: solid white 2px;
+  border-radius: 4px;
+
+  p {
+    .main-p-text;
+    font-size: 18px;
+    padding: 5px 10px;
+  }
+}
+
 .search-results {
+  margin-top: 50px;
+
   h1 {
     font-family: "Open Sans Condensed";
     font-size: 36px;
@@ -100,7 +118,7 @@ body {
 }
 
 #search-results-list {
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 .search-result {
@@ -182,8 +200,12 @@ div label input {
   }
 }
 
-.feature-update {
-  display: inline-block;
+.result-details {
+  p {
+    .main-p-text;
+    font-size: 12px;
+  }
+
 }
 
 .sharesabout-title-font {
