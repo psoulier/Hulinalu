@@ -2,8 +2,6 @@ import play.*;
 
 import models.LocationDB;
 import models.Location;
-import models.Trail;
-import models.Building;
 import models.Beach;
 
 // POST my office: 21.297579, -157.81648

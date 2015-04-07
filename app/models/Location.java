@@ -1,5 +1,8 @@
 package models;
 
+import play.mvc.Controller;
+import play.Routes;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.Math;
@@ -12,6 +15,11 @@ public class Location {
   public static final int   LOC_TRAIL = 1;
   public static final int   LOC_BEACH = 2;
   public static final int   LOC_BUILDING = 3;
+
+  public enum ImageQualifier {
+    MOST_RECENT,
+    MOST_POPULAR
+  }
 
   public static final float DD_PER_METER = 0.00001f / 1.1132f;
 
@@ -110,6 +118,15 @@ public class Location {
 
   public Integer getUpdateCount(int minutes) {
     return 13;
+  }
+
+  public String getImagePathMostPopular(int i) {
+    String  imgPath = "";
+    
+    imgPath = "/assets/images/dbimg/0000-0000-0000-1234.jpg";
+
+
+    return imgPath;
   }
 
   /**
