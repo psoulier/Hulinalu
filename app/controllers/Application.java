@@ -17,7 +17,6 @@ import views.html.*;
 
 public class Application extends Controller {
 
-    public final static String WEBNAME = "Sharesabout";
 
     public static Result index() {
       String queryData = Form.form().bindFromRequest().get("q");
