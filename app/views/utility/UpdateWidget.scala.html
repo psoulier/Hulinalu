@@ -1,0 +1,31 @@
+@(title: String, titleIcon: String, lowText: String, highText: String)
+
+<div class="update-widget">
+  <div class="uw-main">
+    <div class="uw-title">
+      <p>@title @if(titleIcon != ""){<i class="@titleIcon"></i>}</p>
+    </div>
+
+    <div class="uw-selector" id="uw-id-@title">
+      <div class="uw-select"><div class="uw-circle"></div></div>
+      <div class="uw-select"><div class="uw-circle"></div></div>
+      <div class="uw-select"><div class="uw-circle"></div></div>
+      <div class="uw-select"><div class="uw-circle"></div></div>
+      <div class="uw-select"><div class="uw-circle"></div></div>
+    </div>
+
+    <div class="uw-reliability">
+    </div>
+
+    <div class="uw-update-value">
+    </div>
+  </div>
+
+  <div>
+    <div class="uw-scale">
+      <div class="uw-low"><p>@lowText</p></div>
+      <div class="uw-high"><p>@highText</p></div>
+    </div>
+  </div>
+
+</div>

@@ -7,6 +7,8 @@ GET     /                           controllers.Application.index()
 GET	/locationPage		    controllers.Application.locationPage(locQuery: String)
 GET	/currentLocation	    controllers.Application.currentLocation(lat: String, lng: String)
 
+POST    /update			    controllers.Application.update()
+
 # Javascript routing
 GET    /assets/javascripts/routes   controllers.Application.javascriptRoutes()
 

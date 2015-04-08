@@ -4,6 +4,9 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.Routes;
+import play.libs.Json;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import views.html.Index;
 import views.html.SignUp;
 import views.formdata.Login;
@@ -50,9 +53,45 @@ public class Application extends Controller {
       return ok(LocationPage.render( LocationDB.getLocation(locQuery) ));
     }
 
+    public static Result update() {
+  JsonNode json = request().body().asJson();
+
+  System.out.format("Do I even get HERE?!?!!?%n");
+
+  if(json == null) {
+    return badRequest("Expecting Json data");
+  } else {
+    String name = json.findPath("name").textValue();
+    if(name == null) {
+      return badRequest("Missing parameter [name]");
+    } else {
+            ObjectNode result = Json.newObject();
+
+      result.put("reliability", "2");
+
+      return ok(result);
+      //return ok("Hello " + name);
+    }
+  }      
+      /*
+      JsonNode  json = request().body().asJson();
+
+      String  uw_id = json.findPath("uw_id").textValue();
+      System.out.format("Got ID=%s%n", uw_id);
+
+      ObjectNode result = Json.newObject();
+
+      result.put("reliability", "2");
+
+      return ok("{one: two}");
+      */
+    }
+
     public static Result javascriptRoutes() {
       response().setContentType("text/javascript");
       return ok(
-        Routes.javascriptRouter("jsRoutes", controllers.routes.javascript.Application.currentLocation()) );
+        Routes.javascriptRouter("jsRoutes", 
+          controllers.routes.javascript.Application.currentLocation(),
+          controllers.routes.javascript.Application.update()) );
     }
 }

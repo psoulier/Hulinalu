@@ -25,6 +25,121 @@ body {
 
 .landing-page {
   margin-top: 150px;
+  
+}
+
+/**
+ * Update Widget
+ */
+@uw-title-width: 70px;
+@uw-scale-width: 120px;
+.update-widget {
+  background: white;
+  width: 300px;
+  color: @deep-blue;
+  font-family: "Muli";
+  height: 45px;
+
+  .uw-main {
+    height: 25px;
+  }
+}
+
+.uw-title {
+  width: @uw-title-width;
+  display: inline-block;
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+.uw-selector {
+  display: inline-block;
+  overflow: visible;
+  position: relative;
+  height: 25px;
+  background: white;
+}
+
+.uw-select {
+  display: inline-block;
+  height: 28px;
+  width: 22px;
+  padding: 4px 1px;
+  margin-right: -1px;
+  margin-left: -1px;
+}
+
+.uw-circle {
+  display: inline-block;
+  border: solid @deep-blue 2px;
+  background: transparent;
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+}
+
+.uw-select-over {
+  background: fade(@deep-blue, 50%);
+}
+
+.uw-scale {
+  margin-left: @uw-title-width;
+  width: @uw-scale-width;
+  display: inline-block;
+  font-size: 75%;
+  font-family: "Muli";
+
+  .uw-low {
+    float: left;
+  }
+
+  .uw-high {
+    float: right;
+  }
+}
+
+
+.score-x(@height, @d) {
+  border: solid @deep-blue 2px;
+  background: transparent;
+  height: @d;
+  width: @d;
+  border-radius: @d;
+  margin-top: (@height - @d)/2;
+  margin-bottom: (@height - @d)/2;  
+}
+
+.score-1 {
+  .score-x(24px, 12px);
+}
+
+.score-2 {
+  .score-x(24px, 14px);
+}
+
+.score-3 {
+  .score-x(24px, 16px);
+}
+
+.score-4 {
+  .score-x(24px, 18px);
+}
+
+.score-5 {
+  .score-x(24px, 20px);
+}
+
+
+.star-widget {
+  color: grey;
+  float: left;
+  padding: 3px;
+}
+
+.star-over {
+  background: fade(@deep-blue, 50%);
 }
 
 /* Styling for the main/landing page. */
