@@ -22,6 +22,8 @@ public class Feature {
     this.info = info;
     this.userScore = ST_UNKNOWN;
     this.score = ST_UNKNOWN;
+    this.lowLabel = lowLabel;
+    this.highLabel = highLabel;
   }
 
   /**

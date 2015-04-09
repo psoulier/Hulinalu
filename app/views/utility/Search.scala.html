@@ -5,9 +5,9 @@
     <div class="input-group">
 
       @if(queryData == "") {
-        <input type="text" name="q" class="form-control query-box" placeholder="Search for a beach...">
+        <input id="search-input" type="text" name="q" class="form-control query-box" placeholder="Search for a beach...">
       } else {
-        <input type="text" name="q" class="form-control query-box" value="@queryData">
+        <input id=search-input" type="text" name="q" class="form-control query-box" value="@queryData">
       }
       <span class="input-group-btn">
         <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>

@@ -10,6 +10,7 @@ import models.Beach;
 
 public class Global extends GlobalSettings {
   public void onStart(Application app) {
+    Location  beach;
 
   // Conditions
   Location.Condition  parking = new Location.Condition(
@@ -84,5 +85,88 @@ public class Global extends GlobalSettings {
   waikiki.addFacility( new Location.Facility(dogs) );
   waikiki.addFacility( new Location.Facility(restrooms) );
   LocationDB.addLocation(waikiki);
+
+  beach = new Beach("Waimea Bay Beach Park",
+                    "Located on the North shore of Oahu, Waimea bay is known for big wave surfing in the winter and calm water in the summer.",
+                    21.643160f, -158.066383f);
+
+  beach.addCondition( new Location.Condition(parking) );
+  beach.addCondition( new Location.Condition(crowd) );
+  beach.addCondition( new Location.Condition(waterClarity) );
+  beach.addFacility( new Location.Facility(parkingLot) );
+  beach.addFacility( new Location.Facility(lifeguard) );
+  beach.addFacility( new Location.Facility(dogs) );
+  beach.addFacility( new Location.Facility(restrooms) );
+  LocationDB.addLocation(beach);
+
+  beach = new Beach("Kahe Point Beach",
+                    "Kahe Point Beach is a great place for snorkling and shore dives.",
+                    21.353441f, -158.130324f);
+
+  beach.addCondition( new Location.Condition(parking) );
+  beach.addCondition( new Location.Condition(crowd) );
+  beach.addCondition( new Location.Condition(waterClarity) );
+  beach.addFacility( new Location.Facility(parkingLot) );
+  beach.addFacility( new Location.Facility(lifeguard) );
+  beach.addFacility( new Location.Facility(dogs) );
+  beach.addFacility( new Location.Facility(restrooms) );
+  LocationDB.addLocation(beach);
+
+  beach = new Beach("Kailua Beach Park",
+                    "Kailua Beach Park has nice white sand.",
+                    21.397877f, -157.727080f);
+
+  beach.addCondition( new Location.Condition(parking) );
+  beach.addCondition( new Location.Condition(crowd) );
+  beach.addCondition( new Location.Condition(waterClarity) );
+  beach.addFacility( new Location.Facility(parkingLot) );
+  beach.addFacility( new Location.Facility(lifeguard) );
+  beach.addFacility( new Location.Facility(dogs) );
+  beach.addFacility( new Location.Facility(restrooms) );
+  LocationDB.addLocation(beach);
+
+  beach = new Beach("Sandy Beach Park",
+                    "Nice beach with some crazy shore breaks when the surf is up.",
+                    21.285874f, -157.673212f);
+ 
+  beach.addCondition( new Location.Condition(parking) );
+  beach.addCondition( new Location.Condition(crowd) );
+  beach.addCondition( new Location.Condition(waterClarity) );
+  beach.addFacility( new Location.Facility(parkingLot) );
+  beach.addFacility( new Location.Facility(lifeguard) );
+  beach.addFacility( new Location.Facility(dogs) );
+  beach.addFacility( new Location.Facility(restrooms) );
+  LocationDB.addLocation(beach);
+
+  beach = new Beach("Hanauma Bay",
+                    "Hanauma Bay is a nature preserve that feature contains a variety of sea life.",
+                    21.285874f, -157.693807f);
+ 
+  beach.addCondition( new Location.Condition(parking) );
+  beach.addCondition( new Location.Condition(crowd) );
+  beach.addCondition( new Location.Condition(waterClarity) );
+  beach.addFacility( new Location.Facility(parkingLot) );
+  beach.addFacility( new Location.Facility(lifeguard) );
+  beach.addFacility( new Location.Facility(dogs) );
+  beach.addFacility( new Location.Facility(restrooms) );
+  LocationDB.addLocation(beach);
+
+
+  beach = new Beach("Bellows Field Beach Park",
+                    "Great beach on the windward side of Oahu.",
+                    21.357712f, -157.709051f);
+
+  beach.addCondition( new Location.Condition(parking) );
+  beach.addCondition( new Location.Condition(crowd) );
+  beach.addCondition( new Location.Condition(waterClarity) );
+  beach.addFacility( new Location.Facility(parkingLot) );
+  beach.addFacility( new Location.Facility(lifeguard) );
+  beach.addFacility( new Location.Facility(dogs) );
+  beach.addFacility( new Location.Facility(restrooms) );
+  LocationDB.addLocation(beach);
+
+
   }
+
+  
 }

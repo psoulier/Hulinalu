@@ -1,6 +1,7 @@
 @sharesabout-blue: #0079AF;
 @deep-blue: #055B80;
 @sea-foam-white: rgb(256,256,256);
+@gold: #F5C812;
 @score-radius: 22px;
 
 html {
@@ -13,6 +14,7 @@ body {
   background-repeat: no-repeat;
   overflow: hidden;
   height: 100%;
+  overflow: auto;
 }
 
 /* NavBar styling. */
@@ -29,17 +31,20 @@ body {
   
 }
 
+
 /**
- * Update Widget
+ * Score Widget
  */
-@uw-title-width: 70px;
+@uw-title-width: 90px;
 @uw-scale-width: 120px;
+@sw-score-radius: 20px;
+
+
 .update-widget {
-  background: white;
+  background: transparent;
   width: 300px;
-  color: @deep-blue;
   font-family: "Muli";
-  height: 45px;
+  height: 50px;
 
   .uw-main {
     height: 25px;
@@ -48,7 +53,8 @@ body {
 
 .uw-title {
   width: @uw-title-width;
-  display: inline-block;
+  height: 25px;
+  color: @deep-blue;
   font-size: 14px;
   display: inline-block;
   vertical-align: middle;
@@ -60,7 +66,7 @@ body {
   overflow: visible;
   position: relative;
   height: 25px;
-  background: white;
+  background: transparent;
 }
 
 .uw-select {
@@ -89,6 +95,18 @@ body {
 
 .uw-user-selected {
   background: yellow;
+}
+
+.sw-badges {
+  float: right;
+  font-size: 75%;
+  color: @deep-blue;
+}
+
+.sw-reliability {
+}
+
+.sw-award {
 }
 
 .uw-scale {
@@ -136,6 +154,10 @@ body {
   border-left: solid @sea-foam-white 2px;
 }
 
+.location-map {
+  height: 300px;
+  width: 300px;
+}
 
 .score-x(@height, @d) {
   border: solid @deep-blue 2px;
@@ -258,15 +280,7 @@ body {
   }
 }
 
-.search-results {
-  margin-top: 50px;
 
-  h1 {
-    font-family: "Open Sans Condensed";
-    font-size: 36px;
-    color: white;
-  }
-}
 
 #search-results-list {
   margin-top: 50px;
@@ -279,10 +293,6 @@ body {
     font-family: "Open Sans Condensed";
     font-size: 24px;
     margin-top: 0;
-  }
-
-  p {
-    .main-p-text;
   }
 
   img {

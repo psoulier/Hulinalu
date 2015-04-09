@@ -6,35 +6,61 @@ function initialize() {
     maxZoom: 21
   };
 
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
+  var locMap = document.getElementById('location-map-canvas');
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude,
-        position.coords.longitude);
+  if (locMap) {
+    var lat = locMap.getAttribute('lat');
+    var lng = locMap.getAttribute('lng');
+    var pos = new google.maps.LatLng(lat, lng);
+    var mapOptions = {
+      zoom: 15,
+      maxZoom: 21
+    };
+    
 
-      var infowindow = new google.maps.Marker({
-        map: map,
-          position: pos
+    map = new google.maps.Map(locMap, mapOptions);
+    var marker = new google.maps.Marker({map : map, position: pos});
+    map.setCenter(pos);
+
+  }
+
+  var indexPage = document.getElementById('map-canvas');
+  if (indexPage) {
+
+    map = new google.maps.Map(indexPage,
+        mapOptions);
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = new google.maps.LatLng(position.coords.latitude,
+          position.coords.longitude);
+
+        var infowindow = new google.maps.Marker({
+          map: map,
+            position: pos
+        });
+
+        map.setCenter(pos);
+
+
+        jsRoutes.controllers.Application.currentLocation(position.coords.latitude, position.coords.longitude).ajax({
+          success: function(data) {
+            $("#update-loc").html(data);
+          },
+          error: function() {
+            // FIXME: Issue #10
+            alert("Oh darn!");
+          }
+        })
+
+
+      }, function() {
+        // FIXME: Issue #10
       });
+    }
+  }
 
-      map.setCenter(pos);
-
-
-      jsRoutes.controllers.Application.currentLocation(position.coords.latitude, position.coords.longitude).ajax({
-        success: function(data) {
-          $("#update-loc").html(data);
-        },
-        error: function() {
-          alert("Oh darn!");
-        }
-      })
-
-
-    }, function() {
-    });
-  }   
+  $('.carousel').carousel('pause');
 
 }
 
@@ -124,6 +150,9 @@ $(document).ready( function() {
 
     txrxScore($(this), outData);
   });
+
+  $('#search-input').focus();
+
 });
 
 
