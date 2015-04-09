@@ -1,6 +1,9 @@
 var map;
 
 function initialize() {
+
+  $('#search-input').focus();
+
   var mapOptions = {
     zoom: 15,
     maxZoom: 21
@@ -151,7 +154,7 @@ $(document).ready( function() {
     txrxScore($(this), outData);
   });
 
-  $('#search-input').focus();
+  
 
 });
 
