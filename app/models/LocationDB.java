@@ -50,6 +50,22 @@ public class LocationDB {
     return locResult;
   }
 
+  public static Location getLocationById(String id) {
+    Location  locResult = null;
+
+    for (Location loc : locations) {
+      if ( loc.getId().equals(id) ) {
+        locResult = loc;
+        break ;
+      }
+    }
+
+    // todo: handle null pointer.
+
+    return locResult;
+
+  }
+
   public static List<Location> searchLocations(String searchQuery) {
     ArrayList<Location> results = new ArrayList<Location>();
 

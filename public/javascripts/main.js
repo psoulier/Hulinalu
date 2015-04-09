@@ -38,67 +38,91 @@ function initialize() {
 
 }
 
+function txrxScore(updateWidget, data) {
+  var jsonData = JSON.stringify(data);
 
 
-function set_score(upateWidget) {
-  var p = $(updateWidget).find('.uw-selected').parent();
+  // Send POST request to get data for this update widget.
+  jsRoutes.controllers.Application.update().ajax({
+    type : 'POST',
+    dataType : 'json',
+    data : jsonData,
+    contentType : 'application/json; charset=utf-8',
+    success : function(inData) {
+      console.log(inData);
+      $(updateWidget).data('fsr', inData);
+      set_score($(updateWidget));
+    },
+    error : function(outData) {
+      alert("It no worky");
+    }
+  });
+}
 
-  p.prevAll().andSelf().children().addClass('uw-select-over');
-  p.nextAll().children().removeClass('uw-select-over');
+
+function set_score(updateWidget) {
+  var score = $(updateWidget).data('fsr').score;
+  var userScore = $(updateWidget).data('fsr').userScore;
+
+  if (score !== 0) {
+    $(updateWidget).find('.uw-sel-' + score).prevAll().andSelf().children().addClass('uw-selected');
+    $(updateWidget).find('.uw-sel-' + score).nextAll().children().removeClass('uw-selected');
+  } else {
+    $(updateWidget).children().removeClass('uw-selected');
+  }
+
+  if (userScore !== 0) {
+    $(updateWidget).find('.uw-sel-' + userScore).prevAll().andSelf().addClass('uw-user-selected');
+    $(updateWidget).find('.uw-sel-' + userScore).nextAll().removeClass('uw-user-selected');
+  } else {
+    $(updateWidget).children().removeClass('uw-user-selected');
+  }  
 }
 
 $('.uw-select').bind('click', function() {
-  $(this).addClass('uw-selected');
-  set_score($(this).parent().parent());
+  // TODO: this is fugly, clean this up.
+  var uw = $(this).parent();
+  var s = $(this).attr('class');
+  var n = s.indexOf('uw-sel-');
+  var uscore = s.charAt(n+7);
+
+  console.log("user score=" + uscore);
+
+  var outData = {
+    uw_id     : $(uw).attr('id'),
+    userScore : uscore
+  };
+
+  console.log("click" + $(outData));
+
+  txrxScore($(uw), $(outData));
+
+  set_score($(uw));
 });
 
 $('.uw-select').hover(
     // Handles the mouseover
     function() {
+      $(this).parent().find('.uw-selected').removeClass('uw-selected');
       $(this).prevAll().andSelf().children().addClass('uw-select-over');
       $(this).nextAll().children().removeClass('uw-select-over'); 
     },
     // Handles the mouseout
     function() {
-      var selected_star = $(this).parent().has('.uw-selected');
-      if (selected_star.length !== 0) {
-        $(this).prevAll().andSelf().addClass('uw-select-over');
-        $(this).nextAll().removeClass('uw-select-over'); 
-      } else {
-        $(this).prevAll().andSelf().removeClass('uw-select-over');
+      $(this).prevAll().andSelf().children().removeClass('uw-select-over');
+      set_score($(this).parent());
       }
-    }
 );
+
 
 $(document).ready( function() {
 
   $('.uw-selector').each( function() {
-    var out_data = {
-      uw_id : $(this).attr('id')
+    var outData = {
+      uw_id     : $(this).attr('id'),
     };
 
-    var object = new Object();
-
-    object.name = "Paul";
-
-    var jsonData = JSON.stringify(object);
-
-
-    console.log(jsonData);
-
-    jsRoutes.controllers.Application.update().ajax({
-      type : 'POST',
-      dataType : 'json',
-      data : jsonData,
-      contentType : 'application/json; charset=utf-8',
-      success : function(data) {
-        console.log(data);
-      },
-      error : function(data) {
-        alert("It no worky");
-      }
-    });
-
+    txrxScore($(this), outData);
   });
 });
 

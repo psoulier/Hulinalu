@@ -16,6 +16,8 @@ public class Location {
   public static final int   LOC_BEACH = 2;
   public static final int   LOC_BUILDING = 3;
 
+  public static int nextId = 1;
+
   public enum ImageQualifier {
     MOST_RECENT,
     MOST_POPULAR
@@ -24,8 +26,8 @@ public class Location {
   public static final float DD_PER_METER = 0.00001f / 1.1132f;
 
   public static class Condition extends Feature {
-    public Condition(String name, String[] values, String info) {
-      super(name, values, info);
+    public Condition(String name, String lowLabel, String highLabel, String info) {
+      super(name, lowLabel, highLabel, info);
     }
 
     public Condition(Condition cond) {
@@ -34,8 +36,8 @@ public class Location {
   }
 
   public static class Facility extends Feature {
-    public Facility(String name, String[] values, String info) {
-      super(name, values, info);
+    public Facility(String name, String lowLabel, String highLabel, String info) {
+      super(name, lowLabel, highLabel, info);
     }
 
     public Facility(Facility fac) {
@@ -54,6 +56,7 @@ public class Location {
    * @param type
    */
   public Location(String name, String description, float lat, float lng, int type) {
+    this.id = name + Integer.toString(nextId);
     this.name = name;
     this.description = description;
     this.latitude = lat;
@@ -62,6 +65,8 @@ public class Location {
 
     this.facilities = new ArrayList<Facility>();
     this.conditions = new ArrayList<Condition>();
+
+    nextId += 1;
   }
 
   public void addFacility(Facility facility) {
@@ -100,6 +105,10 @@ public class Location {
     return description;
   }
 
+  public String getId() {
+    return id;
+  }
+
   public List<Condition> getConditions() {
     return conditions;
   }
@@ -118,6 +127,25 @@ public class Location {
 
   public Integer getUpdateCount(int minutes) {
     return 13;
+  }
+
+  public Feature getFeature(String name) {
+
+    // Look for the features in the facilities category.
+    for (Feature feat : facilities) {
+      if ( feat.getName().equals(name) ) {
+        return feat;
+      }
+    }
+
+    // Feature not in facilities, look in conditions...
+    for (Feature feat : conditions) {
+      if ( feat.getName().equals(name) ) {
+        return feat;
+      }
+    }
+
+    return null;
   }
 
   public String getImagePathMostPopular(int i) {
@@ -143,6 +171,7 @@ public class Location {
     return (float)Math.sqrt( Math.pow(latitude - lat, 2.0f) + Math.pow(longitude - lng, 2.0f) );
   }
 
+  private String                  id;
   private float                   latitude;
   private float                   longitude;
   private String                  name;

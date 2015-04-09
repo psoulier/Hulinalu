@@ -1,5 +1,6 @@
 @sharesabout-blue: #0079AF;
 @deep-blue: #055B80;
+@sea-foam-white: rgb(256,256,256);
 @score-radius: 22px;
 
 html {
@@ -63,12 +64,10 @@ body {
 }
 
 .uw-select {
-  display: inline-block;
+  float: left;
   height: 28px;
   width: 22px;
-  padding: 4px 1px;
-  margin-right: -1px;
-  margin-left: -1px;
+  padding: 4px 1px 4px 1px;
 }
 
 .uw-circle {
@@ -82,6 +81,14 @@ body {
 
 .uw-select-over {
   background: fade(@deep-blue, 50%);
+}
+
+.uw-selected {
+  background: @deep-blue;
+}
+
+.uw-user-selected {
+  background: yellow;
 }
 
 .uw-scale {
@@ -98,6 +105,35 @@ body {
   .uw-high {
     float: right;
   }
+}
+
+
+/**
+ * Location Page Styles
+ */
+.location-title {
+  background: fade(@deep-blue, 80%);
+  color: @sea-foam-white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top: solid @sea-foam-white 2px;
+  border-right: solid @sea-foam-white 2px;
+  border-left: solid @sea-foam-white 2px;
+
+  h1 {
+    font-family: "Pacifico";
+    font-size: 36px;
+  }
+}
+
+.location-main {
+  font-family: "Muli";
+  background: fade(@sea-foam-white, 60%);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom: solid @sea-foam-white 2px;
+  border-right: solid @sea-foam-white 2px;
+  border-left: solid @sea-foam-white 2px;
 }
 
 

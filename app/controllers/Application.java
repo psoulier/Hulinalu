@@ -13,6 +13,7 @@ import views.formdata.Login;
 
 import models.LocationDB;
 import models.Location;
+import models.Feature;
 
 import java.util.List;
 
@@ -54,37 +55,43 @@ public class Application extends Controller {
     }
 
     public static Result update() {
-  JsonNode json = request().body().asJson();
+      JsonNode json = request().body().asJson();
 
-  System.out.format("Do I even get HERE?!?!!?%n");
+      System.out.format("Do I even get HERE?!?!!?%n");
 
-  if(json == null) {
-    return badRequest("Expecting Json data");
-  } else {
-    String name = json.findPath("name").textValue();
-    if(name == null) {
-      return badRequest("Missing parameter [name]");
-    } else {
-            ObjectNode result = Json.newObject();
+      if (json == null) {
+        return badRequest("Expecting Json data");
+      } else {
+        String  uwId = json.findPath("uw_id").textValue();
 
-      result.put("reliability", "2");
+        if(uwId == null) {
+          return badRequest("Missing parameter in update POST request.");
+        } else {
+          ObjectNode  result = Json.newObject();
+          Location    loc;
+          Feature     feat;
+          String      userScore;
+          String[]    ids;
 
-      return ok(result);
-      //return ok("Hello " + name);
-    }
-  }      
-      /*
-      JsonNode  json = request().body().asJson();
+          // Update widget IDs are of the form: <location-id>_<feature-name>
+          ids = uwId.split("_");
+          loc = LocationDB.getLocationById(ids[0]);
+          feat = loc.getFeature(ids[1]);
 
-      String  uw_id = json.findPath("uw_id").textValue();
-      System.out.format("Got ID=%s%n", uw_id);
+          userScore = json.findPath("userScore").textValue();
+          if (userScore != null) {
+            feat.setUserScore(Integer.parseInt(userScore));
+          }
 
-      ObjectNode result = Json.newObject();
 
-      result.put("reliability", "2");
+          result.put("score", Integer.toString(feat.getScore()));
+          result.put("userScore", Integer.toString(feat.getUserScore()));
+          result.put("award", Integer.toString(feat.getAward()));
+          result.put("reliability", Integer.toString(feat.getReliability()));
 
-      return ok("{one: two}");
-      */
+          return ok(result);
+        }
+      }      
     }
 
     public static Result javascriptRoutes() {

@@ -3,53 +3,40 @@
 
 @Main("Home")(false) {
 
-  <h1>@location.getName</h1>
 
   <div class="container">
+
     <div class="row">
+      <div class="col-sm-12 location-title">
+        <h1>@location.getName</h1>
+      </div>
+    </div>
+
+    <div class="row location-main">
       <div class="col-sm-5">
 
-        @UpdateWidget("Crowd", "", "Empty", "Full")
-        <!--
+        <h3>At the Beach</h3>
 
-        <div class="star-rate-widget">
-          <div class="star-widget">
-            <p>Parking </p>
-          </div>
-          <div class="star-widget">
-            <p style="padding-left: 10px; font-size:10px;">Empty </p>
-          </div>
-          <div class="score-1 star-widget"></div>
-          <div class="score-2 star-widget"></div>
-          <div class="score-3 star-widget"></div>
-          <div class="score-4 star-widget"></div>
-          <div class="score-5 star-widget"></div>
-          <div class="star-widget">
-            <p style="font-size: 10px;"> Full</p>
-          </div>
+        <div class="list-group">
+          @for(fac <- location.getFacilities()) {
+            <div class="list-group-item search-result">
+              @UpdateWidget(location, fac, fac.getName, "", fac.getLowLabel(), fac.getHighLabel())
+            </div>
+          }
         </div>
-        -->
 
-        <h3>Geographical Features</h3>
-          <table class="table">
-            <tbody>
-            @for(feat <- location.getFacilities()) {
-              <tr>
-                <td style="width: 150px">@feat.getName</td> 
-                <td style"width: 75px">@feat.getValue</td> 
-                <td style="width: 75px">@Stars(feat.getReliability())</td></tr>
-            }
-            </tbody>
-          </table>
       </div>
 
       <div class="col-sm-5">
         <h3>Current Conditions</h3>
-          <table class="table">
-            @for(cond <- location.getConditions()) {
-              <tr><td>@cond.getName</td> <td>@cond.getValue</td> <td>@Stars(cond.getReliability())</td></tr>
-            }
-          </table>
+
+        <div class="list-group">
+          @for(cond <- location.getConditions()) {
+            <div class="list-group-item search-result">
+              @UpdateWidget(location, cond, cond.getName, "", cond.getLowLabel(), cond.getHighLabel())
+            </div>
+          }
+        </div>
       </div>
 
       <div class="col-sm-2">

@@ -9,25 +9,34 @@ import java.util.ArrayList;
 public class Feature {
   public final static int ST_UNKNOWN = 0;
 
-  public Feature(String name, String[] values, String info) {
+  /**
+   * Constructs a new feature.
+   *
+   * @param name Name of feature.
+   * @param lowLabel Description for low scores of this feature.
+   * @param highLabel Description for high scores of this feature.
+   * @param info Description of what this feature is.
+   */
+  public Feature(String name, String lowLabel, String highLabel, String info) {
     this.name = name;
     this.info = info;
-    this.userState = ST_UNKNOWN;
-    this.values = new ArrayList<String>();
-    this.state = ST_UNKNOWN;
-
-    this.values.add("Unknown");
-    for (String val : values) {
-      System.out.format("%s %n", val);
-      this.values.add(val);
-    }
+    this.userScore = ST_UNKNOWN;
+    this.score = ST_UNKNOWN;
   }
 
+  /**
+   * Copy constructor.
+   *
+   * @param feat Feature object to copy.
+   */
   public Feature(Feature feat) {
     this.name = feat.name;
     this.info = feat.info;
-    this.state = feat.state;
-    this.values = new ArrayList<String>(feat.values);
+    this.score = feat.score;
+    this.userScore = feat.userScore;
+    this.reliability = feat.reliability;
+    this.lowLabel = feat.lowLabel;
+    this.highLabel = feat.highLabel;
   }
 
 
@@ -39,24 +48,43 @@ public class Feature {
     return info;
   }
 
-  public String getValue() {
-    return values.get(state);
+  public int getScore() {
+    //return score;
+    return 2;
   }
 
-  public List<String> getValues() {
-    return values;
+  public int getUserScore() {
+    return userScore;
+  }
+
+  public void setUserScore(int userScore) {
+    this.userScore = userScore;
+  }
+
+  public int getAward() {
+    return award;
   }
 
   public int getReliability() {
     return reliability;
   }
 
+  public String getLowLabel() {
+    return lowLabel;
+  }
+
+  public String getHighLabel() {
+    return highLabel;
+  }
+
 
   private String              name;
   private String              info;
-  private int                 userState;
-  private int                 state;
+  private int                 userScore;
+  private int                 score;
+  private int                 award;
   private int                 reliability;
-  private ArrayList<String>   values;
+  private String              lowLabel;
+  private String              highLabel;
 }
 

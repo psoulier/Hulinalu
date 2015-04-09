@@ -1,4 +1,4 @@
-@(title: String, titleIcon: String, lowText: String, highText: String)
+@(loc: Location, feat: Feature, title: String, titleIcon: String, lowText: String, highText: String)
 
 <div class="update-widget">
   <div class="uw-main">
@@ -6,12 +6,12 @@
       <p>@title @if(titleIcon != ""){<i class="@titleIcon"></i>}</p>
     </div>
 
-    <div class="uw-selector" id="uw-id-@title">
-      <div class="uw-select"><div class="uw-circle"></div></div>
-      <div class="uw-select"><div class="uw-circle"></div></div>
-      <div class="uw-select"><div class="uw-circle"></div></div>
-      <div class="uw-select"><div class="uw-circle"></div></div>
-      <div class="uw-select"><div class="uw-circle"></div></div>
+    <div class="uw-selector" id="@loc.getId()_@feat.getName()">
+      <div class="uw-select uw-sel-1"><div class="uw-circle"></div></div>
+      <div class="uw-select uw-sel-2"><div class="uw-circle"></div></div>
+      <div class="uw-select uw-sel-3"><div class="uw-circle"></div></div>
+      <div class="uw-select uw-sel-4"><div class="uw-circle"></div></div>
+      <div class="uw-select uw-sel-5"><div class="uw-circle"></div></div>
     </div>
 
     <div class="uw-reliability">

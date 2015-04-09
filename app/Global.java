@@ -14,38 +14,45 @@ public class Global extends GlobalSettings {
   // Conditions
   Location.Condition  parking = new Location.Condition(
       "Parking", 
-      new String[] {"Available", "Limited", "Full"},                                             
+      "Empty",
+      "Full",
       "How full the parking facilities are.");
 
   Location.Condition  crowd = new Location.Condition(
       "Crowd", 
-      new String[] {"Few", "Some", "Busy", "Crowded"}, 
+      "Empty",
+      "Packed",
       "How many people are at this location.");
 
   Location.Condition waterClarity = new Location.Condition(
       "Water Clarity",
-      new String[] {"Crystal", "Good", "Poor", "Murky"},
+      "Murky",
+      "Crytal",
       "How clear the water is for diving, snorkling, etc.");
 
   // Facilities
   Location.Facility parkingLot = new Location.Facility(
       "Parking Facilities",
-      new String[] {"None", "Street", "Paved", "Dirt"},
+      "No",
+      "Yes",
       "The types of parking facilities available at this location.");
 
   Location.Facility lifeguard = new Location.Facility(
       "Lifeguard",
-      new String[] {"Yes", "No"},
+      "No",
+      "Yes",
       "The beach is monitored by lifeguards.");
 
   Location.Facility restrooms = new Location.Facility(
       "Restrooms",
-      new String[] {"Yes", "No"},
+      "No",
+      "Yes",
       "Restrooms are available at this beach.");
 
   Location.Facility dogs = new Location.Facility(
       "Dogs Allowed",
-      new String[] {"Yes", "No"},
+      "No",
+      "Yes",
       "Some beaches allow dogs. Be sure to follow park rules and leash laws.");
                                                      
 
