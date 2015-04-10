@@ -4,9 +4,11 @@
 @sea-foam-white: rgb(256,256,256);
 @gold: #F5C812;
 @score-radius: 22px;
+@sand: #E4C38A;
 
 html {
-  height: 100%;
+  min-height: 100%;
+  position: relative;
 }
 
 body {
@@ -16,6 +18,7 @@ body {
   overflow: hidden;
   height: 100%;
   overflow: auto;
+  margin: 0;
 }
 
 /* NavBar styling. */
@@ -27,10 +30,66 @@ body {
   }
 }
 
-.landing-page {
-  margin-top: 150px;
+.index-main {
+  margin-top: 100px;
   
+  .heading {
+    text-align: center;
+    margin-bottom: 80px;
+
+    h1 {
+      font-family: "Pacifico";
+      font-size: 500%;
+      color: white;
+      border-bottom: solid white 3px;
+      display: table;
+      margin: 0 auto;
+      padding: 0;
+    }
+  }
+
+  .search-box {
+    border-radius: 5px;
+    padding: 15px;
+    border: white solid 1px;
+    background: fade(@sea-foam-white, 60%);
+
+    p {
+      margin-top: 30px;
+      text-align: center;
+      font-family: "Muli";
+      font-weight: 600;
+      font-size: 110%;
+      color: @deep-blue;
+    }
+  }
 }
+
+.footer {
+  color: @sea-foam-white;
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 80px;
+  background: transparent;
+  padding-right: 5%;
+
+  em {
+    font-size: 150%;
+    font-family: "Pacifico";
+  }
+
+  p {
+    font-size: 150%;
+    font-family: "Muli";
+  }
+}
+
+
+/* Styling for the main/landing page. */
+
 
 
 /**
@@ -206,68 +265,7 @@ body {
   width: 300px;
 }
 
-.score-x(@height, @d) {
-  border: solid @deep-blue 2px;
-  background: transparent;
-  height: @d;
-  width: @d;
-  border-radius: @d;
-  margin-top: (@height - @d)/2;
-  margin-bottom: (@height - @d)/2;  
-}
 
-.score-1 {
-  .score-x(24px, 12px);
-}
-
-.score-2 {
-  .score-x(24px, 14px);
-}
-
-.score-3 {
-  .score-x(24px, 16px);
-}
-
-.score-4 {
-  .score-x(24px, 18px);
-}
-
-.score-5 {
-  .score-x(24px, 20px);
-}
-
-
-.star-widget {
-  color: grey;
-  float: left;
-  padding: 3px;
-}
-
-.star-over {
-  background: fade(@deep-blue, 50%);
-}
-
-/* Styling for the main/landing page. */
-.heading {
-  text-align: center;
-  padding-bottom: 50px;
-
-  h1 {
-    font-family: "Pacifico";
-    font-size: 56px;
-    color: white;
-    border-bottom: solid white 3px;
-    display: table;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  p {
-    font-family: "Muli";
-    font-size: 18px;
-    color: white;
-  }
-}
 
 .main-p-text {
   font-family: "Muli";
@@ -278,16 +276,6 @@ body {
 
 
 
-.main-box {
-  border-radius: 5px;
-  padding: 15px;
-  border: white solid 1px;
-  background: rgba(235,241,250, 0.6);
-
-  p {
-    .main-p-text;
-  }
-}
 
 
 .form-control::-webkit-input-placeholder { font-family: "Raleway"; }
@@ -505,3 +493,32 @@ div label input {
   color: @sharesabout-blue;
   text-align: center;
 }
+
+
+
+
+.sk-spinner-pulse.sk-spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  background-color: @deep-blue;
+  border-radius: 100%;
+  -webkit-animation: sk-pulseScaleOut 1s infinite ease-in-out;
+          animation: sk-pulseScaleOut 1s infinite ease-in-out; }
+@-webkit-keyframes sk-pulseScaleOut {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0); }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0; } }
+@keyframes sk-pulseScaleOut {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0); }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0; } }
+

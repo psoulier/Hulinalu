@@ -27,24 +27,12 @@ function initialize() {
 
   }
 
-  var indexPage = document.getElementById('map-canvas');
+  var indexPage = document.getElementById('update-loc');
   if (indexPage) {
 
-    map = new google.maps.Map(indexPage,
-        mapOptions);
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = new google.maps.LatLng(position.coords.latitude,
-          position.coords.longitude);
-
-        var infowindow = new google.maps.Marker({
-          map: map,
-            position: pos
-        });
-
-        map.setCenter(pos);
-
 
         jsRoutes.controllers.Application.currentLocation(position.coords.latitude, position.coords.longitude).ajax({
           success: function(data) {
