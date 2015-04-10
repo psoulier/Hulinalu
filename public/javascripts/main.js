@@ -67,7 +67,7 @@ function initialize() {
 
 }
 
-function txrxScore(updateWidget, data) {
+function txrxScore(updateWidget, data, set) {
   var jsonData = JSON.stringify(data);
 
 
@@ -80,7 +80,7 @@ function txrxScore(updateWidget, data) {
     success : function(inData) {
       console.log(inData);
       $(updateWidget).data('fsr', inData);
-      set_score($(updateWidget));
+      set($(updateWidget));
     },
     error : function(outData) {
       alert("It no worky");
@@ -94,19 +94,45 @@ function set_score(updateWidget) {
   var userScore = $(updateWidget).data('fsr').userScore;
 
   if (score !== 0) {
-    $(updateWidget).find('.uw-sel-' + score).prevAll().andSelf().children().addClass('uw-selected');
-    $(updateWidget).find('.uw-sel-' + score).nextAll().children().removeClass('uw-selected');
+    $(updateWidget).find('.uw-sel-' + score).prevAll().andSelf().children().children().addClass('sw-score-selected');
+    $(updateWidget).find('.uw-sel-' + score).nextAll().first().first().removeClass('sw-score-selected');
   } else {
-    $(updateWidget).children().removeClass('uw-selected');
+    $(updateWidget).children().first().first().removeClass('sw-score-selected');
   }
 
   if (userScore !== 0) {
-    $(updateWidget).find('.uw-sel-' + userScore).prevAll().andSelf().addClass('uw-user-selected');
-    $(updateWidget).find('.uw-sel-' + userScore).nextAll().removeClass('uw-user-selected');
+    $(updateWidget).find('.uw-sel-' + userScore).prevAll().andSelf().children().addClass('sw-user-score-selected');
+    $(updateWidget).find('.uw-sel-' + userScore).nextAll().children().removeClass('sw-user-score-selected');
   } else {
-    $(updateWidget).children().removeClass('uw-user-selected');
-  }  
+    $(updateWidget).children().first().removeClass('sw-user-score-selected');
+  }
 }
+
+function ynw_set_score(updateWidget) {
+  var score = $(updateWidget).data('fsr').score;
+  var userScore = $(updateWidget).data('fsr').userScore;
+
+  if (score == 0) {
+    $(updateWidget).children().first().first().removeClass('sw-score-selected');
+  } else if (score == 1) {
+    $(updateWidget).find('.uw-sel-1').children().children().addClass('sw-score-selected');
+    $(updateWidget).find('.uw-sel-2').children().children().removeClass('sw-score-selected');
+  } else {
+    $(updateWidget).find('.uw-sel-2').children().children().addClass('sw-score-selected');
+    $(updateWidget).find('.uw-sel-1').children().children().removeClass('sw-score-selected');
+  }
+
+  if (userScore == 0) {
+    $(updateWidget).children().first().removeClass('sw-user-score-selected');
+  } else if (userScore == 1) {
+    $(updateWidget).find('.uw-sel-1').children().addClass('sw-user-score-selected');
+    $(updateWidget).find('.uw-sel-2').children().removeClass('sw-user-score-selected');
+  } else {
+    $(updateWidget).find('.uw-sel-2').children().addClass('sw-user-score-selected');
+    $(updateWidget).find('.uw-sel-1').children().removeClass('sw-user-score-selected');
+  }
+}
+
 
 $('.uw-select').bind('click', function() {
   // TODO: this is fugly, clean this up.
@@ -124,36 +150,84 @@ $('.uw-select').bind('click', function() {
 
   console.log("click" + $(outData));
 
-  txrxScore($(uw), $(outData));
+  txrxScore($(uw), $(outData), set_score);
 
   set_score($(uw));
 });
 
+$('.ynw-select').bind('click', function() {
+  // TODO: this is fugly, clean this up.
+  // TODO: make this a functio if the same as other
+  var uw = $(this).parent();
+  var s = $(this).attr('class');
+  var n = s.indexOf('uw-sel-');
+  var uscore = s.charAt(n+7);
+
+  console.log("user score=" + uscore);
+
+  var outData = {
+    uw_id     : $(uw).attr('id'),
+    userScore : uscore
+  };
+
+  console.log("click" + $(outData));
+
+  txrxScore($(uw), $(outData), ynw_set_score);
+});
+
+
 $('.uw-select').hover(
     // Handles the mouseover
     function() {
-      $(this).parent().find('.uw-selected').removeClass('uw-selected');
+      $(this).parent().find('.sw-score').addClass('sw-hidden');
+      $(this).parent().find('.sw-user-score').removeClass('sw-user-score-selected');
       $(this).prevAll().andSelf().children().addClass('uw-select-over');
       $(this).nextAll().children().removeClass('uw-select-over'); 
     },
     // Handles the mouseout
     function() {
+      $(this).parent().find('.sw-score').removeClass('sw-hidden');
       $(this).prevAll().andSelf().children().removeClass('uw-select-over');
       set_score($(this).parent());
+      }
+);
+
+$('.ynw-select').hover(
+    // Handles the mouseover
+    function() {
+      $(this).parent().find('.sw-score').addClass('sw-hidden');
+      $(this).parent().find('.sw-user-score').removeClass('sw-user-score-selected');
+
+      $(this).children().addClass('uw-select-over');
+    },
+    // Handles the mouseout
+    function() {
+      $(this).parent().find('.sw-score').removeClass('sw-hidden');
+      $(this).children().removeClass('uw-select-over');
+      ynw_set_score($(this).parent());
       }
 );
 
 
 $(document).ready( function() {
 
-  $('.uw-selector').each( function() {
+  $('.score-widget').each( function() {
+    var widget = $(this).find('.uw-selector');
     var outData = {
-      uw_id     : $(this).attr('id'),
+      uw_id     : $(widget).attr('id'),
     };
 
-    txrxScore($(this), outData);
+    txrxScore($(widget), outData, set_score);
   });
 
+  $('.yesno-widget').each( function() {
+    var widget = $(this).find('.uw-selector');
+    var outData = {
+      uw_id     : $(widget).attr('id'),
+    };
+
+    txrxScore($(widget), outData, ynw_set_score);
+  });
   
 
 });

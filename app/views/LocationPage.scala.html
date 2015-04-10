@@ -3,7 +3,7 @@
 
 @Main("Home")(false) {
 
-  <div class="container">
+  <div class="container location-container">
 
     <div class="row">
       <div class="col-sm-12 location-title">
@@ -56,7 +56,7 @@
         <div>
           @for(fac <- location.getFacilities()) {
             <div>
-              @ScoreWidget(location, fac, fac.getName, "", fac.getLowLabel(), fac.getHighLabel())
+              @YesNoWidget(location, fac, fac.getName, "")
             </div>
           }
         </div>

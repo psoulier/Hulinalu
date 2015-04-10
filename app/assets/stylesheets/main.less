@@ -1,5 +1,6 @@
 @sharesabout-blue: #0079AF;
 @deep-blue: #055B80;
+@ocean-green: #2D978B;
 @sea-foam-white: rgb(256,256,256);
 @gold: #F5C812;
 @score-radius: 22px;
@@ -40,7 +41,7 @@ body {
 @sw-score-radius: 20px;
 
 
-.update-widget {
+.score-widget {
   background: transparent;
   width: 300px;
   font-family: "Muli";
@@ -51,7 +52,19 @@ body {
   }
 }
 
-.uw-title {
+.yesno-widget {
+  background: transparent;
+  width: 300px;
+  font-family: "Muli";
+  height: 50px;
+
+  .uw-main {
+    height: 25px;
+  }
+}
+
+
+.sw-title {
   width: @uw-title-width;
   height: 25px;
   color: @deep-blue;
@@ -59,7 +72,6 @@ body {
   display: inline-block;
   vertical-align: middle;
 }
-
 
 .uw-selector {
   display: inline-block;
@@ -72,30 +84,53 @@ body {
 .uw-select {
   float: left;
   height: 28px;
-  width: 22px;
-  padding: 4px 1px 4px 1px;
+  width: 24px;
+  padding: 4px 2px 4px 2px;
 }
 
-.uw-circle {
+.ynw-select {
+  display: inline-block;
+  height: 28px;
+  width: 24px;
+  padding: 4px 2px 4px 2px;
+}
+
+.sw-user-score {
   display: inline-block;
   border: solid @deep-blue 2px;
   background: transparent;
   height: 20px;
   width: 20px;
   border-radius: 20px;
+  padding: 2px 2px;
+}
+
+.sw-hidden {
+  visibility: hidden;
+}
+
+.sw-score {
+  height: 12px;
+  width: 12px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+}
+
+.sw-score-selected {
+  background: @deep-blue;
+}
+
+.sw-user-score-selected {
+  background: transparent;
+  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
 }
 
 .uw-select-over {
   background: fade(@deep-blue, 50%);
 }
 
-.uw-selected {
-  background: @deep-blue;
-}
 
-.uw-user-selected {
-  background: yellow;
-}
 
 .sw-badges {
   float: right;
@@ -107,10 +142,11 @@ body {
 }
 
 .sw-award {
+  font-size: 100%;
 }
 
 .uw-scale {
-  margin-left: @uw-title-width;
+  margin-left: @uw-title-width+4;
   width: @uw-scale-width;
   display: inline-block;
   font-size: 75%;
@@ -123,12 +159,23 @@ body {
   .uw-high {
     float: right;
   }
+
+  .ynw-text {
+    display: inline-block;
+    width: 24px;
+    text-align: center;
+  }
 }
 
 
 /**
  * Location Page Styles
  */
+
+.location-container {
+  margin-top: 100px;
+}
+
 .location-title {
   background: fade(@deep-blue, 80%);
   color: @sea-foam-white;
