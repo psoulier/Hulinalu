@@ -1,0 +1,106 @@
+@import "utility/color_font.less";
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  background-image: url('../images/index-background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  height: 100%;
+  overflow: auto;
+  margin: 0;
+}
+
+
+
+.index-main {
+  margin-top: 100px;
+  
+  .heading {
+    text-align: center;
+    margin-bottom: 80px;
+
+    h1 {
+      font-family: "Pacifico";
+      font-size: 500%;
+      color: white;
+      border-bottom: solid white 3px;
+      display: table;
+      margin: 0 auto;
+      padding: 0;
+    }
+  }
+
+  .search-box {
+    border-radius: 5px;
+    padding: 15px;
+    border: white solid 1px;
+    background: fade(@sea-foam-white, 60%);
+
+    p {
+      margin-top: 30px;
+      text-align: center;
+      font-family: "Muli";
+      font-weight: 600;
+      font-size: 110%;
+      color: @deep-blue;
+    }
+  }
+}
+
+.footer {
+  color: @sea-foam-white;
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 80px;
+  background: transparent;
+  padding-right: 5%;
+
+  em {
+    font-size: 150%;
+    font-family: "Pacifico";
+  }
+
+  p {
+    font-size: 150%;
+    font-family: "Muli";
+  }
+}
+
+.sk-spinner-pulse.sk-spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  background-color: @deep-blue;
+  border-radius: 100%;
+  -webkit-animation: sk-pulseScaleOut 1s infinite ease-in-out;
+  animation: sk-pulseScaleOut 1s infinite ease-in-out; 
+}
+
+@-webkit-keyframes sk-pulseScaleOut {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0); }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0; } 
+}
+
+@keyframes sk-pulseScaleOut {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0); }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0; } 
+}
+
