@@ -8,8 +8,6 @@ import play.libs.Json;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import views.html.Index;
-import views.html.SignUp;
-import views.formdata.Login;
 
 import models.LocationDB;
 import models.Location;
@@ -37,14 +35,6 @@ public class Application extends Controller {
       }
     }
 
-    public static Result query(String queryData) {
-      return ok( SignUp.render(queryData) );
-    }
-
-
-    public static Result home() {
-        return ok(Home.render("Your new application is ready."));
-    }
 
     public static Result currentLocation(String lat, String lng) {
       return ok(CurrentLoc.render( Float.valueOf(lat), Float.valueOf(lng) ) );

@@ -1,2 +1,196 @@
 @import "color_font.less";
 
+/**
+ * Search widget styles.
+ */
+
+.form-control::-webkit-input-placeholder { font-family: "Muli"; }
+.form-control:-moz-placeholder { font-family: "Muli"; }
+.form-control::-moz-placeholder { font-family: "Muli"; }
+.form-control:-ms-input-placeholder { font-family: "Muli"; }
+
+.query-box {
+  background: rgba(256,256,256,0.8);
+  font-family: "Muli";
+  color: @deep-blue;
+}
+
+.map-canvas {
+  border: solid white 2px;
+  border-radius: 5px;
+}
+
+.result-details {
+  p {
+    .main-p-text;
+    font-size: 12px;
+  }
+
+}
+
+.stars-invert {
+  width: 75px;
+  height: @score-radius;
+  border-radius: @score-radius; 
+  line-height: @score-radius;
+  background-color: @sharesabout-blue;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+
+  p {
+    color: white;
+  }
+}
+
+.no-results {
+  margin: 0 auto;
+  text-align: center;
+  background-color: rgba(235,241,250, 0.6);
+  border: solid white 2px;
+  border-radius: 4px;
+
+  p {
+    .main-p-text;
+    font-size: 18px;
+    padding: 5px 10px;
+  }
+}
+
+
+
+/**
+ * Score Widget
+ */
+@uw-title-width: 90px;
+@uw-scale-width: 120px;
+@sw-score-radius: 20px;
+
+
+.score-widget {
+  background: transparent;
+  width: 300px;
+  font-family: "Muli";
+  height: 50px;
+
+  .uw-main {
+    height: 25px;
+  }
+}
+
+.yesno-widget {
+  background: transparent;
+  width: 300px;
+  font-family: "Muli";
+  height: 50px;
+
+  .uw-main {
+    height: 25px;
+  }
+}
+
+
+.sw-title {
+  width: @uw-title-width;
+  height: 25px;
+  color: @deep-blue;
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.uw-selector {
+  display: inline-block;
+  overflow: visible;
+  position: relative;
+  height: 25px;
+  background: transparent;
+}
+
+.uw-select {
+  float: left;
+  height: 28px;
+  width: 24px;
+  padding: 4px 2px 4px 2px;
+}
+
+.ynw-select {
+  display: inline-block;
+  height: 28px;
+  width: 24px;
+  padding: 4px 2px 4px 2px;
+}
+
+.sw-user-score {
+  display: inline-block;
+  border: solid @deep-blue 2px;
+  background: transparent;
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  padding: 2px 2px;
+}
+
+.sw-hidden {
+  visibility: hidden;
+}
+
+.sw-score {
+  height: 12px;
+  width: 12px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+}
+
+.sw-score-selected {
+  background: @deep-blue;
+}
+
+.sw-user-score-selected {
+  background: transparent;
+  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+}
+
+.uw-select-over {
+  background: fade(@deep-blue, 50%);
+}
+
+
+
+.sw-badges {
+  float: right;
+  font-size: 75%;
+  color: @deep-blue;
+}
+
+.sw-reliability {
+}
+
+.sw-award {
+  font-size: 100%;
+}
+
+.uw-scale {
+  margin-left: @uw-title-width+4;
+  width: @uw-scale-width;
+  display: inline-block;
+  font-size: 75%;
+  font-family: "Muli";
+
+  .uw-low {
+    float: left;
+  }
+
+  .uw-high {
+    float: right;
+  }
+
+  .ynw-text {
+    display: inline-block;
+    width: 24px;
+    text-align: center;
+  }
+}
+
+

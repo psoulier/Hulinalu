@@ -1,0 +1,69 @@
+@import "utility/color_font.less";
+@import "utility/widgets.less";
+
+/**
+ * Location Page Styles
+ */
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  background-image: url('../images/index-background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  height: 100%;
+  overflow: auto;
+  margin: 0;
+}
+
+/* NavBar styling. */
+.navbar-brand {
+  p {
+    font-family: "Pacifico";
+    font-size: 32px;
+    color: white;
+  }
+}
+
+
+
+
+.location-container {
+  margin-top: 100px;
+}
+
+.location-title {
+  background: fade(@deep-blue, 80%);
+  color: @sea-foam-white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top: solid @sea-foam-white 2px;
+  border-right: solid @sea-foam-white 2px;
+  border-left: solid @sea-foam-white 2px;
+
+  h1 {
+    font-family: "Pacifico";
+    font-size: 36px;
+  }
+}
+
+.location-main {
+  font-family: "Muli";
+  background: fade(@sea-foam-white, 60%);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom: solid @sea-foam-white 2px;
+  border-right: solid @sea-foam-white 2px;
+  border-left: solid @sea-foam-white 2px;
+}
+
+.location-map {
+  height: 300px;
+  width: 300px;
+}
+
+
