@@ -1,14 +1,21 @@
 @import helper._
 
+@**
+ * Creates a text input form.
+ * param queryData Prefill text box. If empty, the a placeholder will be used.
+ *@
 @(queryData: String)
   @form(routes.Application.index()) {
-    <div class="input-group">
 
+    <div class="input-group">
       @if(queryData == "") {
-        <input id="search-input" type="text" name="q" class="form-control query-box" placeholder="Search for a beach...">
+        <input id="search-input" type="text" name="q" class="form-control query-box" 
+               placeholder="Search for a beach...">
       } else {
-        <input id=search-input" type="text" name="q" class="form-control query-box" value="@queryData">
+        <input id="search-input" type="text" name="q" class="form-control query-box" 
+               value="@queryData" placeholder="Search for a beach...">
       }
+
       <span class="input-group-btn">
         <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
       </span>

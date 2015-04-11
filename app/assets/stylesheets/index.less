@@ -1,24 +1,33 @@
 @import "utility/color_font.less";
+@import "utility/navbar.less";
 
 html {
-  min-height: 100%;
-  position: relative;
+  height: 100%;
 }
 
 body {
+  height: 100%;
+  overflow: auto;
   background-image: url('../images/index-background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  overflow: hidden;
   height: 100%;
   overflow: auto;
-  margin: 0;
+}
+
+.navbar-customize {
+  background-color: transparent;
+
+  .collapse {
+    display: none;
+  }
+
 }
 
 
-
 .index-main {
-  margin-top: 100px;
+
+  margin-top: 50px;
   
   .heading {
     text-align: center;
@@ -38,8 +47,7 @@ body {
   .search-box {
     border-radius: 5px;
     padding: 15px;
-    border: white solid 1px;
-    background: fade(@sea-foam-white, 60%);
+    background: fade(@sea-foam-white, 50%);
 
     p {
       margin-top: 30px;

@@ -3,16 +3,11 @@
 @import utility._
 @import helper._
 
-@Main("Hulinalu - " + queryData)("results")(false) {
+@Main("Hulinalu - " + queryData)("results") {
 
+@NavBar(true, queryData)
 
 <div class="container">
-  <div class="row search-results">
-    <div class="col-sm-6 col-sm-offset-2">
-      @Search(queryData)
-    </div>
-  </div>
-
   @if(locations.isEmpty) {
     <div id="search-results-list" class="row">
       <div class="col-sm-6 col-sm-offset-2">
