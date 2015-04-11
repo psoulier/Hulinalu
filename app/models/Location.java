@@ -148,6 +148,43 @@ public class Location {
     return null;
   }
 
+  public int getTotalAwards() {
+    return 38;
+  }
+
+  public boolean hasParking() {
+    return true;
+  }
+
+  public boolean hasRestrooms() {
+    return true;
+  }
+
+  public boolean hasLifeguard() {
+    return true;
+  }
+
+  public boolean allowsDogs() {
+    return false;
+  }
+
+  public boolean hasBoatRamp() {
+    return false;
+  }
+  
+  public boolean hasDining() {
+    return false;
+  }
+
+  public boolean hasPublicTrans() {
+    return true;
+  }
+
+  public boolean allowsCampling() {
+    return false;
+  }
+
+
   public String getImagePathMostPopular(int i) {
     String  imgPath = "";
     

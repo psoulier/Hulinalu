@@ -3,6 +3,42 @@
 @import utility._
 @import helper._
 
+@featureTags(loc: Location) = {
+  <p>
+  @if( loc.hasParking() ) {
+    <i class="fa fa-car"></i> 
+  }
+
+  @if( loc.hasRestrooms() ) {
+    <i class="fa fa-female"></i><i class="fa fa-male"></i> 
+  }
+
+  @if( loc.hasLifeguard() ) {
+    <i class="fa fa-life-ring"></i> 
+  }
+
+  @if( loc.allowsDogs() ) {
+    <i class="fa fa-paw"></i> 
+  }
+
+  @if( loc.hasBoatRamp() ) {
+    <i class="fa fa-ship"></i> 
+  }
+
+  @if( loc.hasPublicTrans() ) {
+    <i class="fa fa-subway"></i> 
+  }
+
+  @if( loc.hasDining() ) {
+    <i class="fa fa-cutlery"></i>
+  }
+ 
+  @if( loc.allowsCampling() ) {
+    <i class="fa fa-fire"></i> 
+  }
+  </p>
+}
+
 @Main("Hulinalu - " + queryData)("results") {
 
 @NavBar(true, queryData)
@@ -23,19 +59,27 @@
             @for(loc <- locations) {
               <div class="list-group-item search-result">
                 <div class="row">
-                  <div class="col-sm-12">
-                    <h1><a href="@routes.Application.locationPage(loc.getName)">@loc.getName</a></h1>
-                  </div>
-                </div>
-
-                <div class="row">
                   <div class="col-sm-8">
-                    <div>
-                      <div class="stars-invert"><p><i class="fa fa-eye"></i> @StarWidget(loc.getConditionReliability())</p></div>
-                      <div class="stars-invert"><p><i class="fa fa-globe"></i> @StarWidget(loc.getFacilityReliability())</p></div>
-                    </div>
+                    <h1><a href="@routes.Application.locationPage(loc.getName)">@loc.getName</a></h1>
+
                     <p>@loc.getDescription</p>
-                    <div class="result-details"><p>Updates in the last hour: @loc.getUpdateCount(60).</p></div>
+                    <div class="result-details">
+                      <div class="reliability">
+                        <p><i class="fa fa-eye"></i> @StarWidget(loc.getConditionReliability())</p>
+                      </div>
+
+                      <div class="reliability">
+                        <p><i class="fa fa-globe"></i> @StarWidget(loc.getFacilityReliability())</p>
+                      </div>
+
+                      <div class="awards">
+                        <p><i class="fa fa-trophy"></i> @loc.getTotalAwards</p>
+                      </div>
+
+                      <div class="feature-tags">
+                        @featureTags(loc)
+                      </div>
+                    </div>
                   </div>
 
                   <div class="col-sm-2">
