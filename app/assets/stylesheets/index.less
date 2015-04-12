@@ -5,6 +5,7 @@ html {
   height: 100%;
 }
 
+/* Setup full-screen background image for index page. */
 body {
   height: 100%;
   overflow: auto;
@@ -15,20 +16,23 @@ body {
   overflow: auto;
 }
 
+/* Custom settings for index page nav bar. The background is invisible to show
+ * more of the picture.
+ */
 .navbar-customize {
   background-color: transparent;
 
   .collapse {
     display: none;
   }
-
 }
 
-
+/* Styles for the rest of the page.
+ */
 .index-main {
-
   margin-top: 50px;
-  
+ 
+  /* The styles for the Hulinalu text. */
   .heading {
     text-align: center;
     margin-bottom: 80px;
@@ -44,6 +48,7 @@ body {
     }
   }
 
+  /* Styles for the search box in the middle of the screen. */
   .search-box {
     border-radius: 5px;
     padding: 15px;
@@ -60,13 +65,14 @@ body {
   }
 }
 
+/* Footer settings. Again, it's transparent to show background image.
+ */
 .footer {
   color: @sea-foam-white;
   text-align: right;
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
   height: 80px;
   background: transparent;
   padding-right: 5%;
@@ -83,11 +89,12 @@ body {
 }
 
 /**
- * Pulsing Spinner Widget
+ * Pulsing Spinner Widget. This creates the little animation while the user's
+ * location is being determined.
  */
 .spinner-pulse.spinner {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   margin: 0 auto;
   background-color: @deep-blue;
   border-radius: 100%;

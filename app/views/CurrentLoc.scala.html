@@ -11,26 +11,6 @@
 }
 
 @displayUpdateLocation(loc: Location) = {
-  <h2>You Are Here:</h2>
-  <h3>"@loc.getName"</h3>
-  <p>@loc.getLatitude, @loc.getLongitude</p>
-
-  <div class="list-group">
-    @if(loc.hasFeaturesToUpdate()) {
-      <div class="list-group-item"> 
-        @displayUpdateInput( loc.getNextConditionToUpdate() )
-      </div>
-    }
-    <!--
-    <div class="list-group-item">
-        <table width="100%">
-          <tr>
-            <td width="25%">Crowd:</td> <td width="25%">Small</td> <td width="50%"><div></div></td>
-          </tr>
-        </table>
-    </div>
-    -->
-  </div>
 }
 
 @displaySuggestLocation() = {

@@ -8,7 +8,18 @@ import models.Beach;
 // POST 318B: 21.31085, -157.85782
 
 
+/**
+ * Populates the fake database.
+ *
+ * This class is just a bunch of static data generation. Nothing really that
+ * interesting here.
+ */
 public class Global extends GlobalSettings {
+
+  /**
+   * Populates data on startup.
+   * @param app The application object.
+   */
   public void onStart(Application app) {
     Location  beach;
 
@@ -173,9 +184,5 @@ public class Global extends GlobalSettings {
   beach.addFacility( new Location.Facility(dogs) );
   beach.addFacility( new Location.Facility(restrooms) );
   LocationDB.addLocation(beach);
-
-
   }
-
-  
 }
