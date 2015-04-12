@@ -3,6 +3,8 @@ package models;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.util.Random;
+
 /**
  * Defines a feature of a location.
  */
@@ -24,6 +26,7 @@ public class Feature {
     this.score = ST_UNKNOWN;
     this.lowLabel = lowLabel;
     this.highLabel = highLabel;
+    scoreUp = true;
   }
 
   /**
@@ -38,7 +41,24 @@ public class Feature {
     this.reliability = feat.reliability;
     this.lowLabel = feat.lowLabel;
     this.highLabel = feat.highLabel;
+    scoreUp = true;
   }
+
+  /**
+   * Copy constructor with an override score value.
+   * @param feat Feature object to copy.
+   */
+  public Feature(Feature feat, int score) {
+    this.name = feat.name;
+    this.info = feat.info;
+    this.score = score;
+    this.userScore = feat.userScore;
+    this.reliability = feat.reliability;
+    this.lowLabel = feat.lowLabel;
+    this.highLabel = feat.highLabel;
+    scoreUp = true;
+  }
+
 
   /**
    * Gets the name of the feature.
@@ -61,6 +81,28 @@ public class Feature {
    * @return Returns score.
    */
   public int getScore() {
+    Random  r = new Random();
+
+    if (name.equals("Parking") || name.equals("Crowd") || name.equals("Water Clarity")) {
+      if ( r.nextInt(2) == 1 ) {
+        if (scoreUp) {
+          if (score == 5) {
+            scoreUp = false;
+            score = score - 1;
+          } else {
+            score = score + 1;
+          }
+        } else {
+          if (score == 3) {
+            score = score + 1;
+            scoreUp = true;
+          } else {
+            score = score - 1;
+          }
+        }
+      }
+    }
+
     return score;
   }
 
@@ -119,6 +161,7 @@ public class Feature {
   private int                 score;
   private int                 award;
   private int                 reliability;
+  private boolean             scoreUp; // Just for faking data.
   private String              lowLabel;
   private String              highLabel;
 }

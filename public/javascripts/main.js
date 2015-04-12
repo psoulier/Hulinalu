@@ -108,8 +108,9 @@ function set_score(updateWidget) {
   if (score !== 0) {
     // Due to the HTML to get the desired CSS effects, need to drill down a few levels
     // of the DOM to access the elements we want.
+    console.log("-----> score=" + score);
     $(updateWidget).find('.uw-sel-' + score).prevAll().andSelf().children().children().addClass('sw-score-selected');
-    $(updateWidget).find('.uw-sel-' + score).nextAll().first().first().removeClass('sw-score-selected');
+    $(updateWidget).find('.uw-sel-' + score).nextAll().children().children().removeClass('sw-score-selected');
   } else {
     // No data for this score, so clear all the indicator dots.
     $(updateWidget).children().first().first().removeClass('sw-score-selected');
@@ -252,6 +253,19 @@ $('.ynw-select').hover(
       }
 );
 
+function pollForUpdates() {
+    $('.score-widget').each( function() {
+    var widget = $(this).find('.uw-selector');
+    var outData = {
+      uw_id     : $(widget).attr('id'),
+    };
+
+    txrxScore($(widget), outData, set_score);
+  });
+
+  setTimeout(pollForUpdates, 5000);
+}
+
 /**
  * JQuery init function that is called when the document is ready.
  */
@@ -279,6 +293,10 @@ $(document).ready( function() {
 
     txrxScore($(widget), outData, ynw_set_score);
   });
+
+  setTimeout(pollForUpdates, 5000);
+
+
 });
 
 // For google maps API.

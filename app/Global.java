@@ -63,7 +63,6 @@ public class Global extends GlobalSettings {
       "Restrooms are available at this beach.");
 
   /*
-  Location.Facility parkingLot = new Location.Facility(
       "Beach",
       "Rocky",
       "Sandy",
@@ -85,10 +84,10 @@ public class Global extends GlobalSettings {
   alaMoana.addCondition( new Location.Condition(parking) );
   alaMoana.addCondition( new Location.Condition(crowd) );
   alaMoana.addCondition( new Location.Condition(waterClarity) );
-  alaMoana.addFacility( new Location.Facility(parkingLot) );
-  alaMoana.addFacility( new Location.Facility(lifeguard) );
-  alaMoana.addFacility( new Location.Facility(dogs) );
-  alaMoana.addFacility( new Location.Facility(restrooms) );
+  alaMoana.addFacility( new Location.Facility(parkingLot, true) );
+  alaMoana.addFacility( new Location.Facility(lifeguard, true) );
+  alaMoana.addFacility( new Location.Facility(dogs, false) );
+  alaMoana.addFacility( new Location.Facility(restrooms, true) );
   LocationDB.addLocation(alaMoana);
 
 
@@ -100,10 +99,10 @@ public class Global extends GlobalSettings {
   waikiki.addCondition( new Location.Condition(parking) );
   waikiki.addCondition( new Location.Condition(crowd) );
   waikiki.addCondition( new Location.Condition(waterClarity) );
-  waikiki.addFacility( new Location.Facility(parkingLot) );
-  waikiki.addFacility( new Location.Facility(lifeguard) );
-  waikiki.addFacility( new Location.Facility(dogs) );
-  waikiki.addFacility( new Location.Facility(restrooms) );
+  waikiki.addFacility( new Location.Facility(parkingLot, false) );
+  waikiki.addFacility( new Location.Facility(lifeguard, true) );
+  waikiki.addFacility( new Location.Facility(dogs, false) );
+  waikiki.addFacility( new Location.Facility(restrooms, false) );
   LocationDB.addLocation(waikiki);
 
   beach = new Beach("Waimea Bay Beach Park",
@@ -113,10 +112,10 @@ public class Global extends GlobalSettings {
   beach.addCondition( new Location.Condition(parking) );
   beach.addCondition( new Location.Condition(crowd) );
   beach.addCondition( new Location.Condition(waterClarity) );
-  beach.addFacility( new Location.Facility(parkingLot) );
-  beach.addFacility( new Location.Facility(lifeguard) );
-  beach.addFacility( new Location.Facility(dogs) );
-  beach.addFacility( new Location.Facility(restrooms) );
+  beach.addFacility( new Location.Facility(parkingLot, true) );
+  beach.addFacility( new Location.Facility(lifeguard, true) );
+  beach.addFacility( new Location.Facility(dogs, false) );
+  beach.addFacility( new Location.Facility(restrooms, true) );
   LocationDB.addLocation(beach);
 
   beach = new Beach("Kahe Point Beach",
@@ -126,10 +125,10 @@ public class Global extends GlobalSettings {
   beach.addCondition( new Location.Condition(parking) );
   beach.addCondition( new Location.Condition(crowd) );
   beach.addCondition( new Location.Condition(waterClarity) );
-  beach.addFacility( new Location.Facility(parkingLot) );
-  beach.addFacility( new Location.Facility(lifeguard) );
-  beach.addFacility( new Location.Facility(dogs) );
-  beach.addFacility( new Location.Facility(restrooms) );
+  beach.addFacility( new Location.Facility(parkingLot, true) );
+  beach.addFacility( new Location.Facility(lifeguard, false) );
+  beach.addFacility( new Location.Facility(dogs, true) );
+  beach.addFacility( new Location.Facility(restrooms, false) );
   LocationDB.addLocation(beach);
 
   beach = new Beach("Kailua Beach Park",
@@ -139,10 +138,10 @@ public class Global extends GlobalSettings {
   beach.addCondition( new Location.Condition(parking) );
   beach.addCondition( new Location.Condition(crowd) );
   beach.addCondition( new Location.Condition(waterClarity) );
-  beach.addFacility( new Location.Facility(parkingLot) );
-  beach.addFacility( new Location.Facility(lifeguard) );
-  beach.addFacility( new Location.Facility(dogs) );
-  beach.addFacility( new Location.Facility(restrooms) );
+  beach.addFacility( new Location.Facility(parkingLot, false) );
+  beach.addFacility( new Location.Facility(lifeguard, false) );
+  beach.addFacility( new Location.Facility(dogs, false) );
+  beach.addFacility( new Location.Facility(restrooms, false) );
   LocationDB.addLocation(beach);
 
   beach = new Beach("Sandy Beach Park",
@@ -152,10 +151,10 @@ public class Global extends GlobalSettings {
   beach.addCondition( new Location.Condition(parking) );
   beach.addCondition( new Location.Condition(crowd) );
   beach.addCondition( new Location.Condition(waterClarity) );
-  beach.addFacility( new Location.Facility(parkingLot) );
-  beach.addFacility( new Location.Facility(lifeguard) );
-  beach.addFacility( new Location.Facility(dogs) );
-  beach.addFacility( new Location.Facility(restrooms) );
+  beach.addFacility( new Location.Facility(parkingLot, true) );
+  beach.addFacility( new Location.Facility(lifeguard, true) );
+  beach.addFacility( new Location.Facility(dogs, true) );
+  beach.addFacility( new Location.Facility(restrooms, true) );
   LocationDB.addLocation(beach);
 
   beach = new Beach("Hanauma Bay",
@@ -165,10 +164,10 @@ public class Global extends GlobalSettings {
   beach.addCondition( new Location.Condition(parking) );
   beach.addCondition( new Location.Condition(crowd) );
   beach.addCondition( new Location.Condition(waterClarity) );
-  beach.addFacility( new Location.Facility(parkingLot) );
-  beach.addFacility( new Location.Facility(lifeguard) );
-  beach.addFacility( new Location.Facility(dogs) );
-  beach.addFacility( new Location.Facility(restrooms) );
+  beach.addFacility( new Location.Facility(parkingLot, true) );
+  beach.addFacility( new Location.Facility(lifeguard, true) );
+  beach.addFacility( new Location.Facility(dogs, false) );
+  beach.addFacility( new Location.Facility(restrooms, true) );
   LocationDB.addLocation(beach);
 
 
@@ -179,10 +178,10 @@ public class Global extends GlobalSettings {
   beach.addCondition( new Location.Condition(parking) );
   beach.addCondition( new Location.Condition(crowd) );
   beach.addCondition( new Location.Condition(waterClarity) );
-  beach.addFacility( new Location.Facility(parkingLot) );
-  beach.addFacility( new Location.Facility(lifeguard) );
-  beach.addFacility( new Location.Facility(dogs) );
-  beach.addFacility( new Location.Facility(restrooms) );
+  beach.addFacility( new Location.Facility(parkingLot, true) );
+  beach.addFacility( new Location.Facility(lifeguard, true) );
+  beach.addFacility( new Location.Facility(dogs, true) );
+  beach.addFacility( new Location.Facility(restrooms, true) );
   LocationDB.addLocation(beach);
   }
 }

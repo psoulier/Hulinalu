@@ -75,6 +75,15 @@ public class Location {
     public Facility(Facility fac) {
       super(fac);
     }
+
+    /**
+     * Copy constructor with initial yes/no value.
+     * @param fac Object to copy.
+     */
+    public Facility(Facility fac, boolean yes) {
+      super(fac, (yes) ? 2 : 1);
+    }
+    
   }
 
 
@@ -197,6 +206,11 @@ public class Location {
     return 6;
   }
 
+  /**
+   * Finds a feature based on its name.
+   * @param name Name of feature to find.
+   * @return Feature object.
+   */  
   public Feature getFeature(String name) {
 
     // Look for the features in the facilities category.
@@ -226,19 +240,19 @@ public class Location {
   }
 
   public boolean hasParking() {
-    return true;
+    return getFeature("Parking Facilities").getScore() == 2;
   }
 
   public boolean hasRestrooms() {
-    return true;
+    return getFeature("Restrooms").getScore() == 2;
   }
 
   public boolean hasLifeguard() {
-    return true;
+    return getFeature("Lifeguard").getScore() == 2;
   }
 
   public boolean allowsDogs() {
-    return false;
+    return getFeature("Dogs Allowed").getScore() == 2;
   }
 
   public boolean hasBoatRamp() {
@@ -250,7 +264,7 @@ public class Location {
   }
 
   public boolean hasPublicTrans() {
-    return true;
+    return false;
   }
 
   public boolean allowsCampling() {
