@@ -1,4 +1,4 @@
-name := """rocket"""
+name := """Hulinalu"""
 
 version := "1.0-SNAPSHOT"
 

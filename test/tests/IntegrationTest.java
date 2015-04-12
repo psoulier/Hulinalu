@@ -32,8 +32,6 @@ public class IntegrationTest {
         IndexPage indexPage = new IndexPage(browser.getDriver(), PORT);
         browser.goTo(indexPage);
         indexPage.isAt();
-
-        System.out.println("Whut up dawg?");
       }
     });
   }
@@ -60,11 +58,12 @@ public class IntegrationTest {
          * entire page back as text and look for the href tag that I know
          * Waikiki beach should be. Extract the URL from that.
          */
-        String[] hrefStrings = page.pageSource().split("\n"); for (String s :
-          hrefStrings) { if (s.indexOf("<a
-              href=\"/locationPage?locQuery=Waikiki+Beach\">") != -1) { url =
-            s.substring( s.indexOf("/"), s.lastIndexOf("\"") );
-            System.out.format("Found it! %s %n", url); } }
+        String[] hrefStrings = page.pageSource().split("\n"); 
+        for (String s : hrefStrings) { 
+          if (s.indexOf("<a href=\"/locationPage?locQuery=Waikiki+Beach\">") != -1) { 
+            url = s.substring( s.indexOf("/"), s.lastIndexOf("\"") );
+          } 
+        }
 
         // Make sure the URL was found.
         assertThat(url).isNotEqualTo("");

@@ -61,8 +61,6 @@ public class IndexPage extends FluentPage {
     fill("#search-input").with(queryData);
 
     submit("#submit");
-
-    System.out.format("Title=%s%n", title());
   }
 
   /**
