@@ -31,6 +31,7 @@ public class Global extends GlobalSettings {
       "Crytal",
       "How clear the water is for diving, snorkling, etc.");
 
+  
   // Facilities
   Location.Facility parkingLot = new Location.Facility(
       "Parking Facilities",
@@ -50,6 +51,14 @@ public class Global extends GlobalSettings {
       "Yes",
       "Restrooms are available at this beach.");
 
+  /*
+  Location.Facility parkingLot = new Location.Facility(
+      "Beach",
+      "Rocky",
+      "Sandy",
+      "Composition of the shore (nice sand or rocks).");
+  */
+  
   Location.Facility dogs = new Location.Facility(
       "Dogs Allowed",
       "No",

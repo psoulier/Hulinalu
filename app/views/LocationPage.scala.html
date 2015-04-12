@@ -10,17 +10,26 @@
     <div class="row">
       <div class="col-sm-12 location-title">
         <h1>@location.getName</h1>
+        <p>@location.getDescription</p>
       </div>
     </div>
 
-    <div class"row">
-      <div class="col-sm-5">
+    <div class="row">
+      <div class="col-sm-6 location-img">
+        <img src="@location.getImagePathMostPopular(0)" width="300" height="300">
+      </div>
 
-<!-- ******************** -->
+      <div class="col-sm-6 location-map" id="location-map-canvas" lat="@location.getLatitude" lng="@location.getLongitude">
+      </div>
+ 
+    </div>
+
+
+<!-- ******************** 
+      <div class="col-sm-5">
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
  
  
-  <!-- Slider Content (Wrapper for slides )-->
   <div class="carousel-inner" width="100%" height="100%">
     <div class="item active">
       <img alt="" src="http://www.trexglobal.com/property-management/wp-content/uploads/2010/02/real-estate-investment-property-canada.jpg"/>
@@ -32,7 +41,6 @@
  
   </div>
  
-  <!-- Controls -->
   <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left"></span>
   </a>
@@ -41,17 +49,14 @@
   </a>
 </div>
 
-<!-- ******************** -->
-
       </div>
+-->
 
-      <div class="col-sm-5 location-map" id="location-map-canvas" lat="@location.getLatitude" lng="@location.getLongitude">
-      </div>
 
-    </div>
+
 
     <div class="row location-main">
-      <div class="col-sm-5">
+      <div class="col-sm-6">
 
         <h3>At the Beach</h3>
 
@@ -65,7 +70,7 @@
 
       </div>
 
-      <div class="col-sm-5">
+      <div class="col-sm-6">
         <h3>Current Conditions</h3>
 
         <div>
@@ -77,8 +82,7 @@
         </div>
       </div>
 
-      <div class="col-sm-2">
-      </div>
+     
 
 
     </div>
