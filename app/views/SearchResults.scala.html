@@ -5,37 +5,14 @@
 
 @featureTags(loc: Location) = {
   <p>
-  @if( loc.hasParking() ) {
-    <i class="fa fa-car"></i> 
-  }
+  <i class="fa fa-car @if(!loc.hasParking){does-not-have-feature}"></i> 
+  <i class="fa fa-female @if(!loc.hasRestrooms){does-not-have-feature}"></i><i class="fa fa-male @if(!loc.hasRestrooms){does-not-have-feature}"></i> 
+  <i class="fa fa-life-ring @if(!loc.hasLifeguard){does-not-have-feature}"></i> 
+  <i class="fa fa-paw @if(!loc.allowsDogs){does-not-have-feature}"></i> 
+  <i class="fa fa-ship @if(!loc.hasBoatRamp){does-not-have-feature}"></i> 
+  <i class="fa fa-subway @if(!loc.hasPublicTrans){does-not-have-feature}"></i> 
+  <i class="fa fa-fire @if(!loc.allowsCamping){does-not-have-feature}"></i> 
 
-  @if( loc.hasRestrooms() ) {
-    <i class="fa fa-female"></i><i class="fa fa-male"></i> 
-  }
-
-  @if( loc.hasLifeguard() ) {
-    <i class="fa fa-life-ring"></i> 
-  }
-
-  @if( loc.allowsDogs() ) {
-    <i class="fa fa-paw"></i> 
-  }
-
-  @if( loc.hasBoatRamp() ) {
-    <i class="fa fa-ship"></i> 
-  }
-
-  @if( loc.hasPublicTrans() ) {
-    <i class="fa fa-subway"></i> 
-  }
-
-  @if( loc.hasDining() ) {
-    <i class="fa fa-cutlery"></i>
-  }
- 
-  @if( loc.allowsCampling() ) {
-    <i class="fa fa-fire"></i> 
-  }
   </p>
 }
 

@@ -83,7 +83,6 @@ function txrxScore(updateWidget, data, set) {
     data : jsonData,
     contentType : 'application/json; charset=utf-8',
     success : function(inData) {
-      console.log(inData);
       $(updateWidget).data('fsr', inData);
       set($(updateWidget));
     },
@@ -108,7 +107,6 @@ function set_score(updateWidget) {
   if (score !== 0) {
     // Due to the HTML to get the desired CSS effects, need to drill down a few levels
     // of the DOM to access the elements we want.
-    console.log("-----> score=" + score);
     $(updateWidget).find('.uw-sel-' + score).prevAll().andSelf().children().children().addClass('sw-score-selected');
     $(updateWidget).find('.uw-sel-' + score).nextAll().children().children().removeClass('sw-score-selected');
   } else {

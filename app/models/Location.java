@@ -256,7 +256,7 @@ public class Location {
   }
 
   public boolean hasBoatRamp() {
-    return false;
+    return getFeature("Boat Ramp").getScore() == 2;
   }
   
   public boolean hasDining() {
@@ -267,8 +267,8 @@ public class Location {
     return false;
   }
 
-  public boolean allowsCampling() {
-    return false;
+  public boolean allowsCamping() {
+    return getFeature("Camping").getScore() == 2;
   }
 
   /**
@@ -278,8 +278,9 @@ public class Location {
    */
   public String getImagePathMostPopular(int i) {
     String  imgPath;
+    String  fileName = name.toLowerCase();
     
-    imgPath = "/assets/images/dbimg/" + name.replaceAll(" ", "-") + "-1.jpg";
+    imgPath = "/assets/images/dbimg/" + fileName.replaceAll(" ", "-") + "-1.jpg";
 
     return imgPath;
   }

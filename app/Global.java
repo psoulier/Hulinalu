@@ -39,7 +39,7 @@ public class Global extends GlobalSettings {
   Location.Condition waterClarity = new Location.Condition(
       "Water Clarity",
       "Murky",
-      "Crytal",
+      "Crystal",
       "How clear the water is for diving, snorkling, etc.");
 
   
@@ -62,6 +62,17 @@ public class Global extends GlobalSettings {
       "Yes",
       "Restrooms are available at this beach.");
 
+  Location.Facility boatRamp = new Location.Facility(
+      "Boat Ramp",
+      "No",
+      "Yes",
+      "Boat ramp at this beach.");
+
+  Location.Facility camping = new Location.Facility(
+      "Camping",
+      "No",
+      "Yes",
+      "Campgrounds located nearby.");
   /*
       "Beach",
       "Rocky",
@@ -88,6 +99,8 @@ public class Global extends GlobalSettings {
   alaMoana.addFacility( new Location.Facility(lifeguard, true) );
   alaMoana.addFacility( new Location.Facility(dogs, false) );
   alaMoana.addFacility( new Location.Facility(restrooms, true) );
+  alaMoana.addFacility( new Location.Facility(boatRamp, true) );
+  alaMoana.addFacility( new Location.Facility(camping, false) );
   LocationDB.addLocation(alaMoana);
 
 
@@ -103,6 +116,8 @@ public class Global extends GlobalSettings {
   waikiki.addFacility( new Location.Facility(lifeguard, true) );
   waikiki.addFacility( new Location.Facility(dogs, false) );
   waikiki.addFacility( new Location.Facility(restrooms, false) );
+  waikiki.addFacility( new Location.Facility(boatRamp, false) );
+  waikiki.addFacility( new Location.Facility(camping, false) );
   LocationDB.addLocation(waikiki);
 
   beach = new Beach("Waimea Bay Beach Park",
@@ -116,6 +131,8 @@ public class Global extends GlobalSettings {
   beach.addFacility( new Location.Facility(lifeguard, true) );
   beach.addFacility( new Location.Facility(dogs, false) );
   beach.addFacility( new Location.Facility(restrooms, true) );
+  beach.addFacility( new Location.Facility(boatRamp, false) );
+  beach.addFacility( new Location.Facility(camping, false) );
   LocationDB.addLocation(beach);
 
   beach = new Beach("Kahe Point Beach",
@@ -129,6 +146,8 @@ public class Global extends GlobalSettings {
   beach.addFacility( new Location.Facility(lifeguard, false) );
   beach.addFacility( new Location.Facility(dogs, true) );
   beach.addFacility( new Location.Facility(restrooms, false) );
+  beach.addFacility( new Location.Facility(boatRamp, false) );
+  beach.addFacility( new Location.Facility(camping, false) );
   LocationDB.addLocation(beach);
 
   beach = new Beach("Kailua Beach Park",
@@ -142,6 +161,8 @@ public class Global extends GlobalSettings {
   beach.addFacility( new Location.Facility(lifeguard, false) );
   beach.addFacility( new Location.Facility(dogs, false) );
   beach.addFacility( new Location.Facility(restrooms, false) );
+  beach.addFacility( new Location.Facility(boatRamp, false) );
+  beach.addFacility( new Location.Facility(camping, false) );
   LocationDB.addLocation(beach);
 
   beach = new Beach("Sandy Beach Park",
@@ -155,6 +176,8 @@ public class Global extends GlobalSettings {
   beach.addFacility( new Location.Facility(lifeguard, true) );
   beach.addFacility( new Location.Facility(dogs, true) );
   beach.addFacility( new Location.Facility(restrooms, true) );
+  beach.addFacility( new Location.Facility(boatRamp, false) );
+  beach.addFacility( new Location.Facility(camping, false) );
   LocationDB.addLocation(beach);
 
   beach = new Beach("Hanauma Bay",
@@ -168,6 +191,8 @@ public class Global extends GlobalSettings {
   beach.addFacility( new Location.Facility(lifeguard, true) );
   beach.addFacility( new Location.Facility(dogs, false) );
   beach.addFacility( new Location.Facility(restrooms, true) );
+  beach.addFacility( new Location.Facility(boatRamp, false) );
+  beach.addFacility( new Location.Facility(camping, false) );
   LocationDB.addLocation(beach);
 
 
@@ -182,6 +207,24 @@ public class Global extends GlobalSettings {
   beach.addFacility( new Location.Facility(lifeguard, true) );
   beach.addFacility( new Location.Facility(dogs, true) );
   beach.addFacility( new Location.Facility(restrooms, true) );
+  beach.addFacility( new Location.Facility(boatRamp, false) );
+  beach.addFacility( new Location.Facility(camping, true) );
   LocationDB.addLocation(beach);
+
+  beach = new Beach("Sharks Cove",
+                    "Located on the North shore, Shark's cove is a spot known for good snorkeling and shore dives.",
+                    21.651281f, -158.062227f);
+
+  beach.addCondition( new Location.Condition(parking) );
+  beach.addCondition( new Location.Condition(crowd) );
+  beach.addCondition( new Location.Condition(waterClarity) );
+  beach.addFacility( new Location.Facility(parkingLot, true) );
+  beach.addFacility( new Location.Facility(lifeguard, false) );
+  beach.addFacility( new Location.Facility(dogs, false) );
+  beach.addFacility( new Location.Facility(restrooms, true) );
+  beach.addFacility( new Location.Facility(boatRamp, false) );
+  beach.addFacility( new Location.Facility(camping, false) );
+  LocationDB.addLocation(beach);
+  
   }
 }
