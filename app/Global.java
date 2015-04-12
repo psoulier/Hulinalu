@@ -160,7 +160,7 @@ public class Global extends GlobalSettings {
 
   beach = new Beach("Hanauma Bay",
                     "Hanauma Bay is a nature preserve that feature contains a variety of sea life.",
-                    21.285874f, -157.693807f);
+                    21.269475f, -157.693791f);
  
   beach.addCondition( new Location.Condition(parking) );
   beach.addCondition( new Location.Condition(crowd) );

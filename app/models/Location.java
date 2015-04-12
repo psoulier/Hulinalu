@@ -263,9 +263,9 @@ public class Location {
    * @return Path to image.
    */
   public String getImagePathMostPopular(int i) {
-    String  imgPath = "";
+    String  imgPath;
     
-    imgPath = "/assets/images/dbimg/0000-0000-0000-1234.jpg";
+    imgPath = "/assets/images/dbimg/" + name.replaceAll(" ", "-") + "-1.jpg";
 
     return imgPath;
   }
