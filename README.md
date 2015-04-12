@@ -7,6 +7,6 @@ To motivate users to share information, an awards system is used. By providing u
 
 More information can be found in the User's Guide, the Developer's Guide, and contact information.
 
-![[/doc/images/main.png|width=300]]
-![[/doc/images/results.png|width=300]]
-![[/doc/images/location.png|width=300]]
+![](doc/images/main.png?raw=true)
+![](doc/images/results.png?raw=true)
+![](doc/images/location.png?raw=true)
