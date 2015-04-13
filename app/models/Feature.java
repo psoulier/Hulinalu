@@ -1,23 +1,23 @@
 package models;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import java.util.Random;
 
 /**
  * Defines a feature of a location.
  */
 public class Feature {
-  public final static int ST_UNKNOWN = 0;
+  /**
+   * Constant for uknown state.
+   */
+  public static final int ST_UNKNOWN = 0;
 
   /**
    * Constructs a new feature.
    *
-   * @param name Name of feature.
-   * @param lowLabel Description for low scores of this feature.
+   * @param name      Name of feature.
+   * @param lowLabel  Description for low scores of this feature.
    * @param highLabel Description for high scores of this feature.
-   * @param info Description of what this feature is.
+   * @param info      Description of what this feature is.
    */
   public Feature(String name, String lowLabel, String highLabel, String info) {
     this.name = name;
@@ -31,6 +31,7 @@ public class Feature {
 
   /**
    * Copy constructor.
+   *
    * @param feat Feature object to copy.
    */
   public Feature(Feature feat) {
@@ -46,7 +47,9 @@ public class Feature {
 
   /**
    * Copy constructor with an override score value.
-   * @param feat Feature object to copy.
+   *
+   * @param feat  Feature object to copy.
+   * @param score Value to initialize score.
    */
   public Feature(Feature feat, int score) {
     this.name = feat.name;
@@ -62,6 +65,7 @@ public class Feature {
 
   /**
    * Gets the name of the feature.
+   *
    * @return Returns name.
    */
   public String getName() {
@@ -70,6 +74,7 @@ public class Feature {
 
   /**
    * Gets info about the feature.
+   *
    * @return Returns info.
    */
   public String getInfo() {
@@ -78,25 +83,29 @@ public class Feature {
 
   /**
    * Gets the current score.
+   *
    * @return Returns score.
    */
   public int getScore() {
-    Random  r = new Random();
+    Random r = new Random();
 
     if (name.equals("Parking") || name.equals("Crowd") || name.equals("Water Clarity")) {
-      if ( r.nextInt(2) == 1 ) {
+      if (r.nextInt(2) == 1) {
         if (scoreUp) {
           if (score == 5) {
             scoreUp = false;
             score = score - 1;
-          } else {
+          }
+          else {
             score = score + 1;
           }
-        } else {
+        }
+        else {
           if (score == 3) {
             score = score + 1;
             scoreUp = true;
-          } else {
+          }
+          else {
             score = score - 1;
           }
         }
@@ -108,6 +117,7 @@ public class Feature {
 
   /**
    * Gets the current user score.
+   *
    * @return Returns score.
    */
   public int getUserScore() {
@@ -116,6 +126,7 @@ public class Feature {
 
   /**
    * Gets the current update award for this feature.
+   *
    * @return Returns award.
    */
   public int getAward() {
@@ -124,6 +135,7 @@ public class Feature {
 
   /**
    * Gets the current reliability for this feature.
+   *
    * @return Returns reliability.
    */
   public int getReliability() {
@@ -132,6 +144,7 @@ public class Feature {
 
   /**
    * Returns the label for the "low" end of the scale.
+   *
    * @return Low label.
    */
   public String getLowLabel() {
@@ -140,6 +153,7 @@ public class Feature {
 
   /**
    * Returns the label for the "high" end of the scale.
+   *
    * @return High label.
    */
   public String getHighLabel() {
@@ -148,6 +162,7 @@ public class Feature {
 
   /**
    * Sets the current user score.
+   *
    * @param userScore New score for user.
    */
   public void setUserScore(int userScore) {
@@ -155,14 +170,14 @@ public class Feature {
   }
 
 
-  private String              name;       
-  private String              info;
-  private int                 userScore;
-  private int                 score;
-  private int                 award;
-  private int                 reliability;
-  private boolean             scoreUp; // Just for faking data.
-  private String              lowLabel;
-  private String              highLabel;
+  private String name;
+  private String info;
+  private int userScore;
+  private int score;
+  private int award;
+  private int reliability;
+  private boolean scoreUp; // Just for faking data.
+  private String lowLabel;
+  private String highLabel;
 }
 
