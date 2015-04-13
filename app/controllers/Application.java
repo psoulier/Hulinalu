@@ -1,22 +1,25 @@
 package controllers;
 
-import play.data.Form;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.Routes;
-import play.libs.Json;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import views.html.Index;
-
-import models.LocationDB;
-import models.Location;
 import models.Feature;
+import models.Location;
+import models.LocationDB;
+import play.Routes;
+import play.data.Form;
+import play.libs.Json;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.CurrentLoc;
+import views.html.Index;
+import views.html.LocationPage;
+import views.html.SearchResults;
 
 import java.util.List;
 
-import views.html.*;
-
+/**
+ * Provides controller functionality.
+ */
 public class Application extends Controller {
 
   /**
@@ -33,7 +36,8 @@ public class Application extends Controller {
      */
     if (queryData == null) {
       return ok(Index.render());
-    } else {
+    }
+    else {
       List<Location>  locationList;
 
       /* Get a list of locations matching the search criteria and render a 
@@ -41,7 +45,7 @@ public class Application extends Controller {
        */
       locationList = LocationDB.searchLocations(queryData);
 
-      return ok( SearchResults.render(locationList, queryData) );
+      return ok(SearchResults.render(locationList, queryData));
     }
   }
 
@@ -54,11 +58,11 @@ public class Application extends Controller {
    * is replaced by whatever this method returns.
    *
    * @param lat Client's current latitude.
-   * @param lat Client's current longitude.
+   * @param lng Client's current longitude.
    * @return Rendered Result object.
    */
   public static Result currentLocation(String lat, String lng) {
-    return ok(CurrentLoc.render( Float.valueOf(lat), Float.valueOf(lng) ) );
+    return ok(CurrentLoc.render(Float.valueOf(lat), Float.valueOf(lng)));
   }
 
   /**
@@ -67,9 +71,16 @@ public class Application extends Controller {
    * @return Rendered Result object.
    */
   public static Result locationPage(String locName) {
-    return ok(LocationPage.render( LocationDB.getLocation(locName) ));
+    return ok(LocationPage.render(LocationDB.getLocation(locName)));
   }
 
+  /**
+   * Handles POST request for location page updates.
+   *
+   * This receives data from a client to store updates for a specific feature
+   * in DB and returns current information for the feature.
+   * @return Rendered Result object.
+   */
   public static Result update() {
     JsonNode json = request().body().asJson();
 
@@ -77,7 +88,8 @@ public class Application extends Controller {
     // This should never be null.
     if (json == null) {
       return badRequest("Expecting Json data");
-    } else {
+    }
+    else {
       /* The unique ID of each location is encoded into the location page HTML.
        * The Json data includes this so this code can find the correct location
        * object.
@@ -85,9 +97,10 @@ public class Application extends Controller {
       String  uwId = json.findPath("uw_id").textValue();
 
       // This had better be valid all the time.
-      if(uwId == null) {
+      if (uwId == null) {
         return badRequest("Missing parameter in update POST request.");
-      } else {
+      }
+      else {
         ObjectNode  result = Json.newObject();
         Location    loc;
         Feature     feat;
@@ -132,6 +145,6 @@ public class Application extends Controller {
         // Every route accessible to JavaScript needs to be added here.
         Routes.javascriptRouter("jsRoutes", 
           controllers.routes.javascript.Application.currentLocation(),
-          controllers.routes.javascript.Application.update()) );
+          controllers.routes.javascript.Application.update()));
   }
 }
