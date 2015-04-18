@@ -4,8 +4,8 @@ By looking around on the internet, it's rather easy to find information about be
 Hulinalu is a community-driven web application that utilizes crowdsourcing to maintain a dynamic collection of beaches and surf spots that can be updated with real-time information other users can see. With the widespread use of Internet-connected mobile devices, many people at beach locations are capable of providing real-time, location specific information that can be shared. New beach locations can also be added to the system. When in the proximity of a beach, users with mobile devices can suggest a new location. If a sufficient number of suggestions for a given location occur, a new beach is added to the system. 
 
 To motivate users to share information, an awards system is used. By providing updates and contributing content, users will gain points that can be used to access additional features of the application. Rankings and badges are used to encourage users to provide accurate information. By measuring a user's input against that of other users, a guage of reliability can be derived. A model of reliability can be determined both to provide status for a given user and to apply a weight to a given user's update in the overall ranking of a speficif feature of a beach.
-
-More information can be found in the project Wiki User's Guide, the Developer's Guide, and [GitHub Page](http://psoulier.github.io/Hulinalu/). 
+https://github.com/psoulier/Hulinalu/wiki/Developer's-Guide
+More information can be found in the [project Wiki](https://github.com/psoulier/Hulinalu/wiki) User's Guide, the Developer's Guide, and [GitHub Page](http://psoulier.github.io/Hulinalu/). 
 
 ![](https://raw.github.com/psoulier/Hulinalu/master/doc/images/main.png)
 ![](https://raw.github.com/psoulier/Hulinalu/master/doc/images/location.png)
