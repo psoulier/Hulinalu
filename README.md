@@ -5,7 +5,7 @@ Hulinalu is a community-driven web application that utilizes crowdsourcing to ma
 
 To motivate users to share information, an awards system is used. By providing updates and contributing content, users will gain points that can be used to access additional features of the application. Rankings and badges are used to encourage users to provide accurate information. By measuring a user's input against that of other users, a guage of reliability can be derived. A model of reliability can be determined both to provide status for a given user and to apply a weight to a given user's update in the overall ranking of a speficif feature of a beach.
 
-More information can be found in the User's Guide, the Developer's Guide, and contact information.
+More information can be found in the project Wiki User's Guide, the Developer's Guide, and [GitHub Page](http://psoulier.github.io/Hulinalu/). 
 
 ![](https://raw.github.com/psoulier/Hulinalu/master/doc/images/main.png)
 ![](https://raw.github.com/psoulier/Hulinalu/master/doc/images/location.png)
