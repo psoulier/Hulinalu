@@ -14,6 +14,7 @@ import views.html.CurrentLoc;
 import views.html.Index;
 import views.html.LocationPage;
 import views.html.SearchResults;
+import views.html.HelpIcons;
 
 import java.util.List;
 
@@ -129,6 +130,14 @@ public class Application extends Controller {
         return ok(result);
       }
     }      
+  }
+
+  /**
+   * Renders a help page for the various iconns seen on the website.
+   * @return Rendered result object.
+   */
+  public static Result helpIcons() {
+    return ok(HelpIcons.render());
   }
 
   /**
