@@ -115,12 +115,15 @@ public class LocationDB {
   public static Location getLocationById(String id) {
     Location locResult = null;
 
+    // TODO - all broken
+    /*
     for (Location loc : locations) {
       if (loc.getId().equals(id)) {
         locResult = loc;
         break;
       }
     }
+    */
 
     return locResult;
   }
@@ -152,7 +155,14 @@ public class LocationDB {
    *
    * @param loc Location to add.
    */
-  public static void addLocation(Location loc) {
-    locations.add(loc);
+  public static void addLocation(Location location) {
+    location.save();
+  }
+
+  public static void addLocationByUser(Location location, User user) {
+  }
+
+  public static void addUser(User user) {
+    user.save();
   }
 }

@@ -1,133 +1,102 @@
 package models;
 
+import play.db.ebean.Model;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.CascadeType;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
  * Defines a location.
- * <p>
  * A location contains all the static information necessary to describe a
  * location.
  */
-public class Location {
+@Entity
+public class Location extends Model {
   /**
    * Constant ID for beaches.
    */
   public static final int LOC_BEACH = 1;
 
-  /**
-   * Used to create unique IDs.
-   */
-  public static int nextId = 1;
+  private static final String DEFAULT_SCORE_VALUES = "Poor;Marginal;Average;Good;Excellent";
 
 
-  /**
-   * Subclass that defines a Condition feature (crowd size, full/empty parking, etc.).
-   */
-  public static class Condition extends Feature {
+  @Id
+  private long    id;
+  private float   latitude;
+  private float   longitude;
+  private String  name;
+  private String  description;
+  private int     type;
 
-    /**
-     * Constructs a new condition.
-     *
-     * @param name      Name of condition.
-     * @param lowLabel  Label for low end of scale.
-     * @param highLabel Label for high end of scale.
-     * @param info      Information about the condition.
-     */
-    public Condition(String name, String lowLabel, String highLabel, String info) {
-      super(name, lowLabel, highLabel, info);
-    }
+  @OneToMany(mappedBy="location", cascade=CascadeType.PERSIST)
+  private List<Feature>    features;
 
-    /**
-     * Condition copy consuctor.
-     *
-     * @param cond Object to copy.
-     */
-    public Condition(Condition cond) {
-      super(cond);
-    }
-  }
+  @OneToMany(mappedBy="location", cascade=CascadeType.PERSIST)
+  private List<Tag>        tags;
 
-  /**
-   * Facility object that represents a more static feature (dogs allowed, life guarded, etc.).
-   */
-  public static class Facility extends Feature {
+  @OneToMany(mappedBy="location", cascade=CascadeType.PERSIST)
+  private List<Photo>      photos;
 
-    /**
-     * Constructs new Facility.
-     *
-     * @param name      Name of facility.
-     * @param lowLabel  Label for the low end of scale.
-     * @param highLabel Label for the high end of scale.
-     * @param info      Describes facility.
-     */
-    public Facility(String name, String lowLabel, String highLabel, String info) {
-      super(name, lowLabel, highLabel, info);
-    }
-
-    /**
-     * Copy constructor.
-     *
-     * @param fac Object to copy.
-     */
-    public Facility(Facility fac) {
-      super(fac);
-    }
-
-    /**
-     * Copy constructor with initial yes/no value.
-     *
-     * @param fac Object to copy.
-     * @param yes Initial value for yes/no button.
-     */
-    public Facility(Facility fac, boolean yes) {
-      super(fac, (yes) ? 2 : 1);
-    }
-
-  }
+  @ManyToOne
+  private User              creator;
 
 
   /**
    * Constructor.
-   *
    * @param name        Name of the beach.
    * @param description Description of the beach.
    * @param lat         Geographical latitude of the beach.
    * @param lng         Geographical longitude of the beach.
-   * @param type        Type of location (just support beaches currently).
    */
-  public Location(String name, String description, float lat, float lng, int type) {
-    this.id = name + Integer.toString(nextId);
+  public Location(String name, String description, float lat, float lng) {
     this.name = name;
     this.description = description;
     this.latitude = lat;
     this.longitude = lng;
-    this.type = type;
+    this.type = LOC_BEACH;
 
-    this.facilities = new ArrayList<Facility>();
-    this.conditions = new ArrayList<Condition>();
+    this.features = new ArrayList<Feature>();
+    this.tags = new ArrayList<Tag>();
 
-    // Give each location a unique ID.
-    nextId += 1;
+
+    // Every location has the same facilities, activities, tags, etc. Create
+    // them all here.
+    tags.add(new Tag("Park Lot", "This beach has a parking lot facility."));
+    tags.add(new Tag("Dogs", "Dogs are allowed at this beach."));
+    tags.add(new Tag("Boat Ramp", "A boat ramp is available."));
+    tags.add(new Tag("Life Guard", "The beach is monitored by lifeguards."));
+    tags.add(new Tag("Restrooms", "Public restrooms are present."));
+    tags.add(new Tag("Showers", "Public showers are available."));
+    tags.add(new Tag("Camping", "Camp sites are located at or nearby."));
+
+    features.add(new Feature("Snorkeling", "Potential quality of snorkeling.", "", "", DEFAULT_SCORE_VALUES));
+    features.add(new Feature("Surfing", "Potential quality of surfing.", "", "", DEFAULT_SCORE_VALUES));
+    features.add(new Feature("Fishing", "Fishing quality around this beach.", "", "", DEFAULT_SCORE_VALUES));
+    features.add(new Feature("Sand", "What's the beach is like.", "Rocky", "Fine Sand", "Rocky;Rocks and Sand;Course;Normal;Fine"));
+  }
+
+  public static Finder<Long, Location> find() {
+    return new Finder<Long, Location>(Long.class, Location.class);
   }
 
   /**
-   * Adds a new facility to the location.
+   * Gets current unique ID of location.
    *
-   * @param facility Facility to add.
+   * @return ID.
    */
-  public void addFacility(Facility facility) {
-    facilities.add(facility);
+  public long getId() {
+    return id;
   }
 
-  /**
-   * Adds a new condition to the location.
-   *
-   * @param condition Condition to add.
-   */
-  public void addCondition(Condition condition) {
-    conditions.add(condition);
+  public void setId(long id) {
+    this.id = id;
   }
 
   /**
@@ -139,6 +108,10 @@ public class Location {
     return longitude;
   }
 
+  public void setLongitude(float longitude) {
+    this.longitude = longitude;
+  }
+
   /**
    * Returns latitude of location.
    *
@@ -146,6 +119,10 @@ public class Location {
    */
   public float getLatitude() {
     return latitude;
+  }
+
+  public void setLatitude(float latitude) {
+    this.latitude = latitude;
   }
 
   /**
@@ -157,6 +134,10 @@ public class Location {
     return name;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
   /**
    * Provides description string.
    *
@@ -166,74 +147,50 @@ public class Location {
     return description;
   }
 
-  /**
-   * Gets current unique ID of location.
-   *
-   * @return ID.
-   */
-  public String getId() {
-    return id;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
-  /**
-   * Gets a list of all the conditions for this location.
-   *
-   * @return List of conditions.
-   */
-  public List<Condition> getConditions() {
-    return conditions;
+  public List<Feature> getFeatures() {
+    return features;
   }
 
-  /**
-   * Gets a list of all features for the location.
-   *
-   * @return List of features.
-   */
-  public List<Facility> getFacilities() {
-    return facilities;
+  public void setFeatures(List<Feature> features) {
+    this.features = features;
   }
 
-  /**
-   * Provides overall reliability rating for all conditions at the location.
-   * <p>
-   * Provides a reliability rating [0,6] with 0 being no data available and
-   * 6 being the highest reliability.
-   *
-   * @return Overall reliability.
-   */
-  public Integer getConditionReliability() {
-    return 3;
+  public List<Tag> getTags() {
+    return tags;
   }
 
-  /**
-   * Provides overall reliability rating for all facilities at the location.
-   * <p>
-   * Provides a reliability rating [0,6] with 0 being no data available and
-   * 6 being the highest reliability.
-   *
-   * @return Overall reliability for facilities.
-   */
-  public Integer getFacilityReliability() {
-    return 6;
+  public void setTags(List<Tag> tags) {
+    this.tags = tags;
+  }
+
+  public List<Photo> getPhotos() {
+    return photos;
+  }
+
+  public void setPhotos(List<Photo> photos) {
+    this.photos = photos;
+  }
+
+  public int getType() {
+    return type;
+  }
+
+  public void setType(int type) {
+    this.type = type;
   }
 
   /**
    * Finds a feature based on its name.
-   *
-   * @param name Name of feature to find.
    * @return Feature object.
    */
   public Feature getFeature(String name) {
 
     // Look for the features in the facilities category.
-    for (Feature feat : facilities) {
-      if (feat.getName().equals(name)) {
-        return feat;
-      }
-    }
-
-    // Feature not in facilities, look in conditions...
-    for (Feature feat : conditions) {
+    for (Feature feat : features) {
       if (feat.getName().equals(name)) {
         return feat;
       }
@@ -242,6 +199,7 @@ public class Location {
     return null;
   }
 
+
   /**
    * Returns the total award count available for the current user
    * at the given location.
@@ -249,7 +207,7 @@ public class Location {
    * @return Award count.
    */
   public int getTotalAwards() {
-    return 38;
+    return 0;
   }
 
   /**
@@ -344,14 +302,6 @@ public class Location {
     return (float) Math.sqrt(Math.pow(latitude - lat, 2.0f) + Math.pow(longitude - lng, 2.0f));
   }
 
-  private String id;
-  private float latitude;
-  private float longitude;
-  private String name;
-  private String description;
-  private int type;
-  protected ArrayList<Facility> facilities;
-  protected ArrayList<Condition> conditions;
 
 
 }

@@ -24,6 +24,7 @@ public class Global extends GlobalSettings {
   public void onStart(Application app) {
     Location beach;
 
+    /*
     // Conditions
     Location.Condition parking = new Location.Condition(
         "Parking",
@@ -74,12 +75,6 @@ public class Global extends GlobalSettings {
         "No",
         "Yes",
         "Campgrounds located nearby.");
-  /*
-      "Beach",
-      "Rocky",
-      "Sandy",
-      "Composition of the shore (nice sand or rocks).");
-  */
 
     Location.Facility dogs = new Location.Facility(
         "Dogs Allowed",
@@ -228,5 +223,6 @@ public class Global extends GlobalSettings {
     beach.addFacility(new Location.Facility(camping, false));
     LocationDB.addLocation(beach);
 
+    */
   }
 }

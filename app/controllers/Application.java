@@ -118,13 +118,15 @@ public class Application extends Controller {
         // User may not have set a value, only update if provided.
         userScore = json.findPath("userScore").textValue();
         if (userScore != null) {
-          feat.setUserScore(Integer.parseInt(userScore));
+          //TODO need to fix this logic to actually do something
         }
   
         // Return the current feature data to the client.
-        result.put("score", Integer.toString(feat.getScore()));
-        result.put("userScore", Integer.toString(feat.getUserScore()));
-        result.put("award", Integer.toString(feat.getAward()));
+        //TODO - need to fix all this
+        result.put("score", Integer.toString((int)feat.getScore()));
+        //result.put("userScore", Integer.toString(feat.getUserScore()));
+        result.put("userScore", Integer.toString(0));
+        result.put("award", Integer.toString(0));
         result.put("reliability", Integer.toString(feat.getReliability()));
 
         return ok(result);

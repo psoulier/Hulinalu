@@ -61,7 +61,7 @@
         <h3>At the Beach</h3>
 
         <div>
-          @for(fac <- location.getFacilities()) {
+          @for(fac <- location.getTags()) {
             <div>
               @YesNoWidget(location, fac, fac.getName, "")
             </div>
@@ -74,7 +74,7 @@
         <h3>Current Conditions</h3>
 
         <div>
-          @for(cond <- location.getConditions()) {
+          @for(cond <- location.getFeatures()) {
             <div>
               @ScoreWidget(location, cond, cond.getName, "", cond.getLowLabel(), cond.getHighLabel())
             </div>
