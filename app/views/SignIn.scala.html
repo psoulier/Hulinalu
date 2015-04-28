@@ -1,6 +1,8 @@
 @import helper._
 @import utility._
 
+@(signInForm: Form[Application.SignInForm])
+
 @Main("Sign In - Hulinalu")("index") {
 
 
@@ -15,16 +17,19 @@
   <div class="row">
     <!-- A Center box containing the landing page controls. -->
     <div class="col-sm-4 col-sm-offset-4 signin-box">
-      <div class="row">
-        <div class="signin-icon">
-          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-        </div>
+      <div class="signin-icon">
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+      </div>
 
+      <div class="signin-error">
+        @if(signInForm.hasGlobalErrors) {
+          <p><i class="fa fa-exclamation-triangle"></i> @signInForm.globalError.message</p>
+        }
       </div>
 
       <div class="row">
         <div class="col-sm-12">
-          @form(routes.Application.index()) {
+          @form(routes.Application.authenticate()) {
 
             <div class="input-group">
               <input id="search-input" type="text" name="q" class="form-control signin-text-input" 

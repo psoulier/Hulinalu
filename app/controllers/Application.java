@@ -8,6 +8,7 @@ import models.LocationDB;
 import play.Routes;
 import play.data.Form;
 import play.libs.Json;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.CurrentLoc;
@@ -23,6 +24,16 @@ import java.util.List;
  * Provides controller functionality.
  */
 public class Application extends Controller {
+
+  public static class SignInForm {
+    public String   username;
+    public String   password;
+
+    public String validate() {
+      return "Invalid e-mail or password";
+    }
+  }
+
 
   /**
    * Handles GET requests for the main/index page.
@@ -56,8 +67,21 @@ public class Application extends Controller {
    * @return Rendered Result object.
    */
   public static Result signIn() {
-    return ok(SignIn.render());
+    return ok(SignIn.render(Form.form(SignInForm.class)));
   }
+
+  public static Result authenticate() {
+    Form<SignInForm>  signInForm = Form.form(SignInForm.class).bindFromRequest();
+
+    if (signInForm.hasErrors()) {
+      return badRequest(SignIn.render(signInForm));
+    }
+    else {
+      return null;
+    }
+  }
+
+
 
   /**
    * Renders a portion of the index page depending on where the user is located.
