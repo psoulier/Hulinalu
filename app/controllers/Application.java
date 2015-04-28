@@ -15,6 +15,7 @@ import views.html.Index;
 import views.html.LocationPage;
 import views.html.SearchResults;
 import views.html.HelpIcons;
+import views.html.SignIn;
 
 import java.util.List;
 
@@ -48,6 +49,14 @@ public class Application extends Controller {
 
       return ok(SearchResults.render(locationList, queryData));
     }
+  }
+
+  /**
+   * Provides user sign in.
+   * @return Rendered Result object.
+   */
+  public static Result signIn() {
+    return ok(SignIn.render());
   }
 
   /**
@@ -127,7 +136,7 @@ public class Application extends Controller {
         //result.put("userScore", Integer.toString(feat.getUserScore()));
         result.put("userScore", Integer.toString(0));
         result.put("award", Integer.toString(0));
-        result.put("reliability", Integer.toString(feat.getReliability()));
+        result.put("reliability", Integer.toString(feat.getAccuracy()));
 
         return ok(result);
       }

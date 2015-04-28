@@ -1,5 +1,6 @@
 @import "utility/color_font.less";
 @import "utility/navbar.less";
+@import "utility/widgets.less";
 
 html {
   height: 100%;
@@ -126,3 +127,78 @@ body {
   } 
 }
 
+.signin-main {
+  margin-top: 50px;
+
+  .heading {
+    text-align: center;
+    margin-bottom: 80px;
+  }  
+  
+  .signin-box {
+    border-radius: 5px;
+    padding: 15px;
+    background: fade(@sea-foam-white, 50%);
+
+    p {
+      margin-top: 30px;
+      text-align: center;
+      font-family: "Muli";
+      font-weight: 600;
+      font-size: 110%;
+      color: @deep-blue;
+    }
+  }
+
+
+  h1 {
+    font-family: "Pacifico";
+    font-size: 300%;
+    color: white;
+    border-bottom: solid white 3px;
+    display: table;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  h2 {
+    font-family: "Muli";
+    font-size: 150%;
+    color: @sea-foam-white;
+    text-align: center;
+  }
+}
+
+.signin-icon {
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  color: @sea-foam-white;
+  background-color: transparent;
+  border: solid white 3px;
+  text-align: center;
+  line-height: 100px;
+  font-size: 65px;
+  margin: 15px auto 20px auto;
+  position: relative;
+}
+
+.signin-button {
+  margin: 5px 0 5px 0;
+  width: 100%;
+  color: @deep-blue;
+}
+
+.signin-create-account {
+  margin: 15px;
+  text-align: center;
+  color: @deep-blue;
+
+}
+
+.signin-text-input {
+  margin: 5px 0 5px 0px;
+  background: rgba(256,256,256,0.8);
+  font-family: "Muli";
+  color: @deep-blue;
+}

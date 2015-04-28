@@ -1,0 +1,53 @@
+@import helper._
+@import utility._
+
+@Main("Sign In - Hulinalu")("index") {
+
+
+<div class="container signin-main">
+  <div class="row heading">
+    <div class="col-sm-6 col-sm-offset-3">
+      <h1>Hulinalu</h1>
+      <h2>Sign in to access your account, update existing beach locations and add new ones.</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- A Center box containing the landing page controls. -->
+    <div class="col-sm-4 col-sm-offset-4 signin-box">
+      <div class="row">
+        <div class="signin-icon">
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          @form(routes.Application.index()) {
+
+            <div class="input-group">
+              <input id="search-input" type="text" name="q" class="form-control signin-text-input" 
+                     placeholder="E-mail">
+              <input id="search-input" type="password" name="q" class="form-control signin-text-input" 
+                     placeholder="Password">
+
+              <button id="submit" class="btn btn-default signin-button" type="submit">Sign In</button>
+            </div>
+          }
+
+          <div class="signin-create-account">
+            <a href="#"><i class="fa fa-user-plus"></i> Create account</a>
+          </div>
+          
+        </div>
+      </div>
+
+   
+    </div>
+
+  </div>
+</div>
+
+}
+

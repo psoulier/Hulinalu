@@ -26,6 +26,22 @@
           @Search(queryData)
         </div>
       }
+
+      <div class="btn-group" style="float: right;">
+      @if(session.get("user") != null) {
+        <button type="button" class="btn btn-default dropdown-toggle login-button" data-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-user"></i> Bob <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+          <li class="divider"></li>
+          <li><a href="#"><i class="fa fa-power-off"></i> Sign Out</a></li>
+        </ul>
+      } else {
+        <a class="btn btn-default login-button" href="@routes.Application.signIn()">Sign In</a>
+      }
+      </div>
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

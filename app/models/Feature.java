@@ -9,8 +9,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.CascadeType;
 import javax.persistence.Transient;
 
+import com.avaje.ebean.Expr;
+
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.Math;
 
 
 /**
@@ -18,6 +21,11 @@ import java.util.ArrayList;
  */
 @Entity
 public class Feature extends Model {
+  private static final double VAR_EXCELLENT = 0.5;
+  private static final double VAR_GOOD = 0.7;
+  private static final double VAR_AVERAGE = 1.0;
+  private static final double VAR_MARGINAL = 1.5;
+  private static final double VAR_POOR = 2.0;
 
   // @Column(columnDefinition = "TEXT")
   // make a string the text type which is unlimited in size (supposedly)
@@ -28,25 +36,23 @@ public class Feature extends Model {
   private String  name;
   private String  info;
 
-  @Transient
-  private boolean scoreSet;
-  @Transient
-  private float   score;
 
   /* This is kind of lame, but the other options aren't so great since the JPA Play
    * uses won't perist fixed-sized arrays. Other options:
    * - create a List and persist with a one-to-many. This seems a bit much.
    * - save as a string and parse values out of it. Seems equally lame.
    */
+  private int     score;
   private int     score1;
   private int     score2;
   private int     score3;
   private int     score4;
   private int     score5;
+  private int     accuracy;
 
-  private String lowLabel;
-  private String highLabel;
-  private String scoreValues;
+  private String  lowLabel;
+  private String  highLabel;
+  private String  scoreValues;
 
   @ManyToOne
   private Location  location;
@@ -66,9 +72,19 @@ public class Feature extends Model {
     this.lowLabel = lowLabel;
     this.highLabel = highLabel;
     this.scoreValues = scoreValues;
-    this.scoreSet = false;
   }
 
+  public static Finder<Long, Feature> find() {
+    return new Finder<Long, Feature>(Long.class, Feature.class);
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 
   /**
    * Gets the name of the feature.
@@ -96,21 +112,12 @@ public class Feature extends Model {
     this.info = info;
   }
 
-  /**
-   * Gets the current score.
-   * @return Returns score.
-   */
-  public float getScore() {
-    if (!scoreSet) {
-      calcScore();
-      scoreSet = true;
-    }
-
+  public int getScore() {
     return score;
   }
 
-  private void calcScore() {
-    score = (float)(score1+score2+score3+score4+score5) / 5.0f;
+  public void setScore(int score) {
+    this.score = score;
   }
 
   public int getScore1() {
@@ -181,14 +188,56 @@ public class Feature extends Model {
   }
 
   /**
-   * Gets the current reliability for this feature.
-   * @return Returns reliability.
+   * Gets the current accuracy for this feature.
+   * @return Returns accuracy.
    */
-  public int getReliability() {
-    return 0;
+  public int getAccuracy() {
+    return accuracy;
   }
 
-  public void addScore(int score) {
+  public void setAccuracy(int accuracy) {
+    this.accuracy = accuracy;
+  }
+
+  public void update(User user, int score) {
+    UserUpdate  uu;
+
+    // Need to find a user update from this user, for this feature, and
+    // a FEATURE type.
+    uu = UserUpdate.find().where().and( 
+        Expr.eq("user.id", user.getId()), Expr.and(
+          Expr.eq("parentId", id), Expr.eq("type", UserUpdate.FEATURE)
+          )
+        ).findUnique();
+
+    if (uu != null) {
+      // Remove the user's previous update from the tabulation.
+      switch (uu.getScore()) {
+        case 1:
+          score1 -= 1;
+          break ;
+        case 2:
+          score2 -= 1;
+          break ;
+        case 3:
+          score3 -= 1;
+          break ;
+        case 4:
+          score4 -= 1;
+          break ;
+        case 5:
+          score5 -= 1;
+          break ;
+        default:
+          throw new RuntimeException("Invaid old score");
+      }
+    }
+    else {
+      uu = new UserUpdate(user, UserUpdate.FEATURE, id, score);
+      user.addUpdate(uu);
+    }
+
+    // Add the new update from the user to the tabulation.
     switch (score) {
       case 1:
         score1 += 1;
@@ -212,48 +261,35 @@ public class Feature extends Model {
     calcScore();
   }
   
-  public void amendScore(int oldScore, int newScore) {
-    switch (oldScore) {
-      case 1:
-        score1 -= 1;
-        break ;
-      case 2:
-        score2 -= 1;
-        break ;
-      case 3:
-        score3 -= 1;
-        break ;
-      case 4:
-        score4 -= 1;
-        break ;
-      case 5:
-        score5 -= 1;
-        break ;
-      default:
-        throw new RuntimeException("Invaid old score");
-    }
+  private void calcScore() {
+    double  total;
 
-    switch (newScore) {
-      case 1:
-        score1 += 1;
-        break ;
-      case 2:
-        score2 += 1;
-        break ;
-      case 3:
-        score3 += 1;
-        break ;
-      case 4:
-        score4 += 1;
-        break ;
-      case 5:
-        score5 += 1;
-        break ;
-      default:
-        throw new RuntimeException("Invaid new score");
-    }
+    total = (float)(score1 + score2 + score3 + score4 + score5);
 
-    calcScore();
+    if (total == 0) {
+      score = 0;
+      accuracy = 0;
+    }
+    else {
+      double  sd,
+              mean;
+
+      mean = (double)(score1 + 2*score2 + 3*score3 + 4*score4 + 5*score5)/total;
+      score = (int)Math.round(mean);
+      sd = Math.pow(score1*(1.0-mean), 2.0);
+      sd += Math.pow(score2*(2.0-mean), 2.0);
+      sd += Math.pow(score3*(3.0-mean), 2.0);
+      sd += Math.pow(score4*(4.0-mean), 2.0);
+      sd += Math.pow(score5*(5.0-mean), 2.0);
+
+      if (sd < VAR_EXCELLENT) accuracy = 6;
+      else if (sd < VAR_GOOD) accuracy = 5;
+      else if (sd < VAR_AVERAGE) accuracy = 4;
+      else if (sd < VAR_MARGINAL) accuracy = 3;
+      else if (sd < VAR_POOR) accuracy = 2;
+      else accuracy = 1;
+    }
   }
+
 }
 

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.CascadeType;
+import javax.persistence.Transient;
 
 
 
@@ -20,9 +21,11 @@ public class Photo extends Model {
 
   @ManyToOne
   private Location  location;
+
   
-  @ManyToOne
-  private User      owner;
+  public Photo(String photoId) {
+    this.photoId = photoId;
+  }
 
   public long getId() {
     return id;
@@ -65,10 +68,9 @@ public class Photo extends Model {
   }
 
   public User getOwner() {
-    return owner;
+    return null;
   }
 
   public void setOwner(User owner) {
-    this.owner = owner;
   }
 }

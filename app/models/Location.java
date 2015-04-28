@@ -55,7 +55,8 @@ public class Location extends Model {
    * @param lat         Geographical latitude of the beach.
    * @param lng         Geographical longitude of the beach.
    */
-  public Location(String name, String description, float lat, float lng) {
+  public Location(User creator, String name, String description, float lat, float lng) {
+    this.creator = creator;
     this.name = name;
     this.description = description;
     this.latitude = lat;
@@ -173,6 +174,14 @@ public class Location extends Model {
 
   public void setPhotos(List<Photo> photos) {
     this.photos = photos;
+  }
+
+  public User getCreator() {
+    return creator;
+  }
+
+  public void setCreator(User creator) {
+    this.creator = creator;
   }
 
   public int getType() {

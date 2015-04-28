@@ -159,9 +159,6 @@ public class LocationDB {
     location.save();
   }
 
-  public static void addLocationByUser(Location location, User user) {
-  }
-
   public static void addUser(User user) {
     user.save();
   }

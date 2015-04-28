@@ -23,12 +23,14 @@ public class User extends Model {
   @OneToMany(mappedBy="user", cascade=CascadeType.PERSIST)
   private List<UserUpdate>      updates;
 
+  /*
   @OneToMany(mappedBy="owner", cascade=CascadeType.PERSIST)
   private List<Photo>           photos;
+  */
 
-  //@OneToMany(cascade=CascadeType.PERSIST)
   @OneToMany(mappedBy="creator")
   private List<Location>        locations;
+
 
   public User(String email, String mobile, String password) {
     this.email = email;
@@ -39,30 +41,6 @@ public class User extends Model {
   public static Finder<Long, User> find() {
     return new Finder<Long, User>(Long.class, User.class);
   }  
-
-
-  public void updateFeature(Feature feature, int score) {
-    UserUpdate    userUpdate = null;
-
-    // Determine if user has aleady updated this feature.
-    if (userUpdate != null) {
-      feature.amendScore(userUpdate.getScore(), score);
-    }
-    else {
-      feature.addScore(score);
-    }
-
-    userUpdate.setScore(score);
-
-    //TODO: these need to be in a transaction.
-    feature.save();
-    userUpdate.save();
-  }
-
-  public void updateTag(Tag tag) {
-  }
-
-
 
 
   public long getId() {
@@ -103,6 +81,18 @@ public class User extends Model {
 
   public void setUpdates(List<UserUpdate> Updates) {
     this.updates = updates;
+  }
+
+  public List<Location> getLocations() {
+    return locations;
+  }
+
+  public void setLocations(List<Location> locations) {
+    this.locations = locations;
+  }
+
+  public void addUpdate(UserUpdate update) {
+    update.save();
   }
 
 }
