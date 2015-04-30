@@ -12,15 +12,19 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
-public class User extends Model {
+public class Account extends Model {
 
   @Id
   private long    id;
+  private String  firstName;
+  private String  lastName;
   private String  email;
   private String  mobile;
   private String  password;
+  private String  roles;
 
-  @OneToMany(mappedBy="user", cascade=CascadeType.PERSIST)
+
+  @OneToMany(mappedBy="account", cascade=CascadeType.PERSIST)
   private List<UserUpdate>      updates;
 
   /*
@@ -28,18 +32,20 @@ public class User extends Model {
   private List<Photo>           photos;
   */
 
-  @OneToMany(mappedBy="creator")
+  @OneToMany(mappedBy="creator", cascade=CascadeType.PERSIST)
   private List<Location>        locations;
 
 
-  public User(String email, String mobile, String password) {
+  public Account(String firstName, String lastName, String email, String mobile, String password) {
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.email = email;
     this.mobile = mobile;
     this.password = password;
   }
 
-  public static Finder<Long, User> find() {
-    return new Finder<Long, User>(Long.class, User.class);
+  public static Finder<Long, Account> find() {
+    return new Finder<Long, Account>(Long.class, Account.class);
   }  
 
 
@@ -49,6 +55,22 @@ public class User extends Model {
 
   public void setId(long id) {
     this.id = id;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   public String getEmail() {

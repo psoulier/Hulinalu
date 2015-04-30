@@ -199,13 +199,13 @@ public class Feature extends Model {
     this.accuracy = accuracy;
   }
 
-  public void update(User user, int score) {
+  public void update(Account account, int score) {
     UserUpdate  uu;
 
     // Need to find a user update from this user, for this feature, and
     // a FEATURE type.
     uu = UserUpdate.find().where().and( 
-        Expr.eq("user.id", user.getId()), Expr.and(
+        Expr.eq("account.id", account.getId()), Expr.and(
           Expr.eq("parentId", id), Expr.eq("type", UserUpdate.FEATURE)
           )
         ).findUnique();
@@ -233,8 +233,8 @@ public class Feature extends Model {
       }
     }
     else {
-      uu = new UserUpdate(user, UserUpdate.FEATURE, id, score);
-      user.addUpdate(uu);
+      uu = new UserUpdate(account, UserUpdate.FEATURE, id, score);
+      account.addUpdate(uu);
     }
 
     // Add the new update from the user to the tabulation.

@@ -25,12 +25,12 @@ public class UserUpdate extends Model {
   private int     weight;
 
   @ManyToOne
-  User            user;
+  Account         account;
 
 
-  UserUpdate(User user, int type, long parentId, int score) {
+  UserUpdate(Account account, int type, long parentId, int score) {
     this.parentId = parentId;
-    this.user = user;
+    this.account = account;
     this.type = type;
     this.score = score;
     this.weight = 1;
@@ -72,12 +72,12 @@ public class UserUpdate extends Model {
     this.score = score;
   }
 
-  public User getUser() {
-    return user;
+  public Account getAccount() {
+    return account;
   }
 
-  public void setUser(User user) {
-    this.user = user;
+  public void setAccount(Account account) {
+    this.account = account;
   }
 
   public int getWeight() {

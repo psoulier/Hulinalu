@@ -14,7 +14,7 @@ import com.avaje.ebean.Expr;
 
 import models.LocationDB;
 import models.Location;
-import models.User;
+import models.Account;
 import models.UserUpdate;
 import models.Tag;
 import models.Feature;
@@ -23,26 +23,25 @@ import java.util.List;
 
 public class ModelTests {
 
-
   private void dbSetup() {
     Location  beach;
-    User      user1,
+    Account   user1,
               user2,
               user3;
 
     // Make sure entities are empty (should be, but check anyway).
-    assertThat(User.find().all().size()).isEqualTo(0);
+    assertThat(Account.find().all().size()).isEqualTo(0);
     assertThat(Location.find().all().size()).isEqualTo(0);
 
-    user1 = new User("hulinalu@hulinalu.com", "", "1234");
-    LocationDB.addUser(user1);
-    user2 = new User("joe.blow@nowhere.net", "", "1234");
-    LocationDB.addUser(user2);
-    user3 = new User("bazooka.joe@nowhere.net", "", "1234");
-    LocationDB.addUser(user3);
+    user1 = new Account("Paul", "Shoe", "hulinalu@hulinalu.com", "", "1234");
+    LocationDB.addAccount(user1);
+    user2 = new Account("Joe", "Blow", "joe.blow@nowhere.net", "", "1234");
+    LocationDB.addAccount(user2);
+    user3 = new Account("Bazooka", "Joe", "bazooka.joe@nowhere.net", "", "1234");
+    LocationDB.addAccount(user3);
 
 
-    assertThat(User.find().all().size()).isEqualTo(3);
+    assertThat(Account.find().all().size()).isEqualTo(3);
 
 
 
@@ -106,7 +105,7 @@ public class ModelTests {
         dbSetup();
 
         // Should be able to find a single user in the system based on email.
-        List<User> users = User.find().where().eq("email", "hulinalu@hulinalu.com").findList();
+        List<Account> users = Account.find().where().eq("email", "hulinalu@hulinalu.com").findList();
         assertThat(users.size()).isEqualTo(1);
 
         // This user created 3 locations. Make sure we can find those three beaches.
@@ -130,15 +129,15 @@ public class ModelTests {
         // Pick a random tag.
         Tag tag = tags.get(2);
         
-        User  user;
-        user = User.find().where().eq("email", "hulinalu@hulinalu.com").findUnique();
+        Account user;
+        user = Account.find().where().eq("email", "hulinalu@hulinalu.com").findUnique();
         assertThat(user).isNotEqualTo(null);
 
         // There shouldn't be any user updates at this point.
         assertThat(UserUpdate.find().all().size()).isEqualTo(0);
         
         UserUpdate  uu;
-        uu = UserUpdate.find().where().and( Expr.eq("user.id", user.getId()), Expr.and(Expr.eq("type", UserUpdate.TAG), Expr.eq("parentId", tag.getId()) ) ).findUnique();
+        uu = UserUpdate.find().where().and( Expr.eq("account.id", user.getId()), Expr.and(Expr.eq("type", UserUpdate.TAG), Expr.eq("parentId", tag.getId()) ) ).findUnique();
         assertThat(uu).isEqualTo(null);
 
         tag.update(user, tag.YES);
@@ -153,7 +152,7 @@ public class ModelTests {
         assertThat(tag.getYes()).isEqualTo(0);
         assertThat(tag.getNo()).isEqualTo(1);
 
-        uu = UserUpdate.find().where().and( Expr.eq("user.id", user.getId()), Expr.and(Expr.eq("type", UserUpdate.TAG), Expr.eq("parentId", tag.getId()) ) ).findUnique();
+        uu = UserUpdate.find().where().and( Expr.eq("account.id", user.getId()), Expr.and(Expr.eq("type", UserUpdate.TAG), Expr.eq("parentId", tag.getId()) ) ).findUnique();
         assertThat(uu).isNotEqualTo(null);
 
         assertThat(UserUpdate.find().all().size()).isEqualTo(1);
@@ -183,10 +182,10 @@ public class ModelTests {
         // Pick a random tag.
         Tag tag = tags.get(2);
         
-        User  user1,
-              user2;
-        user1 = User.find().where().eq("email", "hulinalu@hulinalu.com").findUnique();
-        user2 = User.find().where().eq("email", "bazooka.joe@nowhere.net").findUnique();
+        Account user1,
+                user2;
+        user1 = Account.find().where().eq("email", "hulinalu@hulinalu.com").findUnique();
+        user2 = Account.find().where().eq("email", "bazooka.joe@nowhere.net").findUnique();
         assertThat(user1).isNotEqualTo(null);
         assertThat(user2).isNotEqualTo(null);
 
@@ -207,9 +206,9 @@ public class ModelTests {
         assertThat(tag.getNo()).isEqualTo(1);
 
 
-        UserUpdate uu = UserUpdate.find().where().and( Expr.eq("user.id", user1.getId()), Expr.and(Expr.eq("type", UserUpdate.TAG), Expr.eq("parentId", tag.getId()) ) ).findUnique();
+        UserUpdate uu = UserUpdate.find().where().and( Expr.eq("account.id", user1.getId()), Expr.and(Expr.eq("type", UserUpdate.TAG), Expr.eq("parentId", tag.getId()) ) ).findUnique();
         assertThat(uu).isNotEqualTo(null);
-        uu = UserUpdate.find().where().and( Expr.eq("user.id", user2.getId()), Expr.and(Expr.eq("type", UserUpdate.TAG), Expr.eq("parentId", tag.getId()) ) ).findUnique();
+        uu = UserUpdate.find().where().and( Expr.eq("account.id", user2.getId()), Expr.and(Expr.eq("type", UserUpdate.TAG), Expr.eq("parentId", tag.getId()) ) ).findUnique();
         assertThat(uu).isNotEqualTo(null);
         assertThat(UserUpdate.find().all().size()).isEqualTo(2);
       }
@@ -231,10 +230,10 @@ public class ModelTests {
         // Pick a random feature.
         Feature feature = features.get(2);
         
-        User  user1,
-              user2;
-        user1 = User.find().where().eq("email", "hulinalu@hulinalu.com").findUnique();
-        user2 = User.find().where().eq("email", "bazooka.joe@nowhere.net").findUnique();
+        Account user1,
+                user2;
+        user1 = Account.find().where().eq("email", "hulinalu@hulinalu.com").findUnique();
+        user2 = Account.find().where().eq("email", "bazooka.joe@nowhere.net").findUnique();
         assertThat(user1).isNotEqualTo(null);
         assertThat(user2).isNotEqualTo(null);
 
@@ -253,12 +252,12 @@ public class ModelTests {
         assertThat(feature.getScore()).isEqualTo(3);
 
         // After the updates, there should be a UserUpdate for each of the two users.
-        UserUpdate uu = UserUpdate.find().where().and( Expr.eq("user.id", user1.getId()), 
+        UserUpdate uu = UserUpdate.find().where().and( Expr.eq("account.id", user1.getId()), 
             Expr.and(Expr.eq("type", UserUpdate.FEATURE), Expr.eq("parentId", feature.getId()) ) 
             ).findUnique();
         assertThat(uu).isNotEqualTo(null);
 
-        uu = UserUpdate.find().where().and( Expr.eq("user.id", user2.getId()), 
+        uu = UserUpdate.find().where().and( Expr.eq("account.id", user2.getId()), 
             Expr.and(Expr.eq("type", UserUpdate.FEATURE), Expr.eq("parentId", feature.getId()) ) 
             ).findUnique();
         assertThat(uu).isNotEqualTo(null);

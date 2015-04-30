@@ -1,0 +1,123 @@
+@import "utility/color_font.less";
+@import "utility/navbar.less";
+@import "utility/widgets.less";
+
+html {
+  height: 100%;
+}
+
+/* Setup full-screen background image for index page. */
+body {
+  height: 100%;
+  background-color: @sea-foam-white;
+  overflow: auto;
+}
+
+/* Custom settings for index page nav bar. The background is invisible to show
+ * more of the picture.
+ */
+.navbar-customize {
+  background-color: transparent;
+
+  .collapse {
+    display: none;
+  }
+}
+
+/* Styles for the rest of the page.
+ */
+.new-account-main {
+  margin-top: 20px;
+ 
+  /* The styles for the Hulinalu text. */
+  .heading {
+    text-align: center;
+    margin-bottom: 20px;
+
+    h1 {
+      font-family: "Pacifico";
+      font-size: 300%;
+      color: @deep-blue;
+      border-bottom: solid @deep-blue 3px;
+      display: table;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    h2 {
+      font-family: "Muli";
+      color: @deep-blue;
+      font-size: 300%;
+    }
+  }
+
+}
+
+.na-label {
+  font-family: "Muli";
+  color: @deep-blue;
+}
+
+.na-text-input {
+  border: solid @deep-blue 1px;
+  border-radius: 3px;
+  padding: 4px 8px;
+  margin-bottom: 2px;
+}
+
+.na-first-name {
+  float: left;
+  margin-right: 5px;
+}
+
+.na-last-name {
+  float: left;
+  margin-left: 5px;
+}
+
+.na-other {
+  width: 100%;
+}
+
+.na-has-error {
+  border: solid @gold 1px;
+}
+
+.na-error-message {
+  font-family: "Muli";
+  color: @deep-blue;
+  i {
+    color: @gold;
+  }
+}
+
+.na-form-box {
+  margin: 0 0 1.5em;
+  position: relative;
+}
+
+/* Footer settings. Again, it's transparent to show background image.
+ */
+.footer {
+  color: @deep-blue;
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background: transparent;
+  padding-right: 5%;
+
+  em {
+    font-size: 150%;
+    font-family: "Pacifico";
+  }
+
+  p {
+    font-size: 100%;
+    font-family: "Muli";
+  }
+}
+
+
+

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Feature;
 import models.Location;
 import models.LocationDB;
+import models.Account;
 import play.Routes;
 import play.data.Form;
 import play.libs.Json;
@@ -17,6 +18,7 @@ import views.html.LocationPage;
 import views.html.SearchResults;
 import views.html.HelpIcons;
 import views.html.SignIn;
+import views.html.NewAccount;
 
 import java.util.List;
 
@@ -32,6 +34,33 @@ public class Application extends Controller {
     public String validate() {
       return "Invalid e-mail or password";
     }
+  }
+
+  public static class NewAccountForm {
+    public String   firstName;
+    public String   lastName;
+    public String   email;
+    public String   password;
+    public String   confirmPassword;
+
+    public String validate() {
+      return null;
+    }
+  }
+
+  /**
+   * Gets the Account object for the currently signed in user.
+   * @return Account object of current user or null if no user signed in.
+   */
+  public static Account getCurrentAccount() {
+    String  userid = session("userid");
+    Account account = null;
+
+    if (userid != null) {
+      account = Account.find().byId(Long.parseLong(session("userid")));
+    }
+
+    return account;
   }
 
 
@@ -62,6 +91,31 @@ public class Application extends Controller {
     }
   }
 
+  public static Result newAccount() {
+    return ok(NewAccount.render(Form.form(NewAccountForm.class)));
+  }
+
+  /**
+   * Handles POST request for a new account creation and validates form.
+   * @return Rendered result page.
+   */
+  public static Result createAccount() {
+    Form<NewAccountForm>  newAccountForm = Form.form(NewAccountForm.class).bindFromRequest();
+    Account               newAccount;
+
+    newAccount = new Account(newAccountForm.get().firstName,
+                             newAccountForm.get().lastName,
+                             newAccountForm.get().email,
+                             "",
+                             newAccountForm.get().password);
+
+    LocationDB.addAccount(newAccount);
+
+    session().clear();
+    session("userid", newAccount.getEmail());
+    return redirect(routes.Application.index());
+  }
+
   /**
    * Provides user sign in.
    * @return Rendered Result object.
@@ -72,12 +126,22 @@ public class Application extends Controller {
 
   public static Result authenticate() {
     Form<SignInForm>  signInForm = Form.form(SignInForm.class).bindFromRequest();
+    Account           account;
 
-    if (signInForm.hasErrors()) {
+    account = Account.find().where().eq("email", signInForm.get().username).findUnique();
+    if (account == null) {
+      account = Account.find().where().eq("mobile", signInForm.get().username).findUnique();
+    }
+
+    if (account == null || account.getPassword().equals(signInForm.get().password) == false) {
+      signInForm.get().password = "";
       return badRequest(SignIn.render(signInForm));
     }
     else {
-      return null;
+      session().clear();
+      session("userid", Long.toString(account.getId()));
+
+      return redirect(routes.Application.index());
     }
   }
 

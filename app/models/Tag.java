@@ -134,14 +134,14 @@ public class Tag extends Model{
 
   /**
    * Updates a tag with a yes/no score from a specific user.
-   * @param user User updating the tag.
+   * @param account User updating the tag.
    * @param score Score to update tag with.
    */
-  public void update(User user, int score) {
+  public void update(Account account, int score) {
     UserUpdate  uu;
 
     // Find user updates where user matches and parentId of uu matches this tag.
-    uu = UserUpdate.find().where().and( Expr.eq("user.id", user.getId()), 
+    uu = UserUpdate.find().where().and( Expr.eq("account.id", account.getId()), 
         Expr.and(Expr.eq("parentId", id), Expr.eq("type", UserUpdate.TAG)) 
         ).findUnique();
 
@@ -156,8 +156,8 @@ public class Tag extends Model{
       uu.setScore(score);
     }
     else {
-      uu = new UserUpdate(user, UserUpdate.TAG, id, score);
-      user.addUpdate(uu);
+      uu = new UserUpdate(account, UserUpdate.TAG, id, score);
+      account.addUpdate(uu);
     }
 
     if (score == Tag.YES) {
@@ -169,7 +169,7 @@ public class Tag extends Model{
 
     calcReliability();
     save();
-    user.save();
+    account.save();
   }
 
   /**

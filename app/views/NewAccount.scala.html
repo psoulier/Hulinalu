@@ -1,0 +1,111 @@
+@import helper._
+@import utility._
+
+@(newAccountForm: Form[Application.NewAccountForm])
+
+@TextInput(field: Field, inputClass: String, label: String, typeName: String, placeholder: String) = {
+<div>
+      <input  id="@field.id" 
+              type="@typeName" 
+              name="@field.name" 
+              value="@field.value.getOrElse("")" 
+              class="na-text-input @inputClass @if(field.hasErrors) {na-has-error}",
+              placeholder="@placeholder">
+            </div>
+}
+
+@Main("New Account - Hulinalu")("new_account") {
+
+@NavBar(false, "")
+
+<div class="container new-account-main">
+  <div class="row heading">
+    <div class="col-sm-8 col-sm-offset-2">
+    </div>
+  </div>
+
+
+
+  <div class="row heading">
+    <div class="col-sm-6 col-sm-offset-3">
+      <h1>Hulinalu</h1>
+      <h2>New Account</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- A Center box containing the landing page controls. -->
+    <div class="col-sm-8 col-sm-offset-2">
+      <div class="signin-icon">
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="signin-error">
+      @if(newAccountForm.hasGlobalErrors) {
+        <p><i class="fa fa-exclamation-triangle"></i> @newAccountForm.globalError.message</p>
+      }
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-6">
+      @form(routes.Application.createAccount(), 'id -> "new-account" ) {
+
+        <div class="na-form-box">
+          <label class="na-label" for="name">Name</label>
+          <fieldset>
+            @TextInput(newAccountForm("firstName"), "na-first-name", "First Name", "text", "First")
+            @TextInput(newAccountForm("lastName"), "na-last-name", "Last Name", "text", "Last")
+          </fieldset>
+          <span role="alert" class="na-error-message" id="error-name" style="display: none;"><i class="fa fa-exclamation-triangle"></i> You need a first and last name.</span>
+        </div>
+
+        <div class="na-form-box">
+          <label class="na-label" for="email">E-Mail Address</label>
+          @TextInput(newAccountForm("email"), "na-other", "E-mail Address", "email", "")
+          <span role="alert" class="na-error-message" id="error-email" style="display: none;"><i class="fa fa-exclamation-triangle">
+            </i> You need a valid e-mail address.
+          </span>
+        </div>
+
+
+        <div class="na-form-box">
+          <label class="na-label" for="password">Password</label>
+          @TextInput(newAccountForm("password"), "na-other", "Password", "password", "")
+        </div>
+
+        <div class="na-form-box">
+          <label class="na-label" for="confirm">Confirm Password</label>
+          @TextInput(newAccountForm("confirmPassword"), "na-other", "Confirm Password", "password", "")
+          <span role="alert" class="na-error-message" id="error-password-missing" style="display: none;">
+            <i class="fa fa-exclamation-triangle"></i> You need a password.
+          </span>
+          <span role="alert" class="na-error-message" id="error-confirm-missing" style="display: none;">
+            <i class="fa fa-exclamation-triangle"></i> You need to confirm your password.
+          </span>
+          <span role="alert" class="na-error-message" id="error-password-mismatch" style="display: none;">
+            <i class="fa fa-exclamation-triangle"></i> Your passwords don't match. Try again.
+          </span>
+        </div>
+
+        <button id="submit" class="btn btn-default create-account-button" type="submit" value="submit">Create Account</button>
+      }
+
+      
+    </div>
+  </div>
+
+   
+    </div>
+
+  </div>
+</div>
+
+  <script src="@routes.Assets.at("javascripts/new_account.js")"></script>
+}
+
+

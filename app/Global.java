@@ -1,4 +1,3 @@
-import models.Beach;
 import models.Location;
 import models.LocationDB;
 import play.Application;

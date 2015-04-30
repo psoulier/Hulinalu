@@ -159,7 +159,7 @@ public class LocationDB {
     location.save();
   }
 
-  public static void addUser(User user) {
-    user.save();
+  public static void addAccount(Account account) {
+    account.save();
   }
 }

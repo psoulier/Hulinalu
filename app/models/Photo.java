@@ -67,10 +67,10 @@ public class Photo extends Model {
     this.location = location;
   }
 
-  public User getOwner() {
+  public Account getOwner() {
     return null;
   }
 
-  public void setOwner(User owner) {
+  public void setOwner(Account owner) {
   }
 }

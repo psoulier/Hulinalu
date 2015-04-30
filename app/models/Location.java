@@ -45,7 +45,7 @@ public class Location extends Model {
   private List<Photo>      photos;
 
   @ManyToOne
-  private User              creator;
+  private Account           creator;
 
 
   /**
@@ -55,7 +55,7 @@ public class Location extends Model {
    * @param lat         Geographical latitude of the beach.
    * @param lng         Geographical longitude of the beach.
    */
-  public Location(User creator, String name, String description, float lat, float lng) {
+  public Location(Account creator, String name, String description, float lat, float lng) {
     this.creator = creator;
     this.name = name;
     this.description = description;
@@ -176,11 +176,11 @@ public class Location extends Model {
     this.photos = photos;
   }
 
-  public User getCreator() {
+  public Account getCreator() {
     return creator;
   }
 
-  public void setCreator(User creator) {
+  public void setCreator(Account creator) {
     this.creator = creator;
   }
 
