@@ -46,7 +46,22 @@ public class Account extends Model {
 
   public static Finder<Long, Account> find() {
     return new Finder<Long, Account>(Long.class, Account.class);
-  }  
+  }
+
+  public static Account authenticate(String username, String password) {
+    Account           account;
+
+    account = Account.find().where().eq("email", username).findUnique();
+    if (account == null) {
+      account = Account.find().where().eq("mobile", username).findUnique();
+    }
+
+    if (account != null && account.getPassword().equals(password) == false) {
+      account = null;
+    }
+
+    return account;
+  }
 
 
   public long getId() {

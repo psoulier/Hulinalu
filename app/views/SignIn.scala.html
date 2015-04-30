@@ -32,9 +32,16 @@
           @form(routes.Application.authenticate()) {
 
             <div class="input-group">
-              <input id="search-input" type="text" name="q" class="form-control signin-text-input" 
+              <input id="@signInForm("username").id"
+                     type="text" 
+                     name="@signInForm("username").name" 
+                     class="form-control signin-text-input" 
                      placeholder="E-mail">
-              <input id="search-input" type="password" name="q" class="form-control signin-text-input" 
+
+              <input id="@signInForm("password").id" 
+                     type="password" 
+                     name="@signInForm("password").name"
+                     class="form-control signin-text-input" 
                      placeholder="Password">
 
               <button id="submit" class="btn btn-default signin-button" type="submit">Sign In</button>

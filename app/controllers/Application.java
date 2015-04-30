@@ -32,7 +32,18 @@ public class Application extends Controller {
     public String   password;
 
     public String validate() {
-      return "Invalid e-mail or password";
+      String  authenticated;
+
+      System.out.format("SIGN IN: %s:%s%n", username, password);
+      
+      if (Account.authenticate(username, password) != null) {
+        authenticated = null;
+      }
+      else {
+        authenticated = "Invalid user name or password";
+      }
+
+      return authenticated;
     }
   }
 
@@ -57,6 +68,7 @@ public class Application extends Controller {
     Account account = null;
 
     if (userid != null) {
+      System.out.format("--> USERID=%s%n", userid);
       account = Account.find().byId(Long.parseLong(session("userid")));
     }
 
@@ -112,7 +124,7 @@ public class Application extends Controller {
     LocationDB.addAccount(newAccount);
 
     session().clear();
-    session("userid", newAccount.getEmail());
+    session("userid", Long.toString(newAccount.getId()));
     return redirect(routes.Application.index());
   }
 
@@ -124,25 +136,30 @@ public class Application extends Controller {
     return ok(SignIn.render(Form.form(SignInForm.class)));
   }
 
+  public static Result signOut() {
+    session().clear();
+
+    return redirect( routes.Application.index());
+  }
+
   public static Result authenticate() {
     Form<SignInForm>  signInForm = Form.form(SignInForm.class).bindFromRequest();
-    Account           account;
+    Result            result;
 
-    account = Account.find().where().eq("email", signInForm.get().username).findUnique();
-    if (account == null) {
-      account = Account.find().where().eq("mobile", signInForm.get().username).findUnique();
-    }
-
-    if (account == null || account.getPassword().equals(signInForm.get().password) == false) {
-      signInForm.get().password = "";
-      return badRequest(SignIn.render(signInForm));
+    if (signInForm.hasErrors()) {
+      result = badRequest(SignIn.render(signInForm));
     }
     else {
+      Account account;
+
+      account = Account.authenticate(signInForm.get().username, signInForm.get().password);
       session().clear();
       session("userid", Long.toString(account.getId()));
 
-      return redirect(routes.Application.index());
+      result = redirect(routes.Application.index());
     }
+
+    return result;
   }
 
 
