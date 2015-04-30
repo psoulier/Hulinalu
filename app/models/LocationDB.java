@@ -135,19 +135,7 @@ public class LocationDB {
    * @return A list of locations match query.
    */
   public static List<Location> searchLocations(String searchQuery) {
-    ArrayList<Location> results = new ArrayList<Location>();
-
-    // Build up a list of all locations matching the query.
-    for (Location loc : locations) {
-      String name = new String(loc.getName().toLowerCase());
-
-      searchQuery = searchQuery.toLowerCase();
-      if (name.indexOf(searchQuery) >= 0) {
-        results.add(loc);
-      }
-    }
-
-    return results;
+    return Location.find().where().ilike("name", "%" + searchQuery + "%").findList();
   }
 
   /**

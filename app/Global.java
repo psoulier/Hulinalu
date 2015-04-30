@@ -1,5 +1,6 @@
 import models.Location;
 import models.LocationDB;
+import models.Account;
 import play.Application;
 import play.GlobalSettings;
 
@@ -21,7 +22,34 @@ public class Global extends GlobalSettings {
    * @param app The application object.
    */
   public void onStart(Application app) {
-    Location beach;
+    Location  beach;
+    Account   user;
+
+    user = Account.find().where().eq("email", "joebob@jb.com").findUnique();
+
+    beach = Location.find().where().eq("name", "Waimea Bay Beach Park").findUnique();
+    if (beach == null) {
+      beach = new Location(
+        user,
+        "Waimea Bay Beach Park",
+        "Located on the North shore of Oahu, Waimea bay is known for big wave"
+          +"surfing in the winter and calm water in the summer.",
+        21.643160f, 
+        -158.066383f);
+      LocationDB.addLocation(beach);
+    }
+
+    beach = Location.find().where().eq("name", "Waikiki Beach").findUnique();
+    if (beach == null) {
+      beach = new Location(
+        user,
+        "Waikiki Beach", 
+        "Popular beach on the sourth shore of Oahu", 
+        21.276492f, 
+        -157.827809f);
+      LocationDB.addLocation(beach);
+    }
+    
 
     /*
     // Conditions
