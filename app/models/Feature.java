@@ -11,6 +11,8 @@ import javax.persistence.Transient;
 
 import com.avaje.ebean.Expr;
 
+import controllers.Application;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.Math;
@@ -20,7 +22,7 @@ import java.lang.Math;
  * Defines a feature of a location.
  */
 @Entity
-public class Feature extends Model {
+public class Feature extends Model implements UpdateInterface {
   private static final double VAR_EXCELLENT = 0.5;
   private static final double VAR_GOOD = 0.7;
   private static final double VAR_AVERAGE = 1.0;
@@ -112,6 +114,10 @@ public class Feature extends Model {
     this.info = info;
   }
 
+  public int getValue() {
+    return score;
+  }
+
   public int getScore() {
     return score;
   }
@@ -199,6 +205,28 @@ public class Feature extends Model {
     this.accuracy = accuracy;
   }
 
+  public int getUserValue() {
+    Account     account = Application.getCurrentAccount();
+    UserUpdate  uu;
+    int         score = 0;
+
+    if (account != null) {
+      // Need to find a user update from this user, for this feature, and
+      // a FEATURE type.
+      uu = UserUpdate.find().where().and( 
+          Expr.eq("account.id", account.getId()), Expr.and(
+            Expr.eq("parentId", id), Expr.eq("type", UserUpdate.FEATURE)
+            )
+          ).findUnique();
+      
+      if (uu != null) {
+        score = uu.getScore();
+      }
+    }
+
+    return score;
+  }
+
   public void update(Account account, int score) {
     UserUpdate  uu;
 
@@ -259,6 +287,10 @@ public class Feature extends Model {
     }
 
     calcScore();
+
+    save();
+    account.save();
+    uu.save();
   }
   
   private void calcScore() {

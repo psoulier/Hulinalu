@@ -5,13 +5,13 @@
 
 @featureTags(loc: Location) = {
   <p>
-  <i class="fa fa-car @if(!loc.hasParking){does-not-have-feature}"></i> 
-  <i class="fa fa-female @if(!loc.hasRestrooms){does-not-have-feature}"></i><i class="fa fa-male @if(!loc.hasRestrooms){does-not-have-feature}"></i> 
-  <i class="fa fa-life-ring @if(!loc.hasLifeguard){does-not-have-feature}"></i> 
-  <i class="fa fa-paw @if(!loc.allowsDogs){does-not-have-feature}"></i> 
-  <i class="fa fa-ship @if(!loc.hasBoatRamp){does-not-have-feature}"></i> 
-  <i class="fa fa-subway @if(!loc.hasPublicTrans){does-not-have-feature}"></i> 
-  <i class="fa fa-fire @if(!loc.allowsCamping){does-not-have-feature}"></i> 
+  <i class="fa fa-car @if(!loc.hasTag(Tag.PARKING)){does-not-have-feature}"></i> 
+  <i class="fa fa-female @if(!loc.hasTag(Tag.RESTROOMS)){does-not-have-feature}"></i><i class="fa fa-male @if(!loc.hasTag(Tag.RESTROOMS)){does-not-have-feature}"></i> 
+  <i class="fa fa-life-ring @if(!loc.hasTag(Tag.LIFEGUARD)){does-not-have-feature}"></i> 
+  <i class="fa fa-paw @if(!loc.hasTag(Tag.DOGS)){does-not-have-feature}"></i> 
+  <i class="fa fa-ship @if(!loc.hasTag(Tag.BOATRAMP)){does-not-have-feature}"></i> 
+  <i class="fa fa-subway @if(!loc.hasTag(Tag.PUBLICTRANS)){does-not-have-feature}"></i> 
+  <i class="fa fa-fire @if(!loc.hasTag(Tag.CAMPING)){does-not-have-feature}"></i> 
 
   </p>
 }
@@ -38,7 +38,7 @@
               <div class="list-group-item search-result">
                 <div class="row">
                   <div class="col-sm-8">
-                    <h1><a href="@routes.Application.locationPage(loc.getName)">@loc.getName</a></h1>
+                    <h1><a href="@routes.Application.locationPage(loc.getId)">@loc.getName</a></h1>
 
                     <p>@loc.getDescription</p>
                     <div class="result-details">

@@ -6,7 +6,7 @@
       <p>@title @if(titleIcon != ""){<i class="@titleIcon"></i>}</p>
     </div>
 
-    <div class="uw-selector" id="@loc.getId()_@feat.getName()">
+    <div class="uw-selector" id="tag-@feat.getId()">
       <div class="ynw-select uw-sel-1">
         <div class="sw-user-score"><div class="sw-score"></div></div>
       </div>
@@ -18,7 +18,7 @@
 
     <div class="sw-badges">
       <div class="sw-reliability">
-        @StarWidget(feat.getReliability())
+        @StarWidget(feat.getAccuracy())
       </div>
 
       <div class="sw-award">

@@ -58,7 +58,7 @@ create table tag (
   info                      varchar(255),
   yes                       integer,
   no                        integer,
-  reliability               integer,
+  accuracy                  integer,
   location_id               bigint,
   constraint pk_tag primary key (id))
 ;

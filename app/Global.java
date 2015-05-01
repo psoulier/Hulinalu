@@ -49,7 +49,6 @@ public class Global extends GlobalSettings {
         -157.827809f);
       LocationDB.addLocation(beach);
     }
-    
 
     /*
     // Conditions

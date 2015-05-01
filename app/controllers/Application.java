@@ -3,9 +3,11 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Feature;
+import models.Tag;
 import models.Location;
 import models.LocationDB;
 import models.Account;
+import models.UpdateInterface;
 import play.Routes;
 import play.data.Form;
 import play.libs.Json;
@@ -68,7 +70,6 @@ public class Application extends Controller {
     Account account = null;
 
     if (userid != null) {
-      System.out.format("--> USERID=%s%n", userid);
       account = Account.find().byId(Long.parseLong(session("userid")));
     }
 
@@ -185,8 +186,8 @@ public class Application extends Controller {
    * @param locName Name of the location to be found.
    * @return Rendered Result object.
    */
-  public static Result locationPage(String locName) {
-    return ok(LocationPage.render(LocationDB.getLocation(locName)));
+  public static Result locationPage(long locId) {
+    return ok(LocationPage.render(Location.find().byId(locId)));
   }
 
   /**
@@ -205,6 +206,8 @@ public class Application extends Controller {
       return badRequest("Expecting Json data");
     }
     else {
+      Account account = getCurrentAccount();
+
       /* The unique ID of each location is encoded into the location page HTML.
        * The Json data includes this so this code can find the correct location
        * object.
@@ -216,32 +219,38 @@ public class Application extends Controller {
         return badRequest("Missing parameter in update POST request.");
       }
       else {
-        ObjectNode  result = Json.newObject();
-        Location    loc;
-        Feature     feat;
-        String      userScore;
-        String[]    ids;
+        ObjectNode      result = Json.newObject();
+        UpdateInterface update;
+        int             userScore;
+        String[]        typeId;
 
         /* Decode the ID field. Both the location ID and the feature name are
          * included in this data. The IDs are of the form: <location-id>_<feature-name>
          */
-        ids = uwId.split("_");
-        loc = LocationDB.getLocationById(ids[0]);
-        feat = loc.getFeature(ids[1]);
+        typeId = uwId.split("-");
+
+        if (typeId[0].equals("tag")) {
+          update = Tag.find().byId( Long.parseLong(typeId[1]) );
+        }
+        else if (typeId[0].equals("feature")) {
+          update = Feature.find().byId( Long.parseLong(typeId[1]) );
+        }
+        else {
+          throw new RuntimeException("Unknown type tag.");
+        }
+
+        userScore = Integer.parseInt(json.findPath("userScore").textValue());
 
         // User may not have set a value, only update if provided.
-        userScore = json.findPath("userScore").textValue();
-        if (userScore != null) {
-          //TODO need to fix this logic to actually do something
+        if (userScore != 0 && account != null) {
+          update.update(account, userScore);
         }
   
         // Return the current feature data to the client.
-        //TODO - need to fix all this
-        result.put("score", Integer.toString((int)feat.getScore()));
-        //result.put("userScore", Integer.toString(feat.getUserScore()));
-        result.put("userScore", Integer.toString(0));
+        result.put("score", Integer.toString(update.getValue()));
+        result.put("userScore", Integer.toString(update.getUserValue()));
         result.put("award", Integer.toString(0));
-        result.put("reliability", Integer.toString(feat.getAccuracy()));
+        result.put("accuracy", Integer.toString(update.getAccuracy()));
 
         return ok(result);
       }

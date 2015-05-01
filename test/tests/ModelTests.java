@@ -152,6 +152,11 @@ public class ModelTests {
         assertThat(tag.getYes()).isEqualTo(0);
         assertThat(tag.getNo()).isEqualTo(1);
 
+        // Toggle the tag back and forth to make sure the changes follow.
+        tag.update(user, tag.YES);
+        assertThat(tag.getYes()).isEqualTo(1);
+        assertThat(tag.getNo()).isEqualTo(0);
+
         uu = UserUpdate.find().where().and( Expr.eq("account.id", user.getId()), Expr.and(Expr.eq("type", UserUpdate.TAG), Expr.eq("parentId", tag.getId()) ) ).findUnique();
         assertThat(uu).isNotEqualTo(null);
 

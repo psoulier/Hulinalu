@@ -7,7 +7,7 @@ GET     /                           controllers.Application.index()
 GET	/signIn			    controllers.Application.signIn()
 GET	/signOut		    controllers.Application.signOut()
 GET	/newAccount		    controllers.Application.newAccount()
-GET	/locationPage		    controllers.Application.locationPage(locQuery: String)
+GET	/locationPage		    controllers.Application.locationPage(locId: Long)
 GET	/currentLocation	    controllers.Application.currentLocation(lat: String, lng: String)
 GET	/helpIcons		    controllers.Application.helpIcons()
 

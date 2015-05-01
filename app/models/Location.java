@@ -48,6 +48,7 @@ public class Location extends Model {
   private Account           creator;
 
 
+  
   /**
    * Constructor.
    * @param name        Name of the beach.
@@ -69,13 +70,14 @@ public class Location extends Model {
 
     // Every location has the same facilities, activities, tags, etc. Create
     // them all here.
-    tags.add(new Tag("Park Lot", "This beach has a parking lot facility."));
-    tags.add(new Tag("Dogs", "Dogs are allowed at this beach."));
-    tags.add(new Tag("Boat Ramp", "A boat ramp is available."));
-    tags.add(new Tag("Life Guard", "The beach is monitored by lifeguards."));
-    tags.add(new Tag("Restrooms", "Public restrooms are present."));
-    tags.add(new Tag("Showers", "Public showers are available."));
-    tags.add(new Tag("Camping", "Camp sites are located at or nearby."));
+    tags.add(new Tag(Tag.PARKING, "This beach has a parking lot facility."));
+    tags.add(new Tag(Tag.DOGS, "Dogs are allowed at this beach."));
+    tags.add(new Tag(Tag.BOATRAMP, "A boat ramp is available."));
+    tags.add(new Tag(Tag.LIFEGUARD, "The beach is monitored by lifeguards."));
+    tags.add(new Tag(Tag.RESTROOMS, "Public restrooms are present."));
+    tags.add(new Tag(Tag.SHOWERS, "Public showers are available."));
+    tags.add(new Tag(Tag.CAMPING, "Camp sites are located at or nearby."));
+    tags.add(new Tag(Tag.PUBLICTRANS, "Public transportation available within walking distance."));
 
     features.add(new Feature("Snorkeling", "Potential quality of snorkeling.", "", "", DEFAULT_SCORE_VALUES));
     features.add(new Feature("Surfing", "Potential quality of surfing.", "", "", DEFAULT_SCORE_VALUES));
@@ -219,60 +221,17 @@ public class Location extends Model {
     return 0;
   }
 
-  /**
-   * Determine if feature is there.
-   * @return Returns true if it is, false if not.
-   */
-  public boolean hasParking() {
-    return getFeature("Parking Facilities").getScore() == 2;
-  }
 
-  /**
-   * Determine if feature is there.
-   * @return Returns true if it is, false if not.
-   */
-  public boolean hasRestrooms() {
-    return getFeature("Restrooms").getScore() == 2;
-  }
+  public boolean hasTag(String tagName) {
+    System.out.format("#tags in location=%d LOOKING FOR %s%n", tags.size(), tagName);
+    for (Tag tag : tags) {
+      System.out.format("THIS TAG=%s%n", tag.getName());
+      if (tag.getName().equals(tagName)) {
+        return tag.getValue() == Tag.YES;
+      }
+    }
 
-  /**
-   * Determine if feature is there.
-   * @return Returns true if it is, false if not.
-   */
-  public boolean hasLifeguard() {
-    return getFeature("Lifeguard").getScore() == 2;
-  }
-
-  /**
-   * Determine if feature is there.
-   * @return Returns true if it is, false if not.
-   */
-  public boolean allowsDogs() {
-    return getFeature("Dogs Allowed").getScore() == 2;
-  }
-
-  /**
-   * Determine if feature is there.
-   * @return Returns true if it is, false if not.
-   */
-  public boolean hasBoatRamp() {
-    return getFeature("Boat Ramp").getScore() == 2;
-  }
-
-  /**
-   * Determine if feature is there.
-   * @return Returns true if it is, false if not.
-   */
-  public boolean hasDining() {
-    return false;
-  }
-
-  /**
-   * Determine if feature is there.
-   * @return Returns true if it is, false if not.
-   */
-  public boolean hasPublicTrans() {
-    return false;
+    throw new RuntimeException("Requested tag does not exist.");
   }
 
   /**

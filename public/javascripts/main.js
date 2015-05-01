@@ -256,6 +256,7 @@ function pollForUpdates() {
     var widget = $(this).find('.uw-selector');
     var outData = {
       uw_id     : $(widget).attr('id'),
+      userScore : "0"
     };
 
     txrxScore($(widget), outData, set_score);
@@ -275,6 +276,7 @@ $(document).ready( function() {
     var widget = $(this).find('.uw-selector');
     var outData = {
       uw_id     : $(widget).attr('id'),
+      userScore : "0"
     };
 
     txrxScore($(widget), outData, set_score);
@@ -287,14 +289,13 @@ $(document).ready( function() {
     var widget = $(this).find('.uw-selector');
     var outData = {
       uw_id     : $(widget).attr('id'),
+      userScore : "0"
     };
 
     txrxScore($(widget), outData, ynw_set_score);
   });
 
   setTimeout(pollForUpdates, 5000);
-
-
 });
 
 // For google maps API.

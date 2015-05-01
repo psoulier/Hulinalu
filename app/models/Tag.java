@@ -10,6 +10,8 @@ import javax.persistence.CascadeType;
 
 import com.avaje.ebean.Expr;
 
+import controllers.Application;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -18,11 +20,21 @@ import java.util.ArrayList;
  * Defines a feature of a location.
  */
 @Entity
-public class Tag extends Model{
+public class Tag extends Model implements UpdateInterface {
 
-  public final static int UNKNOWN = -1;
-  public final static int NO = 0;
-  public final static int YES = 1;
+  public final static String PARKING = "Parking";
+  public final static String RESTROOMS = "Restrooms";
+  public final static String LIFEGUARD = "Lifeguard";
+  public final static String DOGS = "Dogs Allowed";
+  public final static String BOATRAMP = "Boat Ramp";
+  public final static String PUBLICTRANS = "Public Transportation";
+  public final static String CAMPING = "Camping";
+  public final static String SHOWERS = "Showers";
+
+
+  public final static int UNKNOWN = 0;
+  public final static int NO = 1;
+  public final static int YES = 2;
 
   // @Column(columnDefinition = "TEXT")
   // make a string the text type which is unlimited in size (supposedly)
@@ -34,7 +46,7 @@ public class Tag extends Model{
   private String  info;
   private int     yes;
   private int     no;
-  private int     reliability;
+  private int     accuracy;
 
   @ManyToOne
   Location        location;
@@ -50,7 +62,7 @@ public class Tag extends Model{
     this.info = info;
     this.yes = 0;
     this.no = 0;
-    this.reliability = 0;
+    this.accuracy = 0;
   }
 
   public static Finder<Long, Tag> find() {
@@ -120,17 +132,40 @@ public class Tag extends Model{
   }
 
   /**
-   * Gets the current reliability for this feature.
+   * Gets the current accuracy for this feature.
    *
-   * @return Returns reliability.
+   * @return Returns accuracy.
    */
-  public int getReliability() {
-    return reliability;
+  public int getAccuracy() {
+    return accuracy;
   }
 
-  public void setReliability(int reliability) {
-    this.reliability = reliability;
+  public void setAccuracy(int accuracy) {
+    this.accuracy = accuracy;
   }
+
+  public int getUserValue() {
+    Account     account = Application.getCurrentAccount();
+    UserUpdate  uu;
+    int         score = 0;
+
+    if (account != null) {
+      // Need to find a user update from this user, for this feature, and
+      // a FEATURE type.
+      uu = UserUpdate.find().where().and( 
+          Expr.eq("account.id", account.getId()), Expr.and(
+            Expr.eq("parentId", id), Expr.eq("type", UserUpdate.TAG)
+            )
+          ).findUnique();
+      
+      if (uu != null) {
+        score = uu.getScore();
+      }
+    }
+
+    return score;
+  }
+  
 
   /**
    * Updates a tag with a yes/no score from a specific user.
@@ -169,17 +204,34 @@ public class Tag extends Model{
 
     calcReliability();
     save();
+    uu.save();
     account.save();
   }
 
+  public int getValue() {
+    int st;
+
+    if (yes > no) {
+      st = YES;
+    }
+    else if (no > yes) {
+      st = NO;
+    }
+    else {
+      st = UNKNOWN;
+    }
+
+    return st;
+  }
+
   /**
-   * Calculates the reliability of the tag.
+   * Calculates the accuracy of the tag.
    */
   private void calcReliability() {
     float percent;
 
     if (yes + no == 0 || yes == no) {
-      reliability = 0;
+      accuracy = 0;
     } 
     else {
       float n = (float)yes;
@@ -189,12 +241,12 @@ public class Tag extends Model{
       }
 
       percent = n/(float)(yes + no);
-      if (percent < 0.60f) reliability = 1;
-      else if (percent < 0.70f) reliability = 2;
-      else if (percent < 0.80f) reliability = 3;
-      else if (percent < 0.90f) reliability = 4;
-      else if (percent < 0.95f) reliability = 5;
-      else reliability = 6;
+      if (percent < 0.60f) accuracy = 1;
+      else if (percent < 0.70f) accuracy = 2;
+      else if (percent < 0.80f) accuracy = 3;
+      else if (percent < 0.90f) accuracy = 4;
+      else if (percent < 0.95f) accuracy = 5;
+      else accuracy = 6;
     }
   }
 
