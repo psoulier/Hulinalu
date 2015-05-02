@@ -3,9 +3,9 @@
 
 @Main(location.getName() + "Hulinalu")("location") {
 
-@NavBar(true, "")
+  @NavBar(true, "")
 
-  <div class="container location-container">
+  <div id="location-page" class="container location-container @if(Application.getCurrentAccount() == null) {updates-disabled}">
 
     <div class="row">
       <div class="col-sm-12 location-title">
@@ -58,5 +58,6 @@
     </div>
   </div>
 
+  <script src="@routes.Assets.at("javascripts/location.js")"></script>
 }
   

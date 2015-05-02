@@ -223,9 +223,7 @@ public class Location extends Model {
 
 
   public boolean hasTag(String tagName) {
-    System.out.format("#tags in location=%d LOOKING FOR %s%n", tags.size(), tagName);
     for (Tag tag : tags) {
-      System.out.format("THIS TAG=%s%n", tag.getName());
       if (tag.getName().equals(tagName)) {
         return tag.getValue() == Tag.YES;
       }

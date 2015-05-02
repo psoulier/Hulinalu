@@ -3,48 +3,50 @@
 
 @Main("Hulinalu")("index") {
 
-@NavBar(false, "")
-<!--
-<nav class="navbar navbar-inner">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand brand-img" href="#">
-        <img alt="Brand" src="@routes.Assets.at("images/hulinalu-logo-32x32.png")">
-      </a>
+  @NavBar(false, "")
+  <!--
+  <nav class="navbar navbar-inner">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand brand-img" href="#">
+          <img alt="Brand" src="@routes.Assets.at("images/hulinalu-logo-32x32.png")">
+        </a>
+      </div>
     </div>
-  </div>
-</nav>
--->
+  </nav>
+  -->
 
-<div class="container index-main">
-  <div class="row heading">
-    <div class=col-sm-12">
-      <h1>Hulinalu </h1>
+  <div class="container index-main">
+    <div class="row heading">
+      <div class=col-sm-12">
+        <h1>Hulinalu </h1>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <!-- A Center box containing the landing page controls. -->
-    <div class="col-sm-6 col-sm-offset-3 search-box">
-      <div class="row">
-        <div class="col-sm-12">
-          @Search("")
+    <div class="row">
+      <!-- A Center box containing the landing page controls. -->
+      <div class="col-sm-6 col-sm-offset-3 search-box">
+        <div class="row">
+          <div class="col-sm-12">
+            @Search("")
+          </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-10 col-sm-offset-1" id="update-loc">
+            <p>Finding your location...</p>
+            <div class="spinner spinner-pulse"></div>
+          </div>
+        </div>
+      
       </div>
 
-      <div class="row">
-        <div class="col-sm-10 col-sm-offset-1" id="update-loc">
-          <p>Finding your location...</p>
-          <div class="spinner spinner-pulse"></div>
-        </div>
-      </div>
-    
     </div>
-
   </div>
-</div>
 
-<div class="footer">
-  <p>For more information, see this project's <a href="http://psoulier.github.io/Hulinalu/">GitHub Page</a></p>
-</div>
+  <div class="footer">
+    <p>For more information, see this project's <a href="http://psoulier.github.io/Hulinalu/">GitHub Page</a></p>
+  </div>
+
+  <script src="@routes.Assets.at("javascripts/index.js")"></script>
 }

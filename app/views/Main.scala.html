@@ -21,8 +21,9 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/" + cssFile + ".css")">
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 
+    <script src="http://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkCrh_PUV2mffuZ3FSXQxvpipxY6tm234">
+      src="https://maps.googleapis.com/maps/api/js?key=@play.Play.application().configuration().getString("application.googlemapskey")">
     </script>
 
     <script type="text/javascript" src="@routes.Application.javascriptRoutes()"></script>
@@ -39,9 +40,7 @@
 
     <!-- Load Bootstrap JavaScript components. -->
     <!-- This stuff is at the end of the file to ensure DOM is loaded. -->
-    <script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="@routes.Assets.at("javascripts/main.js")"></script>
   </body>
 </html>
 

@@ -1,4 +1,3 @@
-var map;
 
 /**
  * Code to execute on page load.
@@ -10,60 +9,6 @@ function initialize() {
    */
   $('#search-input').focus();
 
-  var mapOptions = {
-    zoom: 15,
-    maxZoom: 21
-  };
-
-  /* This was code to place a map of clients current location. Saving, because I want
-   * to use later.
-   */
-  var locMap = document.getElementById('location-map-canvas');
-
-  if (locMap) {
-    var lat = locMap.getAttribute('lat');
-    var lng = locMap.getAttribute('lng');
-    var pos = new google.maps.LatLng(lat, lng);
-    var mapOptions = {
-      zoom: 15,
-      maxZoom: 21
-    };
-    
-
-    map = new google.maps.Map(locMap, mapOptions);
-    var marker = new google.maps.Marker({map : map, position: pos});
-    map.setCenter(pos);
-
-  }
-
-  /* This code effectively determines if the client has just landed on the main
-   * index page. 
-   */
-  var indexPage = document.getElementById('update-loc');
-  if (indexPage) {
-
-    // Determine where the client is geographically located.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-
-        // Make an Ajax GET request to tell server where the client is.
-        jsRoutes.controllers.Application.currentLocation(position.coords.latitude, position.coords.longitude).ajax({
-          success: function(data) {
-            $("#update-loc").html(data);
-          },
-          error: function() {
-            alert("An error occurred trying to find your location. Sorry :(");
-          }
-        })
-
-
-      }, function() {
-        alert("An error occurred trying to send your location to Hulinalu. Sorry :(");
-      });
-    }
-  }
-
-  //$('.carousel').carousel('pause');
 }
 
 /**
@@ -184,10 +129,22 @@ $('.uw-select').bind('click', function() {
   txrxScore($(uw), $(outData), set_score);
 });
 
-/**
- * Handles a 'click' event for the yes/no toggle widget.
- */
-$('.ynw-select').bind('click', function() {
+
+function pollForUpdates() {
+    $('.score-widget').each( function() {
+    var widget = $(this).find('.uw-selector');
+    var outData = {
+      uw_id     : $(widget).attr('id'),
+      userScore : "0"
+    };
+
+    txrxScore($(widget), outData, set_score);
+  });
+
+  setTimeout(pollForUpdates, 5000);
+}
+
+function onClick() {
   // Each of the five buttons has a 'uw-sel-x' class (where x = [1,5]). We
   // figure out a numerical value for which button was clicked by getting 
   // the 'x' part of uw-sel-x.
@@ -204,71 +161,36 @@ $('.ynw-select').bind('click', function() {
 
   // Update the widget display.
   txrxScore($(uw), $(outData), ynw_set_score);
-});
-
-
-/**
- * Handles hover events for the score buttons.
- *
- * This provides a basic scoring appearance where the lower buttons are
- * highlighted and the upper are turned off (thing of the little star
- * scoring widgets on a lot of web sites).
- */
-$('.uw-select').hover(
-    // Handles the mouseover
-    function() {
-      $(this).parent().find('.sw-score').addClass('sw-hidden');
-      $(this).parent().find('.sw-user-score').removeClass('sw-user-score-selected');
-      $(this).prevAll().andSelf().children().addClass('uw-select-over');
-      $(this).nextAll().children().removeClass('uw-select-over'); 
-    },
-    // Handles the mouseout
-    function() {
-      $(this).parent().find('.sw-score').removeClass('sw-hidden');
-      $(this).prevAll().andSelf().children().removeClass('uw-select-over');
-      set_score($(this).parent());
-      }
-);
-
-/**
- * Handles hover events for the yes/no widget.
- *
- * Just highlights the current selection and unhighlights the other.
- */
-$('.ynw-select').hover(
-    // Handles the mouseover
-    function() {
-      $(this).parent().find('.sw-score').addClass('sw-hidden');
-      $(this).parent().find('.sw-user-score').removeClass('sw-user-score-selected');
-
-      $(this).children().addClass('uw-select-over');
-    },
-    // Handles the mouseout
-    function() {
-      $(this).parent().find('.sw-score').removeClass('sw-hidden');
-      $(this).children().removeClass('uw-select-over');
-      ynw_set_score($(this).parent());
-      }
-);
-
-function pollForUpdates() {
-    $('.score-widget').each( function() {
-    var widget = $(this).find('.uw-selector');
-    var outData = {
-      uw_id     : $(widget).attr('id'),
-      userScore : "0"
-    };
-
-    txrxScore($(widget), outData, set_score);
-  });
-
-  setTimeout(pollForUpdates, 5000);
 }
+
 
 /**
  * JQuery init function that is called when the document is ready.
  */
 $(document).ready( function() {
+
+  /* This was code to place a map of clients current location. Saving, because I want
+   * to use later.
+   */
+  var locMap = document.getElementById('location-map-canvas');
+
+  if (locMap) {
+    var lat = locMap.getAttribute('lat');
+    var lng = locMap.getAttribute('lng');
+    var pos = new google.maps.LatLng(lat, lng);
+    var mapOptions = {
+      zoom: 15,
+      maxZoom: 21
+    };
+    
+
+    map = new google.maps.Map(locMap, mapOptions);
+    var marker = new google.maps.Marker({map : map, position: pos});
+    map.setCenter(pos);
+
+  }
+
+
   /* Update all the score widgets. This generates a bunch of POST requests
    * on page load.
    */
@@ -295,8 +217,59 @@ $(document).ready( function() {
     txrxScore($(widget), outData, ynw_set_score);
   });
 
+  // Only bind events if updates haven't been disabled (usually because no user
+  // is signed in).
+  if ( $("#location-page").length > 0 && $("#location-page").hasClass("updates-disabled") == false ) {
+
+    $('.ynw-select').bind('click', onClick);
+
+    /**
+     * Handles hover events for the score buttons.
+     *
+     * This provides a basic scoring appearance where the lower buttons are
+     * highlighted and the upper are turned off (thing of the little star
+     * scoring widgets on a lot of web sites).
+     */
+    $('.uw-select').hover(
+      // Handles the mouseover
+      function() {
+        $(this).parent().find('.sw-score').addClass('sw-hidden');
+        $(this).parent().find('.sw-user-score').removeClass('sw-user-score-selected');
+        $(this).prevAll().andSelf().children().addClass('uw-select-over');
+        $(this).nextAll().children().removeClass('uw-select-over'); 
+      },
+      // Handles the mouseout
+      function() {
+        $(this).parent().find('.sw-score').removeClass('sw-hidden');
+        $(this).prevAll().andSelf().children().removeClass('uw-select-over');
+        set_score($(this).parent());
+        }
+    );
+
+    /**
+     * Handles hover events for the yes/no widget.
+     *
+     * Just highlights the current selection and unhighlights the other.
+     */
+    $('.ynw-select').hover(
+      // Handles the mouseover
+      function() {
+        $(this).parent().find('.sw-score').addClass('sw-hidden');
+        $(this).parent().find('.sw-user-score').removeClass('sw-user-score-selected');
+
+        $(this).children().addClass('uw-select-over');
+      },
+      // Handles the mouseout
+      function() {
+        $(this).parent().find('.sw-score').removeClass('sw-hidden');
+        $(this).children().removeClass('uw-select-over');
+        ynw_set_score($(this).parent());
+        }
+    );
+  }
+  
   setTimeout(pollForUpdates, 5000);
 });
 
-// For google maps API.
+
 google.maps.event.addDomListener(window, 'load', initialize);

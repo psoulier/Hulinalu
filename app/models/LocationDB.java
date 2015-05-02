@@ -43,8 +43,11 @@ public class LocationDB {
    * @return Returns location to specified coordinates.
    */
   public static Location getClosestLocation(float lat, float lng) {
-    Location closestLoc = null;
-    float closestDist = FAR_AWAY;   // No such distance on Earth (literally).
+    List<Location>  locations;
+    Location        closestLoc = null;
+    float           closestDist = FAR_AWAY;   // No such distance on Earth (literally).
+
+    locations = Location.find().all();
 
     // Check the given coordinates agains all locations.
     for (Location loc : locations) {
