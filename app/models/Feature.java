@@ -259,6 +259,8 @@ public class Feature extends Model implements UpdateInterface {
         default:
           throw new RuntimeException("Invaid old score");
       }
+
+      uu.setScore(score);
     }
     else {
       uu = new UserUpdate(account, UserUpdate.FEATURE, id, score);

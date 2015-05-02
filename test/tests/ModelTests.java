@@ -221,6 +221,64 @@ public class ModelTests {
   }
 
   /**
+   * Tests Feature updates from single user.
+   */
+  @Test
+  public void testFeatureUpdate() {
+    running(fakeApplication(inMemoryDatabase()), new Runnable() {
+      public void run() {
+        dbSetup();
+
+        List<Feature> features = Feature.find().all();
+        assertThat(features.size()).isGreaterThan(0);
+
+        // Pick a random feature.
+        Feature feature = features.get(2);
+        Account user1;
+
+        user1 = Account.find().where().eq("email", "hulinalu@hulinalu.com").findUnique();
+        assertThat(user1).isNotEqualTo(null);
+
+        // There shouldn't be any user updates at this point.
+        assertThat(UserUpdate.find().all().size()).isEqualTo(0);
+        
+
+        feature.update(user1, 1);
+
+        // A user is only allowed to vote a single time. Make sure "yes" is
+        // equal to 1 after multiple updates.
+        assertThat(feature.getScore()).isEqualTo(1);
+
+
+        // After the updates, there should be a UserUpdate for each of the two users.
+        UserUpdate uu = UserUpdate.find().where().and( Expr.eq("account.id", user1.getId()), 
+            Expr.and(Expr.eq("type", UserUpdate.FEATURE), Expr.eq("parentId", feature.getId()) ) 
+            ).findUnique();
+
+        assertThat(uu).isNotEqualTo(null);
+        assertThat(uu.getScore()).isEqualTo(1);
+
+
+        feature.update(user1, 3);
+
+        // Not sure why the user update needs to re-fetched from the database here. Can only
+        // image that saving the object somehow invalidates the old object.
+        uu = UserUpdate.find().where().and( Expr.eq("account.id", user1.getId()), 
+            Expr.and(Expr.eq("type", UserUpdate.FEATURE), Expr.eq("parentId", feature.getId()) ) 
+            ).findUnique();
+
+        assertThat(feature.getScore()).isEqualTo(3);
+        assertThat(uu.getScore()).isEqualTo(3);
+
+        // Since only two distinct users did updates, there should only be 2 
+        // UserUpdate enities in the DB.
+        assertThat(UserUpdate.find().all().size()).isEqualTo(1);
+      }
+    });
+  } 
+
+
+  /**
    * Tests Feature updates from multiple users.
    */
   @Test
