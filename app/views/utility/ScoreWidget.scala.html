@@ -1,12 +1,57 @@
 @(loc: Location, feat: Feature, title: String, titleIcon: String, lowText: String, highText: String)
 
-<div class="score-widget">
-  <div class="uw-main">
-    <div class="sw-title">
+<div class="score-widget" id="feature-@feat.getId()">
+  <div class="score-title">
       <p>@title @if(titleIcon != ""){<i class="@titleIcon"></i>}</p>
+  </div>
+
+  <div class="score-display">
+    <div class="score-circle"><p>3</p></div>
+    <div class="score-value"></div>
+  </div>
+
+  <div class="score-graph">
+    <div class="score-bar-graph">
+      <div class="bar bar-1">
+        <div class="bar-top"></div>
+        <div class="bar-bottom"></div>
+      </div>
+      
+      <div class="bar bar-2">
+        <div class="bar-top"></div>
+        <div class="bar-bottom"></div>
+      </div>
+      
+      <div class="bar bar-3">
+        <div class="bar-top"></div>
+        <div class="bar-bottom"></div>
+      </div>
+      
+      <div class="bar bar-4">
+        <div class="bar-top"></div>
+        <div class="bar-bottom"></div>
+      </div>
+      
+      <div class="bar bar-5">
+        <div class="bar-top"></div>
+        <div class="bar-bottom"></div>
+      </div>
     </div>
 
-    <div class="uw-selector" id="feature-@feat.getId()">
+    <!--
+    <div class="score-accuracy">
+      <div class="value"></div>
+      <div class="space"></div>
+    </div>
+    -->
+  </div>
+
+  <div class="uw-main">
+    <div class="user-selection">
+      Your Score
+    </div>
+
+    <div class="uw-selector">
       <div class="uw-select uw-sel-1"><div class="sw-user-score"><div class="sw-score"></div></div></div>
       <div class="uw-select uw-sel-2"><div class="sw-user-score"><div class="sw-score"></div></div></div>
       <div class="uw-select uw-sel-3"><div class="sw-user-score"><div class="sw-score"></div></div></div>
@@ -14,23 +59,24 @@
       <div class="uw-select uw-sel-5"><div class="sw-user-score"><div class="sw-score"></div></div></div>
     </div>
 
-    <div class="sw-badges">
-      <div class="sw-reliability">
-        @StarWidget(feat.getAccuracy())
+    <div>
+      <div class="uw-scale">
+        <div class="uw-low"><p>@lowText</p></div>
+        <div class="uw-high"><p>@highText</p></div>
       </div>
-
-      <div class="sw-award">
-        <p><i class="fa fa-trophy"></i> 0</p>
-      </div>
+      <div style="clear: both;"></div>
     </div>
-  </div>
 
-  
+  </div>
+  <div style="clear: both;"></div>
+
+  <!--
   <div>
     <div class="uw-scale">
       <div class="uw-low"><p>@lowText</p></div>
       <div class="uw-high"><p>@highText</p></div>
     </div>
   </div>
+  -->
 
 </div>

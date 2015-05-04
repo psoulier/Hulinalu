@@ -224,10 +224,12 @@ public class Application extends Controller {
         int             userScore;
         String[]        typeId;
 
+
         /* Decode the ID field. Both the location ID and the feature name are
          * included in this data. The IDs are of the form: <location-id>_<feature-name>
          */
         typeId = uwId.split("-");
+
 
         if (typeId[0].equals("tag")) {
           update = Tag.find().byId( Long.parseLong(typeId[1]) );
@@ -251,6 +253,8 @@ public class Application extends Controller {
         result.put("userScore", Integer.toString(update.getUserValue()));
         result.put("award", Integer.toString(0));
         result.put("accuracy", Integer.toString(update.getAccuracy()));
+        result.put("scoreLabel", update.getValueText());
+        result.put("scoreList", update.getValueList());
 
         return ok(result);
       }

@@ -1,5 +1,11 @@
 @import "color_font.less";
 
+@accuracy-color-poor: #EC1C23;
+@accuracy-color-marginal: #F4922A;
+@accuracy-color-average: #FFE400;
+@accuracy-color-good: #C4D63B;
+@accuracy-color-excellent: #379715;
+
 /**
  * Search widget styles.
  */
@@ -10,7 +16,7 @@
 .form-control:-ms-input-placeholder { font-family: "Muli"; }
 
 .query-box {
-  background: rgba(256,256,256,0.8);
+  background: @sea-foam-white;
   font-family: "Muli";
   color: @deep-blue;
 }
@@ -28,6 +34,25 @@
 
 }
 
+.accuracy-color-excellent{
+  background-color: @accuracy-color-excellent;
+}
+
+.accuracy-color-good {
+  background-color: @accuracy-color-good;
+}
+
+.accuracy-color-average {
+  background-color: @accuracy-color-average;
+}
+
+.accuracy-color-marginal {
+  background-color: @accuracy-color-marginal;
+}
+
+.accuracy-color-poor {
+  background-color: @accuracy-color-poor;
+}
 
 .no-results {
   margin: 0 auto;
@@ -52,46 +77,164 @@
 @uw-scale-width: 120px;
 @sw-score-radius: 20px;
 
+@score-circle-radius: 30px;
+
+
+.score-circle {
+  height: @score-circle-radius;
+  width: @score-circle-radius;
+  border-radius: @score-circle-radius;
+  background-color: #0578A9;
+  border: solid 2px @deep-blue;
+  box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.50);
+  margin: 0 auto;
+
+  p {
+    color: @sea-foam-white;
+    font-family: "Open Sans";
+    line-height: @score-circle-radius - 4px;
+    text-align: center;
+  }
+}
 
 .score-widget {
   background: transparent;
   width: 300px;
   font-family: "Muli";
-  height: 50px;
+  margin-bottom: 4px;
+
+  .score-title {
+    width: 100%;
+    color: @sea-foam-white;
+    font-size: 14px;
+    vertical-align: left;
+    background-color: @deep-blue;
+    border-radius: 4px;
+    p {
+      padding: 2px 10px;
+    }
+  }
+
+  .score-display {
+    float: left;
+    width: 75px;
+    margin-right: 5px;
+
+
+    .score-value {
+      margin-top: 4px;
+      font-family: "Open Sans";
+      text-align: center;
+    }
+  }
+
+  .score-graph {
+    float: left;
+    height: 40px;
+    width: 50px;
+    margin-top: 10px;
+
+    .score-bar-graph {
+      margin-bottom: 3px;
+
+      .bar {
+        height: 30px;
+        bottom: 0;
+        width: 5px;
+        margin-right: -1px;
+        display: inline-block;
+        position: relative;
+
+        .bar-top {
+          background-color: fade(@deep-blue, 10%);
+        }
+
+        .bar-bottom {
+          background-color: @deep-blue;
+        }
+      }
+    }
+
+    .score-accuracy {
+      width: 50px;
+      height: 8px;
+      border: solid 1px @deep-blue;
+      border-radius: 2px;
+
+      .value {
+        float: left;
+        height: 100%;
+      }
+
+      .space {
+        float: left;
+        background-color: transparent;
+        height: 100%;
+      }
+    }
+  }
 
   .uw-main {
-    height: 25px;
+    float: right;
+
+    .uw-selector {
+      display: inline-block;
+      overflow: visible;
+      position: relative;
+      height: 25px;
+      background: transparent;
+    }
+
+    .user-selection {
+      width: 100%;
+      text-align: center;
+      font-family: "Open Sans";
+    }
+    
   }
 }
 
 .yesno-widget {
   background: transparent;
-  width: 300px;
   font-family: "Muli";
-  height: 50px;
+  display: inline-block;
+  width: 150px;
+  border: solid 1px @deep-blue;
+  border-radius: 4px;
+  margin: 5px;
 
   .uw-main {
-    height: 25px;
+    width: 100%;
+
+    .yn-title {
+      color: @sea-foam-white;
+      background-color: @deep-blue;
+      padding: 4px 8px;
+      text-align: center;
+    }
+
+    .uw-selector {
+      width: 54px;
+      margin: 0 auto;
+    }
+
+    .boogers {
+      width: 58px;
+      margin: 0 auto;
+
+      .yn-label {
+        font-family: "Open Sans";
+        font-size: 90%;
+        display: inline-block;
+        width: 24px;
+        text-align: center;
+      }
+    }
   }
 }
 
 
-.sw-title {
-  width: @uw-title-width;
-  height: 25px;
-  color: @deep-blue;
-  font-size: 14px;
-  display: inline-block;
-  vertical-align: middle;
-}
 
-.uw-selector {
-  display: inline-block;
-  overflow: visible;
-  position: relative;
-  height: 25px;
-  background: transparent;
-}
 
 .uw-select {
   float: left;
@@ -158,9 +301,6 @@
 }
 
 .uw-scale {
-  margin-left: @uw-title-width+4;
-  width: @uw-scale-width;
-  display: inline-block;
   font-size: 75%;
   font-family: "Muli";
 

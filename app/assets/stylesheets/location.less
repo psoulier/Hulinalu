@@ -17,6 +17,22 @@ body {
   overflow: auto;
 }
 
+.navbar-customize {
+  border-radius: 0;
+  border: none;
+  background: #0B73A0;
+
+  .navbar-brand {
+    font-family: "Pacifico";
+    font-size: 26px;
+    color: @sea-foam-white;
+  }
+
+  .navbar-brand:hover {
+    text-decoration: none;
+    color: white;
+  }
+}
 
 .location-container {
   margin-top: 50px;
@@ -32,9 +48,10 @@ body {
   border-left: solid @sea-foam-white 2px;
 
   h1 {
-    font-family: "Muli";
+    font-family: "Open Sans";
     font-size: 36px;
   }
+
 }
 
 .location-img {
@@ -49,6 +66,12 @@ body {
   border-bottom: solid @sea-foam-white 2px;
   border-right: solid @sea-foam-white 2px;
   border-left: solid @sea-foam-white 2px;
+
+  h3 {
+    color: @deep-blue;
+    font-family: "Open Sans";
+    font-size: 24px;
+  }
 }
 
 .location-map {

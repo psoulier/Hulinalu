@@ -32,16 +32,14 @@
 
         <div>
           @for(fac <- location.getTags()) {
-            <div>
               @YesNoWidget(location, fac, fac.getName, "")
-            </div>
           }
         </div>
 
       </div>
 
       <div class="col-sm-6">
-        <h3>Current Conditions</h3>
+        <h3>Activities</h3>
 
         <div>
           @for(cond <- location.getFeatures()) {

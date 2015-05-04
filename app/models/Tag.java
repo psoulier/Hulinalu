@@ -224,6 +224,20 @@ public class Tag extends Model implements UpdateInterface {
     return st;
   }
 
+  public String getValueText() {
+    if (getValue() == YES) {
+      return "Yes";
+    }
+    else {
+      return "No";
+    }
+  }
+
+  public String getValueList() {
+    return new String(Integer.toString(no) + ";" + Integer.toString(yes));
+  }
+  
+
   /**
    * Calculates the accuracy of the tag.
    */

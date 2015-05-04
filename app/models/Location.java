@@ -79,10 +79,10 @@ public class Location extends Model {
     tags.add(new Tag(Tag.CAMPING, "Camp sites are located at or nearby."));
     tags.add(new Tag(Tag.PUBLICTRANS, "Public transportation available within walking distance."));
 
-    features.add(new Feature("Snorkeling", "Potential quality of snorkeling.", "", "", DEFAULT_SCORE_VALUES));
-    features.add(new Feature("Surfing", "Potential quality of surfing.", "", "", DEFAULT_SCORE_VALUES));
-    features.add(new Feature("Fishing", "Fishing quality around this beach.", "", "", DEFAULT_SCORE_VALUES));
-    features.add(new Feature("Sand", "What's the beach is like.", "Rocky", "Fine Sand", "Rocky;Rocks and Sand;Course;Normal;Fine"));
+    features.add(new Feature("Snorkeling", "Potential quality of snorkeling.", "Poor", "Great", DEFAULT_SCORE_VALUES));
+    features.add(new Feature("Surfing", "Potential quality of surfing.", "Poor", "Great", DEFAULT_SCORE_VALUES));
+    features.add(new Feature("Fishing", "Fishing quality around this beach.", "Poor", "Great", DEFAULT_SCORE_VALUES));
+    features.add(new Feature("Swimming", "A good beach to go swiiming.", "Poor", "Great", DEFAULT_SCORE_VALUES));
   }
 
   public static Finder<Long, Location> find() {

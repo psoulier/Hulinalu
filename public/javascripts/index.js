@@ -8,7 +8,11 @@ function initialize() {
   /* Set focus to any ".search-input" text form. Currently, there's only
    * ever one on a page, so don't need to be to picky.
    */
-  $('#search-input').focus();
+  var d = document.getElementById("search-input");
+  console.log("I get here...right?");
+  if (d.length == 0) {
+	  console.log("WTF?!?");
+  //$('#search-input').focus();
 
   var mapOptions = {
     zoom: 15,
@@ -42,7 +46,6 @@ function initialize() {
       });
     }
   }
-
 }
 
 

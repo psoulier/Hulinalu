@@ -19,9 +19,19 @@ body {
  * more of the picture.
  */
 .navbar-customize {
-  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  background: transparent;
 
-  .collapse {
+  .navbar-brand {
+    /*
+    font-family: "Pacifico";
+    font-size: 26px;
+    */
+    display: none;
+  }
+
+  .navbar-search {
     display: none;
   }
 }
@@ -164,7 +174,7 @@ body {
   }
 
   h2 {
-    font-family: "Muli";
+    font-family: "Open Sans";
     font-size: 350%;
     color: @sea-foam-white;
     text-align: center;

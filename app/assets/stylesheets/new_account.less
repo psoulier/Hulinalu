@@ -13,14 +13,20 @@ body {
   overflow: auto;
 }
 
-/* Custom settings for index page nav bar. The background is invisible to show
- * more of the picture.
- */
 .navbar-customize {
-  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  background: #0B73A0;
 
-  .collapse {
-    display: none;
+  .navbar-brand {
+    font-family: "Pacifico";
+    font-size: 26px;
+    color: @sea-foam-white;
+  }
+
+  .navbar-brand:hover {
+    text-decoration: none;
+    color: white;
   }
 }
 
@@ -45,7 +51,7 @@ body {
     }
 
     h2 {
-      font-family: "Muli";
+      font-family: "Open Sans";
       color: @deep-blue;
       font-size: 300%;
     }
@@ -54,7 +60,7 @@ body {
 }
 
 .na-label {
-  font-family: "Muli";
+  font-family: "Open Sans";
   color: @deep-blue;
 }
 

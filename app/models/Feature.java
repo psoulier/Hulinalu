@@ -118,6 +118,29 @@ public class Feature extends Model implements UpdateInterface {
     return score;
   }
 
+  public String getValueText() {
+    if (score == 0) {
+      return "No Info";
+    }
+    else {
+      String[] values = scoreValues.split(";");
+
+      return values[score - 1];
+    }
+  }
+
+  public String getValueList() {
+    String  values = "";
+
+    values += Integer.toString(score1) + ";";
+    values += Integer.toString(score2) + ";";
+    values += Integer.toString(score3) + ";";
+    values += Integer.toString(score4) + ";";
+    values += Integer.toString(score5);
+
+    return values;
+  }
+
   public int getScore() {
     return score;
   }
@@ -316,11 +339,10 @@ public class Feature extends Model implements UpdateInterface {
       sd += Math.pow(score4*(4.0-mean), 2.0);
       sd += Math.pow(score5*(5.0-mean), 2.0);
 
-      if (sd < VAR_EXCELLENT) accuracy = 6;
-      else if (sd < VAR_GOOD) accuracy = 5;
-      else if (sd < VAR_AVERAGE) accuracy = 4;
-      else if (sd < VAR_MARGINAL) accuracy = 3;
-      else if (sd < VAR_POOR) accuracy = 2;
+      if (sd < VAR_EXCELLENT) accuracy = 5;
+      else if (sd < VAR_GOOD) accuracy = 4;
+      else if (sd < VAR_AVERAGE) accuracy = 3;
+      else if (sd < VAR_MARGINAL) accuracy = 2;
       else accuracy = 1;
     }
   }
