@@ -365,5 +365,11 @@ $(document).ready( function() {
   setTimeout(pollForUpdates, 5000);
 });
 
+$(document).ready(function() {
+  /* Set focus to any ".search-input" text form. Currently, there's only
+   * ever one on a page, so don't need to be to picky.
+   */
+  $('#search-input').focus();
+});
 
 google.maps.event.addDomListener(window, 'load', initialize);

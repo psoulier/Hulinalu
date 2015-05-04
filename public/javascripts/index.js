@@ -1,18 +1,10 @@
 var map;
 
+
 /**
  * Code to execute on page load.
  */
 function initialize() {
-
-  /* Set focus to any ".search-input" text form. Currently, there's only
-   * ever one on a page, so don't need to be to picky.
-   */
-  var d = document.getElementById("search-input");
-  console.log("I get here...right?");
-  if (d.length == 0) {
-	  console.log("WTF?!?");
-  //$('#search-input').focus();
 
   var mapOptions = {
     zoom: 15,
@@ -48,6 +40,15 @@ function initialize() {
   }
 }
 
+$(document).ready(function() {
+  /* Set focus to any ".search-input" text form. Currently, there's only
+   * ever one on a page, so don't need to be to picky.
+   */
+  var d = $('.search-box');
+  d = $(d).find('#search-input');
+  console.log("len=" + d.length);
+  d.focus();
+});
 
 // For google maps API.
 google.maps.event.addDomListener(window, 'load', initialize);
