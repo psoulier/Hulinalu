@@ -11,6 +11,9 @@ import javax.persistence.Transient;
 
 import com.avaje.ebean.Expr;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import controllers.Application;
 
 import java.util.List;
@@ -52,8 +55,6 @@ public class Feature extends Model implements UpdateInterface {
   private int     score5;
   private int     accuracy;
 
-  private String  lowLabel;
-  private String  highLabel;
   private String  scoreValues;
 
   @ManyToOne
@@ -68,170 +69,84 @@ public class Feature extends Model implements UpdateInterface {
    * @param highLabel Description for high scores of this feature.
    * @param info      Description of what this feature is.
    */
-  public Feature(String name, String info, String lowLabel, String highLabel, String scoreValues) {
+  public Feature(String name, String info, String scoreValues) {
     this.name = name;
     this.info = info;
-    this.lowLabel = lowLabel;
-    this.highLabel = highLabel;
     this.scoreValues = scoreValues;
+    this.score = 0;
+    this.score1 = 0;
+    this.score2 = 0;
+    this.score3 = 0;
+    this.score4 = 0;
+    this.score5 = 0;
+    this.accuracy = 0;
   }
 
+  /**
+   * Query routine for Ebeans.
+   * @return Returns a Finder object for the query.
+   */
   public static Finder<Long, Feature> find() {
     return new Finder<Long, Feature>(Long.class, Feature.class);
   }
 
+  /**
+   * Gets ID.
+   * @return ID.
+   */
   public long getId() {
     return id;
   }
 
+  /**
+   * Sets ID.
+   * @param id New ID.
+   */
   public void setId(long id) {
     this.id = id;
   }
 
   /**
    * Gets the name of the feature.
-   *
    * @return Returns name.
    */
   public String getName() {
     return name;
   }
 
+  /**
+   * Sets the name of the feature.
+   * @param name New name.
+   */
   public void setName(String name) {
     this.name = name;
   }
 
   /**
    * Gets info about the feature.
-   *
    * @return Returns info.
    */
   public String getInfo() {
     return info;
   }
 
+  /**
+   * Sets info for the feature.
+   * @param info New info.
+   */
   public void setInfo(String info) {
     this.info = info;
   }
 
-  public int getValue() {
-    return score;
-  }
-
-  public String getValueText() {
-    if (score == 0) {
-      return "No Info";
-    }
-    else {
-      String[] values = scoreValues.split(";");
-
-      return values[score - 1];
-    }
-  }
-
-  public String getValueList() {
-    String  values = "";
-
-    values += Integer.toString(score1) + ";";
-    values += Integer.toString(score2) + ";";
-    values += Integer.toString(score3) + ";";
-    values += Integer.toString(score4) + ";";
-    values += Integer.toString(score5);
-
-    return values;
-  }
-
-  public int getScore() {
-    return score;
-  }
-
-  public void setScore(int score) {
-    this.score = score;
-  }
-
-  public int getScore1() {
-    return score1;
-  }
-
-  public void setScore1(int score) {
-    this.score1 = score;
-  }
-
-  public int getScore2() {
-    return score2;
-  }
-
-  public void setScore2(int score) {
-    this.score2 = score;
-  }
-
-  public int getScore3() {
-    return score3;
-  }
-
-  public void setScore3(int score) {
-    this.score3 = score;
-  }
-
-  public int getScore4() {
-    return score4;
-  }
-
-  public void setScore4(int score) {
-    this.score4 = score;
-  }
-
-  public int getScore5() {
-    return score5;
-  }
-
-  public void setScore5(int score) {
-    this.score5 = score;
-  }
-
-
-
-
   /**
-   * Returns the label for the "low" end of the scale.
-   * @return Low label.
+   * Collect data relevant to the associated object for the client.
+   * @param data Json object to populate.
    */
-  public String getLowLabel() {
-    return lowLabel;
-  }
-
-  public void setLowLabel(String label) {
-    lowLabel = label;
-  }
-
-  /**
-   * Returns the label for the "high" end of the scale.
-   * @return High label.
-   */
-  public String getHighLabel() {
-    return highLabel;
-  }
-
-  public void setHighLabel(String label) {
-    highLabel = label;
-  }
-
-  /**
-   * Gets the current accuracy for this feature.
-   * @return Returns accuracy.
-   */
-  public int getAccuracy() {
-    return accuracy;
-  }
-
-  public void setAccuracy(int accuracy) {
-    this.accuracy = accuracy;
-  }
-
-  public int getUserValue() {
+  public void fetchUpdate(ObjectNode data) {
     Account     account = Application.getCurrentAccount();
     UserUpdate  uu;
-    int         score = 0;
+    int         userScore = 0;
+    String      scores = "";
 
     if (account != null) {
       // Need to find a user update from this user, for this feature, and
@@ -243,13 +158,181 @@ public class Feature extends Model implements UpdateInterface {
           ).findUnique();
       
       if (uu != null) {
-        score = uu.getScore();
+        userScore = uu.getScore();
       }
     }
 
+    scores += Integer.toString(score1) + ";";
+    scores += Integer.toString(score2) + ";";
+    scores += Integer.toString(score3) + ";";
+    scores += Integer.toString(score4) + ";";
+    scores += Integer.toString(score5);
+
+
+    data.put("score", Integer.toString(score));
+    data.put("userScore", Integer.toString(userScore));
+    data.put("accuracy", Integer.toString(accuracy));
+
+    if (score == 0) {
+      data.put("scoreLabel", "No Info");
+    }
+    else {
+      String[] vals = scoreValues.split(";");
+      data.put("scoreLabel", vals[score-1]);
+    }
+
+    data.put("scoreList", scores);    
+  }
+
+  /**
+   * Gets the score previously computed using the score counts.
+   * @return Calculated score.
+   */
+  public int getScore() {
     return score;
   }
 
+  /**
+   * Sets score.
+   * @param score New score.
+   */
+  public void setScore(int score) {
+    this.score = score;
+  }
+
+  /**
+   * Sets score count.
+   * @return Score count.
+   */
+  public int getScore1() {
+    return score1;
+  }
+
+  /**
+   * Sets score count.
+   * @param score New score.
+   */
+  public void setScore1(int score) {
+    this.score1 = score;
+  }
+
+  /**
+   * Sets score count.
+   * @return Score count.
+   */
+  public int getScore2() {
+    return score2;
+  }
+
+  /**
+   * Sets score count.
+   * @param score New score.
+   */
+  public void setScore2(int score) {
+    this.score2 = score;
+  }
+
+  /**
+   * Sets score count.
+   * @return Score count.
+   */
+  public int getScore3() {
+    return score3;
+  }
+
+  /**
+   * Sets score count.
+   * @param score New score.
+   */
+  public void setScore3(int score) {
+    this.score3 = score;
+  }
+
+  /**
+   * Sets score count.
+   * @return Score count.
+   */
+  public int getScore4() {
+    return score4;
+  }
+
+  /**
+   * Sets score count.
+   * @param score New score.
+   */
+  public void setScore4(int score) {
+    this.score4 = score;
+  }
+
+  /**
+   * Sets score count.
+   * @return Score count.
+   */
+  public int getScore5() {
+    return score5;
+  }
+
+  /**
+   * Sets score count.
+   * @param score New score.
+   */
+  public void setScore5(int score) {
+    this.score5 = score;
+  }
+
+  /**
+   * Get score values.
+   * @return Semicolon separated list of descriptive label for each score bucket.
+   */
+  public String getScoreValues() {
+    return scoreValues;
+  }
+
+  /**
+   * Sets score value.
+   * @param scoreValues A semicolon separated list of labels for each score bucket.
+   */
+  public void setScoreValues(String scoreValues) {
+    this.scoreValues = scoreValues;
+  }
+
+  /**
+   * Returns the label for the "low" end of the scale.
+   * @return Low label.
+   */
+  public String getLowLabel() {
+    return scoreValues.split(";")[0];
+  }
+
+  /**
+   * Returns the label for the "high" end of the scale.
+   * @return High label.
+   */
+  public String getHighLabel() {
+    return scoreValues.split(";")[4];
+  }
+
+  /**
+   * Gets the current accuracy for this feature.
+   * @return Returns accuracy.
+   */
+  public int getAccuracy() {
+    return accuracy;
+  }
+
+  /**
+   * Sets accuracy value.
+   * @param accuracy New value.
+   */
+  public void setAccuracy(int accuracy) {
+    this.accuracy = accuracy;
+  }
+
+  /**
+   * Updates a tag with a yes/no score from a specific user.
+   * @param account User updating the tag.
+   * @param score Score to update tag with.
+   */
   public void update(Account account, int score) {
     UserUpdate  uu;
 
@@ -318,6 +401,9 @@ public class Feature extends Model implements UpdateInterface {
     uu.save();
   }
   
+  /**
+   * Calculates score and accuracy based on score buckets.
+   */
   private void calcScore() {
     double  total;
 

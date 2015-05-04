@@ -46,7 +46,6 @@ $(document).ready(function() {
    */
   var d = $('.search-box');
   d = $(d).find('#search-input');
-  console.log("len=" + d.length);
   d.focus();
 });
 

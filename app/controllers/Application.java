@@ -247,14 +247,18 @@ public class Application extends Controller {
         if (userScore != 0 && account != null) {
           update.update(account, userScore);
         }
+
+        update.fetchUpdate(result);
   
         // Return the current feature data to the client.
+        /*
         result.put("score", Integer.toString(update.getValue()));
         result.put("userScore", Integer.toString(update.getUserValue()));
         result.put("award", Integer.toString(0));
         result.put("accuracy", Integer.toString(update.getAccuracy()));
         result.put("scoreLabel", update.getValueText());
         result.put("scoreList", update.getValueList());
+        */
 
         return ok(result);
       }

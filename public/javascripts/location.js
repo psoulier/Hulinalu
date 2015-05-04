@@ -1,17 +1,5 @@
 
 /**
- * Code to execute on page load.
- */
-function initialize() {
-
-  /* Set focus to any ".search-input" text form. Currently, there's only
-   * ever one on a page, so don't need to be to picky.
-   */
-  $('#search-input').focus();
-
-}
-
-/**
  * Helper function to transmit and recieve data for a feautre.
  * @param updateWidget the widget being updated.
  * @param data Data to send.
@@ -369,7 +357,10 @@ $(document).ready(function() {
   /* Set focus to any ".search-input" text form. Currently, there's only
    * ever one on a page, so don't need to be to picky.
    */
-  $('#search-input').focus();
+  var searchInput = $('#search-input');
+  var inputLen = searchInput.val().length * 2;
+
+  $(searchInput).focus();
+  searchInput[0].setSelectionRange(inputLen, inputLen);
 });
 
-google.maps.event.addDomListener(window, 'load', initialize);
