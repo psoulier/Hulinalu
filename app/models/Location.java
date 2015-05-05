@@ -91,105 +91,160 @@ public class Location extends Model {
 
   /**
    * Gets current unique ID of location.
-   *
    * @return ID.
    */
   public long getId() {
     return id;
   }
 
+  /**
+   * Sets ID.
+   * @param id New ID.
+   */
   public void setId(long id) {
     this.id = id;
   }
 
   /**
    * Gets the longitude of the location.
-   *
    * @return Longitude.
    */
   public float getLongitude() {
     return longitude;
   }
 
+  /**
+   * Sets location longitude.
+   * @param longitude New longitude value.
+   */
   public void setLongitude(float longitude) {
     this.longitude = longitude;
   }
 
   /**
    * Returns latitude of location.
-   *
    * @return Latitude.
    */
   public float getLatitude() {
     return latitude;
   }
 
+  /**
+   * Sets location latitude.
+   * @param latitude New latitude value.
+   */
   public void setLatitude(float latitude) {
     this.latitude = latitude;
   }
 
   /**
    * Gets name of location.
-   *
    * @return Location name.
    */
   public String getName() {
     return name;
   }
 
+  /**
+   * Sets name of location.
+   * @param name New name.
+   */
   public void setName(String name) {
     this.name = name;
   }
 
   /**
    * Provides description string.
-   *
    * @return Description.
    */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Sets location description.
+   * @param description New description.
+   */
   public void setDescription(String description) {
     this.description = description;
   }
 
+  /**
+   * Gets a list of feature objects.
+   * @return List of features.
+   */
   public List<Feature> getFeatures() {
     return features;
   }
 
+  /**
+   * Sets feature list.
+   * @param features List of features.
+   */
   public void setFeatures(List<Feature> features) {
     this.features = features;
   }
 
+  /**
+   * Gets tag list for location.
+   * @return List of tags for this location.
+   */
   public List<Tag> getTags() {
     return tags;
   }
 
+  /**
+   * Sets tags for this location.
+   * @param tags List of tags.
+   */
   public void setTags(List<Tag> tags) {
     this.tags = tags;
   }
 
+  /**
+   * Gets all photos for this location.
+   * @return List of photos for this location.
+   */
   public List<Photo> getPhotos() {
     return photos;
   }
 
+  /**
+   * Sets photo list for location.
+   * @param photos List of photos.
+   */
   public void setPhotos(List<Photo> photos) {
     this.photos = photos;
   }
 
+  /**
+   * Gets the account/user that originally created this location.
+   * @return Account object of user that created location.
+   */
   public Account getCreator() {
     return creator;
   }
 
+  /**
+   * Sets creator of location.
+   * @param creator Creator of location.
+   */
   public void setCreator(Account creator) {
     this.creator = creator;
   }
 
+  /**
+   * Gets the type of location.
+   * @return Returns an enumerated type for the location.
+   */
   public int getType() {
     return type;
   }
 
+  /**
+   * Sets location type.
+   * @param type New type.
+   */
   public void setType(int type) {
     this.type = type;
   }
@@ -221,7 +276,10 @@ public class Location extends Model {
     return 0;
   }
 
-
+  /**
+   * Based on a tag string name, determines if this location has the tag with value YES.
+   * @param tagName Tag name to check.
+   */
   public boolean hasTag(String tagName) {
     for (Tag tag : tags) {
       if (tag.getName().equals(tagName)) {
@@ -257,7 +315,7 @@ public class Location extends Model {
   /**
    * Determines if a given coordinate is within a specified distance of this
    * location object.
-   * <p>
+   * 
    * Coordinates from Google are in decimal degrees (DD).
    *
    * @param lat latitude

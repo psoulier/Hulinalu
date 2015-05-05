@@ -45,7 +45,6 @@ create table photo (
   id                        bigint not null,
   likes                     bigint,
   photo_id                  varchar(255),
-  tags                      varchar(255),
   location_id               bigint,
   constraint pk_photo primary key (id))
 ;
@@ -66,7 +65,6 @@ create table user_update (
   parent_id                 bigint,
   type                      integer,
   score                     integer,
-  weight                    integer,
   account_id                bigint,
   constraint pk_user_update primary key (id))
 ;
@@ -83,36 +81,32 @@ create sequence tag_seq;
 
 create sequence user_update_seq;
 
-alter table feature add constraint fk_feature_location_1 foreign key (location_id) references location (id) on delete restrict on update restrict;
+alter table feature add constraint fk_feature_location_1 foreign key (location_id) references location (id);
 create index ix_feature_location_1 on feature (location_id);
-alter table location add constraint fk_location_creator_2 foreign key (creator_id) references account (id) on delete restrict on update restrict;
+alter table location add constraint fk_location_creator_2 foreign key (creator_id) references account (id);
 create index ix_location_creator_2 on location (creator_id);
-alter table photo add constraint fk_photo_location_3 foreign key (location_id) references location (id) on delete restrict on update restrict;
+alter table photo add constraint fk_photo_location_3 foreign key (location_id) references location (id);
 create index ix_photo_location_3 on photo (location_id);
-alter table tag add constraint fk_tag_location_4 foreign key (location_id) references location (id) on delete restrict on update restrict;
+alter table tag add constraint fk_tag_location_4 foreign key (location_id) references location (id);
 create index ix_tag_location_4 on tag (location_id);
-alter table user_update add constraint fk_user_update_account_5 foreign key (account_id) references account (id) on delete restrict on update restrict;
+alter table user_update add constraint fk_user_update_account_5 foreign key (account_id) references account (id);
 create index ix_user_update_account_5 on user_update (account_id);
 
 
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+drop table if exists account cascade;
 
-drop table if exists account;
+drop table if exists feature cascade;
 
-drop table if exists feature;
+drop table if exists location cascade;
 
-drop table if exists location;
+drop table if exists photo cascade;
 
-drop table if exists photo;
+drop table if exists tag cascade;
 
-drop table if exists tag;
-
-drop table if exists user_update;
-
-SET REFERENTIAL_INTEGRITY TRUE;
+drop table if exists user_update cascade;
 
 drop sequence if exists account_seq;
 
