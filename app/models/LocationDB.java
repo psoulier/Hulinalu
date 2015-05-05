@@ -37,14 +37,15 @@ public class LocationDB {
 
   /**
    * Finds the location in the DB that is closest to the coordinates provided.
+   *
    * @param lat Latitude of position to check.
    * @param lng Longitude of position to check.
    * @return Returns location to specified coordinates.
    */
   public static Location getClosestLocation(float lat, float lng) {
-    List<Location>  locations;
-    Location        closestLoc = null;
-    float           closestDist = FAR_AWAY;   // No such distance on Earth (literally).
+    List<Location> locations;
+    Location closestLoc = null;
+    float closestDist = FAR_AWAY;   // No such distance on Earth (literally).
 
     locations = Location.find().all();
 
@@ -78,6 +79,7 @@ public class LocationDB {
 
   /**
    * Returns a list of all locations in DB.
+   *
    * @return List of locations.
    */
   public static List<Location> getLocations() {
@@ -107,6 +109,7 @@ public class LocationDB {
 
   /**
    * Returns a list of locations that match the search query.
+   *
    * @param searchQuery query string.
    * @return A list of locations match query.
    */
@@ -116,7 +119,8 @@ public class LocationDB {
 
   /**
    * Adds a location to the DB.
-   * @param loc Location to add.
+   *
+   * @param location Location to add.
    */
   public static void addLocation(Location location) {
     location.save();
@@ -124,6 +128,7 @@ public class LocationDB {
 
   /**
    * Adds an account to the system DB.
+   *
    * @param account New account to add.
    */
   public static void addAccount(Account account) {

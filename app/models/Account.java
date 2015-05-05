@@ -1,50 +1,48 @@
 package models;
 
 import play.db.ebean.Model;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.ManyToMany;
-import javax.persistence.CascadeType;
-
 import java.util.List;
-import java.util.ArrayList;
 
 /**
- * Contains all information associated with a user account. 
+ * Contains all information associated with a user account.
  */
 @Entity
 public class Account extends Model {
 
   @Id
-  private long    id;
-  private String  firstName;
-  private String  lastName;
-  private String  email;
-  private String  mobile;
-  private String  password;
-  private String  roles;
+  private long id;
+  private String firstName;
+  private String lastName;
+  private String email;
+  private String mobile;
+  private String password;
+  private String roles;
 
 
-  @OneToMany(mappedBy="account", cascade=CascadeType.PERSIST)
-  private List<UserUpdate>      updates;
+  @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST)
+  private List<UserUpdate> updates;
 
   /*
   @OneToMany(mappedBy="owner", cascade=CascadeType.PERSIST)
   private List<Photo>           photos;
   */
 
-  @OneToMany(mappedBy="creator", cascade=CascadeType.PERSIST)
-  private List<Location>        locations;
+  @OneToMany(mappedBy = "creator", cascade = CascadeType.PERSIST)
+  private List<Location> locations;
 
   /**
    * Constructs a new user account.
+   *
    * @param firstName First name.
-   * @param lastName Last name.
-   * @param email Email address.
-   * @param mobile Mobile phone number.
-   * @param password Password.
+   * @param lastName  Last name.
+   * @param email     Email address.
+   * @param mobile    Mobile phone number.
+   * @param password  Password.
    */
   public Account(String firstName, String lastName, String email, String mobile, String password) {
     this.firstName = firstName;
@@ -56,26 +54,29 @@ public class Account extends Model {
 
   /**
    * Query routine for Ebeans.
+   *
    * @return Returns a Finder object for the query.
-   */  
+   */
   public static Finder<Long, Account> find() {
     return new Finder<Long, Account>(Long.class, Account.class);
   }
 
   /**
    * Authenticates a username (which could be email or mobile) with password.
+   *
    * @param username Username of account (email or mobile).
    * @param password Password of user.
+   * @return Returns Account object of authenticated user or null if not valid.
    */
   public static Account authenticate(String username, String password) {
-    Account           account;
+    Account account;
 
     account = Account.find().where().eq("email", username).findUnique();
     if (account == null) {
       account = Account.find().where().eq("mobile", username).findUnique();
     }
 
-    if (account != null && account.getPassword().equals(password) == false) {
+    if (account != null && !account.getPassword().equals(password)) {
       account = null;
     }
 
@@ -84,6 +85,7 @@ public class Account extends Model {
 
   /**
    * Gets ID.
+   *
    * @return Returns ID.
    */
   public long getId() {
@@ -92,6 +94,7 @@ public class Account extends Model {
 
   /**
    * Set ID.
+   *
    * @param id New ID.
    */
   public void setId(long id) {
@@ -100,6 +103,7 @@ public class Account extends Model {
 
   /**
    * Gets first name.
+   *
    * @return First name.
    */
   public String getFirstName() {
@@ -108,6 +112,7 @@ public class Account extends Model {
 
   /**
    * Sets first name.
+   *
    * @param firstName First name.
    */
   public void setFirstName(String firstName) {
@@ -116,6 +121,7 @@ public class Account extends Model {
 
   /**
    * Gets last name.
+   *
    * @return Last name.
    */
   public String getLastName() {
@@ -124,6 +130,7 @@ public class Account extends Model {
 
   /**
    * Sets last name.
+   *
    * @param lastName New last name.
    */
   public void setLastName(String lastName) {
@@ -132,6 +139,7 @@ public class Account extends Model {
 
   /**
    * Gets email address.
+   *
    * @return Returns email address.
    */
   public String getEmail() {
@@ -140,6 +148,7 @@ public class Account extends Model {
 
   /**
    * Sets email address.
+   *
    * @param email New email address.
    */
   public void setEmail(String email) {
@@ -148,6 +157,7 @@ public class Account extends Model {
 
   /**
    * Gets mobile number.
+   *
    * @return Account mobile number.
    */
   public String getMobile() {
@@ -156,6 +166,7 @@ public class Account extends Model {
 
   /**
    * Sets mobile number.
+   *
    * @param mobile New mobile number.
    */
   public void setMobile(String mobile) {
@@ -164,6 +175,7 @@ public class Account extends Model {
 
   /**
    * Gets current password.
+   *
    * @return Current password.
    */
   public String getPassword() {
@@ -172,6 +184,7 @@ public class Account extends Model {
 
   /**
    * Sets password.
+   *
    * @param password New password.
    */
   public void setPassword(String password) {
@@ -180,6 +193,7 @@ public class Account extends Model {
 
   /**
    * Returns a list of updates associated with this account.
+   *
    * @return List of user update objects.
    */
   public List<UserUpdate> getUpdates() {
@@ -188,6 +202,7 @@ public class Account extends Model {
 
   /**
    * Sets the user update list.
+   *
    * @param updates List of updates for this user.
    */
   public void setUpdates(List<UserUpdate> updates) {
@@ -196,6 +211,7 @@ public class Account extends Model {
 
   /**
    * Gets a list of locations created by this user.
+   *
    * @return List of Location objects.
    */
   public List<Location> getLocations() {
@@ -204,6 +220,7 @@ public class Account extends Model {
 
   /**
    * Sets the locations created by this user.
+   *
    * @param locations List of locations.
    */
   public void setLocations(List<Location> locations) {
@@ -212,6 +229,7 @@ public class Account extends Model {
 
   /**
    * Adds a new update for an account.
+   *
    * @param update New update to add.
    */
   public void addUpdate(UserUpdate update) {

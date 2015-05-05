@@ -1,9 +1,9 @@
+import models.Account;
 import models.Location;
 import models.LocationDB;
-import models.Account;
 import play.Application;
 import play.GlobalSettings;
-import play.*;
+import play.Play;
 
 // POST my office: 21.297579, -157.81648
 // POST 318B: 21.31085, -157.85782
@@ -36,7 +36,7 @@ public class Global extends GlobalSettings {
           user,
           "Waimea Bay Beach Park",
           "Located on the North shore of Oahu, Waimea bay is known for big wave"
-            +"surfing in the winter and calm water in the summer.",
+              + "surfing in the winter and calm water in the summer.",
           21.643160f, 
           -158.066383f);
         LocationDB.addLocation(beach);

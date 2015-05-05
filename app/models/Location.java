@@ -1,13 +1,12 @@
 package models;
 
 import play.db.ebean.Model;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.ManyToMany;
-import javax.persistence.CascadeType;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,29 +27,29 @@ public class Location extends Model {
 
 
   @Id
-  private long    id;
-  private float   latitude;
-  private float   longitude;
-  private String  name;
-  private String  description;
-  private int     type;
+  private long id;
+  private float latitude;
+  private float longitude;
+  private String name;
+  private String description;
+  private int type;
 
-  @OneToMany(mappedBy="location", cascade=CascadeType.PERSIST)
-  private List<Feature>    features;
+  @OneToMany(mappedBy = "location", cascade = CascadeType.PERSIST)
+  private List<Feature> features;
 
-  @OneToMany(mappedBy="location", cascade=CascadeType.PERSIST)
-  private List<Tag>        tags;
+  @OneToMany(mappedBy = "location", cascade = CascadeType.PERSIST)
+  private List<Tag> tags;
 
-  @OneToMany(mappedBy="location", cascade=CascadeType.PERSIST)
-  private List<Photo>      photos;
+  @OneToMany(mappedBy = "location", cascade = CascadeType.PERSIST)
+  private List<Photo> photos;
 
   @ManyToOne
-  private Account           creator;
+  private Account creator;
 
 
-  
   /**
    * Constructor.
+   * @param creator     Account associated to user creating location.
    * @param name        Name of the beach.
    * @param description Description of the beach.
    * @param lat         Geographical latitude of the beach.
@@ -85,12 +84,17 @@ public class Location extends Model {
     features.add(new Feature("Swimming", "A good beach to go swiiming.", DEFAULT_SCORE_VALUES));
   }
 
+  /**
+   * Creates Finder object for DB queries.
+   * @return Finder object.
+   */
   public static Finder<Long, Location> find() {
     return new Finder<Long, Location>(Long.class, Location.class);
   }
 
   /**
    * Gets current unique ID of location.
+   *
    * @return ID.
    */
   public long getId() {
@@ -99,6 +103,7 @@ public class Location extends Model {
 
   /**
    * Sets ID.
+   *
    * @param id New ID.
    */
   public void setId(long id) {
@@ -107,6 +112,7 @@ public class Location extends Model {
 
   /**
    * Gets the longitude of the location.
+   *
    * @return Longitude.
    */
   public float getLongitude() {
@@ -115,6 +121,7 @@ public class Location extends Model {
 
   /**
    * Sets location longitude.
+   *
    * @param longitude New longitude value.
    */
   public void setLongitude(float longitude) {
@@ -123,6 +130,7 @@ public class Location extends Model {
 
   /**
    * Returns latitude of location.
+   *
    * @return Latitude.
    */
   public float getLatitude() {
@@ -131,6 +139,7 @@ public class Location extends Model {
 
   /**
    * Sets location latitude.
+   *
    * @param latitude New latitude value.
    */
   public void setLatitude(float latitude) {
@@ -139,6 +148,7 @@ public class Location extends Model {
 
   /**
    * Gets name of location.
+   *
    * @return Location name.
    */
   public String getName() {
@@ -147,6 +157,7 @@ public class Location extends Model {
 
   /**
    * Sets name of location.
+   *
    * @param name New name.
    */
   public void setName(String name) {
@@ -155,6 +166,7 @@ public class Location extends Model {
 
   /**
    * Provides description string.
+   *
    * @return Description.
    */
   public String getDescription() {
@@ -163,6 +175,7 @@ public class Location extends Model {
 
   /**
    * Sets location description.
+   *
    * @param description New description.
    */
   public void setDescription(String description) {
@@ -171,6 +184,7 @@ public class Location extends Model {
 
   /**
    * Gets a list of feature objects.
+   *
    * @return List of features.
    */
   public List<Feature> getFeatures() {
@@ -179,6 +193,7 @@ public class Location extends Model {
 
   /**
    * Sets feature list.
+   *
    * @param features List of features.
    */
   public void setFeatures(List<Feature> features) {
@@ -187,6 +202,7 @@ public class Location extends Model {
 
   /**
    * Gets tag list for location.
+   *
    * @return List of tags for this location.
    */
   public List<Tag> getTags() {
@@ -195,6 +211,7 @@ public class Location extends Model {
 
   /**
    * Sets tags for this location.
+   *
    * @param tags List of tags.
    */
   public void setTags(List<Tag> tags) {
@@ -203,6 +220,7 @@ public class Location extends Model {
 
   /**
    * Gets all photos for this location.
+   *
    * @return List of photos for this location.
    */
   public List<Photo> getPhotos() {
@@ -211,6 +229,7 @@ public class Location extends Model {
 
   /**
    * Sets photo list for location.
+   *
    * @param photos List of photos.
    */
   public void setPhotos(List<Photo> photos) {
@@ -219,6 +238,7 @@ public class Location extends Model {
 
   /**
    * Gets the account/user that originally created this location.
+   *
    * @return Account object of user that created location.
    */
   public Account getCreator() {
@@ -227,6 +247,7 @@ public class Location extends Model {
 
   /**
    * Sets creator of location.
+   *
    * @param creator Creator of location.
    */
   public void setCreator(Account creator) {
@@ -235,6 +256,7 @@ public class Location extends Model {
 
   /**
    * Gets the type of location.
+   *
    * @return Returns an enumerated type for the location.
    */
   public int getType() {
@@ -243,6 +265,7 @@ public class Location extends Model {
 
   /**
    * Sets location type.
+   *
    * @param type New type.
    */
   public void setType(int type) {
@@ -251,6 +274,7 @@ public class Location extends Model {
 
   /**
    * Finds a feature based on its name.
+   * @param name String name of feature to get.
    * @return Feature object.
    */
   public Feature getFeature(String name) {
@@ -278,7 +302,9 @@ public class Location extends Model {
 
   /**
    * Based on a tag string name, determines if this location has the tag with value YES.
+   *
    * @param tagName Tag name to check.
+   * @return Returns true if location has this tag set to YES, false if not.
    */
   public boolean hasTag(String tagName) {
     for (Tag tag : tags) {
@@ -292,6 +318,7 @@ public class Location extends Model {
 
   /**
    * Determine if feature is there.
+   *
    * @return Returns true if it is, false if not.
    */
   public boolean allowsCamping() {
@@ -315,7 +342,7 @@ public class Location extends Model {
   /**
    * Determines if a given coordinate is within a specified distance of this
    * location object.
-   * 
+   * <p>
    * Coordinates from Google are in decimal degrees (DD).
    *
    * @param lat latitude
@@ -325,7 +352,6 @@ public class Location extends Model {
   public float getDistanceFrom(float lat, float lng) {
     return (float) Math.sqrt(Math.pow(latitude - lat, 2.0f) + Math.pow(longitude - lng, 2.0f));
   }
-
 
 
 }

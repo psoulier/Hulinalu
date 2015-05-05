@@ -2,25 +2,24 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import models.Account;
 import models.Feature;
-import models.Tag;
 import models.Location;
 import models.LocationDB;
-import models.Account;
+import models.Tag;
 import models.UpdateInterface;
 import play.Routes;
 import play.data.Form;
 import play.libs.Json;
-import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.CurrentLoc;
+import views.html.HelpIcons;
 import views.html.Index;
 import views.html.LocationPage;
-import views.html.SearchResults;
-import views.html.HelpIcons;
-import views.html.SignIn;
 import views.html.NewAccount;
+import views.html.SearchResults;
+import views.html.SignIn;
 
 import java.util.List;
 
@@ -33,15 +32,23 @@ public class Application extends Controller {
    * Form to handle form data from sign in page.
    */
   public static class SignInForm {
-    public String   username;
-    public String   password;
+    /**
+     * Either email or mobile number for sign in.
+     */
+    public String username;
+
+    /**
+     * Password that goes with username.
+     */
+    public String password;
 
     /**
      * Validates user sign in data.
+     *
      * @return Returns null if credentials ok or an error string if not.
      */
     public String validate() {
-      String  authenticated;
+      String authenticated;
 
       if (Account.authenticate(username, password) != null) {
         authenticated = null;
@@ -58,14 +65,34 @@ public class Application extends Controller {
    * Contains form data for a new account.
    */
   public static class NewAccountForm {
-    public String   firstName;
-    public String   lastName;
-    public String   email;
-    public String   password;
-    public String   confirmPassword;
+    /**
+     * First name for account.
+     */
+    public String firstName;
+
+    /**
+     * Last name for account.
+     */
+    public String lastName;
+
+    /**
+     * Email address for account.
+     */
+    public String email;
+
+    /**
+     * Password for account.
+     */
+    public String password;
+
+    /**
+     * Confirm password.
+     */
+    public String confirmPassword;
 
     /**
      * Performs validation of new account data.
+     *
      * @return Returns null if ok, or string if an error occurred.
      */
     public String validate() {
@@ -75,10 +102,11 @@ public class Application extends Controller {
 
   /**
    * Gets the Account object for the currently signed in user.
+   *
    * @return Account object of current user or null if no user signed in.
    */
   public static Account getCurrentAccount() {
-    String  userid = session("userid");
+    String userid = session("userid");
     Account account = null;
 
     if (userid != null) {
@@ -91,6 +119,7 @@ public class Application extends Controller {
 
   /**
    * Handles GET requests for the main/index page.
+   *
    * @return Return a Result object for the rendered page.
    */
   public static Result index() {
@@ -105,7 +134,7 @@ public class Application extends Controller {
       return ok(Index.render());
     }
     else {
-      List<Location>  locationList;
+      List<Location> locationList;
 
       /* Get a list of locations matching the search criteria and render a 
        * results page.
@@ -118,6 +147,7 @@ public class Application extends Controller {
 
   /**
    * Renders the account creation page.
+   *
    * @return Rendered Result object.
    */
   public static Result newAccount() {
@@ -126,17 +156,18 @@ public class Application extends Controller {
 
   /**
    * Handles POST request for a new account creation and validates form.
+   *
    * @return Rendered result page.
    */
   public static Result createAccount() {
-    Form<NewAccountForm>  newAccountForm = Form.form(NewAccountForm.class).bindFromRequest();
-    Account               newAccount;
+    Form<NewAccountForm> newAccountForm = Form.form(NewAccountForm.class).bindFromRequest();
+    Account newAccount;
 
     newAccount = new Account(newAccountForm.get().firstName,
-                             newAccountForm.get().lastName,
-                             newAccountForm.get().email,
-                             "",
-                             newAccountForm.get().password);
+        newAccountForm.get().lastName,
+        newAccountForm.get().email,
+        "",
+        newAccountForm.get().password);
 
     LocationDB.addAccount(newAccount);
 
@@ -147,6 +178,7 @@ public class Application extends Controller {
 
   /**
    * Provides user sign in.
+   *
    * @return Rendered Result object.
    */
   public static Result signIn() {
@@ -155,21 +187,23 @@ public class Application extends Controller {
 
   /**
    * Handles user sign-out.
+   *
    * @return Result object.
    */
   public static Result signOut() {
     session().clear();
 
-    return redirect( routes.Application.index());
+    return redirect(routes.Application.index());
   }
 
   /**
    * Performs user/account authentication.
+   *
    * @return Result object.
    */
   public static Result authenticate() {
-    Form<SignInForm>  signInForm = Form.form(SignInForm.class).bindFromRequest();
-    Result            result;
+    Form<SignInForm> signInForm = Form.form(SignInForm.class).bindFromRequest();
+    Result result;
 
     if (signInForm.hasErrors()) {
       result = badRequest(SignIn.render(signInForm));
@@ -189,7 +223,7 @@ public class Application extends Controller {
 
   /**
    * Renders a portion of the index page depending on where the user is located.
-   *
+   * <p>
    * This is an Ajax GET request that is called once the client's location is
    * determined. This routine is initiated from JavaScript. When the index page
    * loads, there is an indicator. Once this GET request is called, that message
@@ -205,7 +239,8 @@ public class Application extends Controller {
 
   /**
    * Returns a specific location page for the given location name.
-   * @param locName Name of the location to be found.
+   *
+   * @param locId Name of the location to be found.
    * @return Rendered Result object.
    */
   public static Result locationPage(long locId) {
@@ -214,9 +249,10 @@ public class Application extends Controller {
 
   /**
    * Handles POST request for location page updates.
-   *
+   * <p>
    * This receives data from a client to store updates for a specific feature
    * in DB and returns current information for the feature.
+   *
    * @return Rendered Result object.
    */
   public static Result update() {
@@ -234,17 +270,17 @@ public class Application extends Controller {
        * The Json data includes this so this code can find the correct location
        * object.
        */
-      String  uwId = json.findPath("uw_id").textValue();
+      String uwId = json.findPath("uw_id").textValue();
 
       // This had better be valid all the time.
       if (uwId == null) {
         return badRequest("Missing parameter in update POST request.");
       }
       else {
-        ObjectNode      result = Json.newObject();
+        ObjectNode result = Json.newObject();
         UpdateInterface update;
-        int             userScore;
-        String[]        typeId;
+        int userScore;
+        String[] typeId;
 
 
         /* Decode the ID field. Both the location ID and the feature name are
@@ -254,10 +290,10 @@ public class Application extends Controller {
 
 
         if (typeId[0].equals("tag")) {
-          update = Tag.find().byId( Long.parseLong(typeId[1]) );
+          update = Tag.find().byId(Long.parseLong(typeId[1]));
         }
         else if (typeId[0].equals("feature")) {
-          update = Feature.find().byId( Long.parseLong(typeId[1]) );
+          update = Feature.find().byId(Long.parseLong(typeId[1]));
         }
         else {
           throw new RuntimeException("Unknown type tag.");
@@ -271,7 +307,7 @@ public class Application extends Controller {
         }
 
         update.fetchUpdate(result);
-  
+
         // Return the current feature data to the client.
         /*
         result.put("score", Integer.toString(update.getValue()));
@@ -284,11 +320,12 @@ public class Application extends Controller {
 
         return ok(result);
       }
-    }      
+    }
   }
 
   /**
    * Renders a help page for the various iconns seen on the website.
+   *
    * @return Rendered result object.
    */
   public static Result helpIcons() {
@@ -296,9 +333,9 @@ public class Application extends Controller {
   }
 
   /**
-   * Allows JavaScript to access routes. 
-   *
-   * This is necessary to allow JavaScript issue GET/POST requests to the 
+   * Allows JavaScript to access routes.
+   * <p>
+   * This is necessary to allow JavaScript issue GET/POST requests to the
    * correct route.
    *
    * @return Result object.
@@ -307,8 +344,8 @@ public class Application extends Controller {
     response().setContentType("text/javascript");
     return ok(
         // Every route accessible to JavaScript needs to be added here.
-        Routes.javascriptRouter("jsRoutes", 
-          controllers.routes.javascript.Application.currentLocation(),
-          controllers.routes.javascript.Application.update()));
+        Routes.javascriptRouter("jsRoutes",
+            controllers.routes.javascript.Application.currentLocation(),
+            controllers.routes.javascript.Application.update()));
   }
 }
