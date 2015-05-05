@@ -37,7 +37,6 @@ public class LocationDB {
 
   /**
    * Finds the location in the DB that is closest to the coordinates provided.
-   *
    * @param lat Latitude of position to check.
    * @param lng Longitude of position to check.
    * @return Returns location to specified coordinates.
@@ -65,7 +64,6 @@ public class LocationDB {
 
   /**
    * Implements an "are you here" function.
-   * <p>
    * This function determines if the location closest to the coordinates
    * specified is within a predefined distance to be considered "at" a
    * location.
@@ -80,7 +78,6 @@ public class LocationDB {
 
   /**
    * Returns a list of all locations in DB.
-   *
    * @return List of locations.
    */
   public static List<Location> getLocations() {
@@ -89,7 +86,6 @@ public class LocationDB {
 
   /**
    * Finds a location from a query string.
-   * <p>
    * This implements the search functionality.  Currently, it's just a literal
    * string match.
    *
@@ -110,30 +106,7 @@ public class LocationDB {
   }
 
   /**
-   * Returns a location by unique ID.
-   *
-   * @param id to look for.
-   * @return Returns location object associated to ID.
-   */
-  public static Location getLocationById(String id) {
-    Location locResult = null;
-
-    // TODO - all broken
-    /*
-    for (Location loc : locations) {
-      if (loc.getId().equals(id)) {
-        locResult = loc;
-        break;
-      }
-    }
-    */
-
-    return locResult;
-  }
-
-  /**
    * Returns a list of locations that match the search query.
-   *
    * @param searchQuery query string.
    * @return A list of locations match query.
    */
@@ -143,13 +116,16 @@ public class LocationDB {
 
   /**
    * Adds a location to the DB.
-   *
    * @param loc Location to add.
    */
   public static void addLocation(Location location) {
     location.save();
   }
 
+  /**
+   * Adds an account to the system DB.
+   * @param account New account to add.
+   */
   public static void addAccount(Account account) {
     account.save();
   }

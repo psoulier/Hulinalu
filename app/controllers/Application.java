@@ -29,15 +29,20 @@ import java.util.List;
  */
 public class Application extends Controller {
 
+  /**
+   * Form to handle form data from sign in page.
+   */
   public static class SignInForm {
     public String   username;
     public String   password;
 
+    /**
+     * Validates user sign in data.
+     * @return Returns null if credentials ok or an error string if not.
+     */
     public String validate() {
       String  authenticated;
 
-      System.out.format("SIGN IN: %s:%s%n", username, password);
-      
       if (Account.authenticate(username, password) != null) {
         authenticated = null;
       }
@@ -49,6 +54,9 @@ public class Application extends Controller {
     }
   }
 
+  /**
+   * Contains form data for a new account.
+   */
   public static class NewAccountForm {
     public String   firstName;
     public String   lastName;
@@ -56,6 +64,10 @@ public class Application extends Controller {
     public String   password;
     public String   confirmPassword;
 
+    /**
+     * Performs validation of new account data.
+     * @return Returns null if ok, or string if an error occurred.
+     */
     public String validate() {
       return null;
     }
@@ -104,6 +116,10 @@ public class Application extends Controller {
     }
   }
 
+  /**
+   * Renders the account creation page.
+   * @return Rendered Result object.
+   */
   public static Result newAccount() {
     return ok(NewAccount.render(Form.form(NewAccountForm.class)));
   }
@@ -137,12 +153,20 @@ public class Application extends Controller {
     return ok(SignIn.render(Form.form(SignInForm.class)));
   }
 
+  /**
+   * Handles user sign-out.
+   * @return Result object.
+   */
   public static Result signOut() {
     session().clear();
 
     return redirect( routes.Application.index());
   }
 
+  /**
+   * Performs user/account authentication.
+   * @return Result object.
+   */
   public static Result authenticate() {
     Form<SignInForm>  signInForm = Form.form(SignInForm.class).bindFromRequest();
     Result            result;
@@ -162,8 +186,6 @@ public class Application extends Controller {
 
     return result;
   }
-
-
 
   /**
    * Renders a portion of the index page depending on where the user is located.

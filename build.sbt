@@ -15,3 +15,6 @@ libraryDependencies ++= Seq(
   javaWs,
   "org.postgresql" % "postgresql" % "9.3-1102-jdbc4"
 )
+
+javaOptions in Test += "-Dconfig.file=conf/application.test.conf"
+
