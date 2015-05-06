@@ -4,14 +4,14 @@
 @(newAccountForm: Form[Application.NewAccountForm])
 
 @TextInput(field: Field, inputClass: String, label: String, typeName: String, placeholder: String) = {
-<div>
-      <input  id="@field.id" 
-              type="@typeName" 
-              name="@field.name" 
-              value="@field.value.getOrElse("")" 
-              class="na-text-input @inputClass @if(field.hasErrors) {na-has-error}",
-              placeholder="@placeholder">
-            </div>
+  <div>
+    <input  id="@field.id" 
+            type="@typeName" 
+            name="@field.name" 
+            value="@field.value.getOrElse("")" 
+            class="na-text-input @inputClass @if(field.hasErrors) {na-has-error}",
+            placeholder="@placeholder">
+  </div>
 }
 
 @Main("New Account - Hulinalu")("new_account") {

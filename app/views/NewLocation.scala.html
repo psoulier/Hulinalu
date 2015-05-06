@@ -1,0 +1,34 @@
+@import utility._
+@(location: Location)
+
+@Main("New Location - Hulinalu")("location") {
+
+  @NavBar(true, "")
+
+  @if(Application.getCurrentAccount() == null) {
+  
+  }
+  else {
+    <div id="location-page" class="container location-container @if(Application.getCurrentAccount() == null) {updates-disabled}">
+
+      <div class="row">
+        <div class="col-sm-12 location-title">
+          <h1>New Location</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 location-img">
+        </div>
+
+        <div class="col-sm-6 location-map" id="map-canvas">
+        </div>
+   
+    </div>
+  }
+
+  <script src="@routes.Assets.at("javascripts/location.js")"></script>
+}
+  
+
+
