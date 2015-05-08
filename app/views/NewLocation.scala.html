@@ -1,33 +1,127 @@
 @import utility._
-@(location: Location)
+@(newLocationForm: Form[Application.NewLocationForm])
+
+
+@FormInput(field: Field, inputClass: String, label: String, typeName: String, placeholder: String) = {
+  <div>
+    <input  id="@field.id" 
+            type="@typeName" 
+            name="@field.name" 
+            value="@field.value.getOrElse("")" 
+            class="na-text-input @inputClass @if(field.hasErrors) {na-has-error}",
+            placeholder="@placeholder">
+  </div>
+}
+
+@BubbleRight(id: String, html: Html) = {
+            <div style="float: left;">
+                        
+              <div id=@id class="location-bubble-right">
+                <div class=callout-content>
+                  @html
+                </div>
+                <div class="right-arrow">
+                  <div class="arrow-border"></div>
+                  <div class="arrow-inner"></div>
+                </div>
+              </div>
+
+            </div>
+
+}
 
 @Main("New Location - Hulinalu")("location") {
 
   @NavBar(true, "")
 
-  @if(Application.getCurrentAccount() == null) {
-  
-  }
-  else {
-    <div id="location-page" class="container location-container @if(Application.getCurrentAccount() == null) {updates-disabled}">
+  <div id="location-page" class="container location-container @if(Application.getCurrentAccount() == null) {updates-disabled}">
 
-      <div class="row">
-        <div class="col-sm-12 location-title">
-          <h1>New Location</h1>
-        </div>
+    <div class="row">
+      <div class="col-sm-12 location-title">
+        <h1>Suggest a Place</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        STUFF
       </div>
 
-      <div class="row">
-        <div class="col-sm-6 location-img">
-        </div>
-
-        <div class="col-sm-6 location-map" id="map-canvas">
-        </div>
-   
+      <div class="col-sm-6 location-map" id="current-location-map">
+        MAP GOES HERE
+      </div>
     </div>
-  }
 
-  <script src="@routes.Assets.at("javascripts/location.js")"></script>
+
+    <div class="row">
+      <div class="col-sm-12">
+
+        <div class="location-form-input">
+          <label>Name of this place</label>
+
+          <div>
+            <input  id="@newLocationForm("name").id" 
+                    type="text" 
+                    name="@newLocationForm("name").name" 
+                    value="" 
+                    class="",
+                    onfocus="onFocusName()",
+                    placeholder="">
+
+            @BubbleRight("location-name", Html("Provide a descriptive name for this location. You should use a name commonly associated with this place if possible."))
+
+          </div>
+          
+        </div>
+
+
+
+        <div class="location-form-input">
+          <label>Description</label>
+
+   <div>
+            <textarea  id="@newLocationForm("name").id" 
+                    type="text" 
+                    name="@newLocationForm("name").name" 
+                    value="" 
+                    class="",
+                    onfocus="onFocusDescription()",
+                    placeholder="">
+            </textarea>
+
+            @BubbleRight("location-description", Html("Give a short description of this beach."))
+
+   </div>
+            
+          </div>
+
+
+
+
+        </div>
+
+        <!--
+        <div>
+          <label>Description</label>
+          <fieldset>
+          <textarea
+                  id="@newLocationForm("description").id" 
+                  name="@newLocationForm("description").name" 
+                  value="" 
+                  class="",
+                  placeholder="">
+          </textarea>
+          </fieldset>
+        </div>
+        -->
+      
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="@routes.Assets.at("javascripts/newlocation.js")"></script>
 }
   
 

@@ -18,6 +18,7 @@ import views.html.HelpIcons;
 import views.html.Index;
 import views.html.LocationPage;
 import views.html.NewAccount;
+import views.html.NewLocation;
 import views.html.SearchResults;
 import views.html.SignIn;
 
@@ -100,6 +101,15 @@ public class Application extends Controller {
     }
   }
 
+  public static class NewLocationForm {
+    public String name;
+    public String descirption;
+
+    public String validate() {
+      return null;
+    }
+  }
+
   /**
    * Gets the Account object for the currently signed in user.
    *
@@ -152,6 +162,11 @@ public class Application extends Controller {
    */
   public static Result newAccount() {
     return ok(NewAccount.render(Form.form(NewAccountForm.class)));
+  }
+
+
+  public static Result newLocation() {
+    return ok(NewLocation.render(Form.form(NewLocationForm.class)));
   }
 
   /**

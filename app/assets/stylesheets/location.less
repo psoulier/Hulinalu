@@ -1,6 +1,9 @@
 @import "utility/color_font.less";
 @import "utility/widgets.less";
 @import "utility/navbar.less";
+@import "utility/callouts.less";
+
+@text-form-width: 300px;
 
 /**
  * Location Page Styles
@@ -78,5 +81,41 @@ body {
   height: 300px;
   width: 300px;
 }
+
+.location-form-input {
+  label {
+    display: block;
+    font-family: "Open Sans";
+    color: @deep-blue;
+  }
+
+  .location-bubble-right {
+    float: left;
+  }
+
+  input {
+    width: @text-form-width;
+    display: block;
+    float: left;
+  }
+
+  textarea {
+    resize: none;
+    width: @text-form-width;
+    height: 200px;
+    display: block;
+    float: left;
+  }
+}
+
+.location-form-input::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.location-comment {
+}
+
 
 
