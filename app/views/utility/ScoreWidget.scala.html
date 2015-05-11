@@ -1,15 +1,58 @@
 @(loc: Location, feat: Feature, title: String, titleIcon: String, lowText: String, highText: String)
 
+@HistoBar(barNum: String) = {
+  <div class="@barNum bar-chart">
+    <div class="bar-label"></div>
+    <div class="bar-box">
+      <div class="bar-full"></div>
+    </div>
+    <div class="bar-count"></div>
+  </div>
+
+}
+
 <div class="score-widget" id="feature-@feat.getId()">
   <div class="score-title">
       <p>@title @if(titleIcon != ""){<i class="@titleIcon"></i>}</p>
   </div>
 
-  <div class="score-display">
-    <div class="score-circle"><p>3</p></div>
-    <div class="score-value"></div>
+  <div class="score-box">
+    <div class="score-display">
+      <div class="score-value"></div>
+      <div class="score-circle"><p>3</p></div>
+      <div class="score-votes"></div>
+    </div>
+    
+    <div class="score-selector">
+
+      <div class="score-label">Your Vote</div>
+      <div class="score-selector-box">
+        <div class="score-1 score-select-circle">1</div>
+        <div class="score-2 score-select-circle">2</div>
+        <div class="score-3 score-select-circle">3</div>
+        <div class="score-4 score-select-circle">4</div>
+        <div class="score-5 score-select-circle">5</div>
+      </div>
+      <div class="score-circle-value"></div>
+
+    </div>
   </div>
 
+  <div class="score-stats score-stats-hidden">
+    <div class="histogram-box">
+      @HistoBar("bar-1")
+      @HistoBar("bar-2")
+      @HistoBar("bar-3")
+      @HistoBar("bar-4")
+      @HistoBar("bar-5")
+    </div>
+  </div>
+
+  <div class="score-stats-toggle">
+    <i class="fa fa-bar-chart"></i> <i class="fa fa-caret-down"></i>
+  </div>
+
+  <!--
   <div class="score-graph">
     <div class="score-bar-graph">
       <div class="bar bar-1">
@@ -38,14 +81,14 @@
       </div>
     </div>
 
-    <!--
     <div class="score-accuracy">
       <div class="value"></div>
       <div class="space"></div>
     </div>
-    -->
   </div>
+  -->
 
+  <!--
   <div class="uw-main">
     <div class="user-selection">
       Your Score
@@ -69,7 +112,7 @@
 
   </div>
   <div style="clear: both;"></div>
-
+  -->
   <!--
   <div>
     <div class="uw-scale">

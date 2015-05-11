@@ -1,3 +1,4 @@
+var hoveringScoreWidget = null;
 
 /**
  * Helper function to transmit and recieve data for a feautre.
@@ -36,72 +37,33 @@ function set_score(updateWidget) {
   var score = $(updateWidget).data('fsr').score;
   var userScore = $(updateWidget).data('fsr').userScore;
   var scoreLabel = $(updateWidget).data('fsr').scoreLabel;
-  var selector = $(updateWidget).find('.uw-selector');
-  var scores = [];
-  var total = 0.0;
+  var votes = $(updateWidget).data('fsr').totalVotes;
+  var scoreList = $(updateWidget).data('fsr').scoreList.split(';');
+  var scoreLabels = $(updateWidget).data('fsr').scoreLabels.split(';');
+  var totalVotes = $(updateWidget).data('fsr').totalVotes;
+  var scoreSelect = $(updateWidget).find('.score-' + userScore);
+
+
+  var alreadySelected = updateWidget.find('.score-selected');
+
+  if (alreadySelected.length) {
+    if (alreadySelected === scoreSelect) {
+      /*
+      $(this).toggleClass('score-selected');
+      uscore = 0;
+      */
+    }
+    else {
+      alreadySelected.toggleClass('score-selected');
+      scoreSelect.toggleClass('score-selected');
+    }
+  }
+  else {
+    $(scoreSelect).toggleClass('score-selected');
+  }
 
   
-  var scoreList = $(updateWidget).data('fsr').scoreList.split(';');
-  for (var i = 0; i < scoreList.length; i++) {
-    scores.push( parseFloat(scoreList[i]) );
-    total += scores[i];
-  }
-
-  // Avoid divide-by-zero 
-  if (total == 0) {
-    total = 1;
-  }
-
-  var barGraph = $(updateWidget).find('.score-bar-graph');
-  for (var i = 0; i < scores.length; i++) {
-    var bottomBar = (scores[i] / total) * 100.0;
-    var topBar = 100.0 - bottomBar;
-    var bar = $(barGraph).find('.bar-' + (i + 1));
-
-    $(bar).find('.bar-top').css('height', topBar + '%');
-    $(bar).find('.bar-bottom').css('height', bottomBar + '%');
-  }
-
-  /*
-  var accuracy = $(updateWidget).find('.score-accuracy');
-  var valueBar = $(accuracy).find('.value');
-  switch (parseInt($(updateWidget).data('fsr').accuracy)) {
-    case 0:
-      $(valueBar).attr('class', 'value accuracy-color-poor');
-      $(accuracy).find('.value').css('width', '0%');
-      $(accuracy).find('.space').css('width', '100%');
-      break ;
-    case 1:
-      $(valueBar).attr('class', 'value accuracy-color-poor');
-      $(accuracy).find('.value').css('width', '20%');
-      $(accuracy).find('.space').css('width', '80%');
-      break ;
-    case 2:
-      $(valueBar).attr('class', 'value accuracy-color-marginal');
-      $(accuracy).find('.value').css('width', '40%');
-      $(accuracy).find('.space').css('width', '60%');
-      break ;
-    case 3:
-      $(valueBar).attr('class', 'value accuracy-color-average');
-      $(accuracy).find('.value').css('width', '60%');
-      $(accuracy).find('.space').css('width', '40%');
-      break ;
-    case 4:
-      $(valueBar).attr('class', 'value accuracy-color-good');
-      $(accuracy).find('.value').css('width', '80%');
-      $(accuracy).find('.space').css('width', '20%');
-      break ;
-    case 5:
-      $(valueBar).attr('class', 'value accuracy-color-excellent');
-      $(accuracy).find('.value').css('width', '100%');
-      $(accuracy).find('.space').css('width', '0%');
-      break ;
-    default:
-      console.log("treall?");
-      break ;
-  }
-  */
-
+  $(updateWidget).find('.score-votes').text(votes + ' Vote' + ((votes != 1) ? 's' : ''));
   var circle = $(updateWidget).find('.score-circle');
   $(circle).find('p').text(score);
 
@@ -109,26 +71,28 @@ function set_score(updateWidget) {
   var value = $(updateWidget).find('.score-value');
   value.text(scoreLabel);
 
-  // Only update score indicators if there's data.
-  if (userScore !== 0) {
-    // Due to the HTML to get the desired CSS effects, need to drill down a few levels
-    // of the DOM to access the elements we want.
-    $(selector).find('.uw-sel-' + userScore).prevAll().andSelf().children().children().addClass('sw-score-selected');
-    $(selector).find('.uw-sel-' + userScore).nextAll().children().children().removeClass('sw-score-selected');
-  } else {
-    // No data for this score, so clear all the indicator dots.
-    $(selector).children().first().first().removeClass('sw-score-selected');
+  var label = $(updateWidget).find('.score-circle-value');
+  var labelList = $(updateWidget).data('fsr').scoreLabels.split(';');
+
+  if (hoveringScoreWidget == null) {
+    if (userScore > 0) {
+      label.text(labelList[userScore-1]);
+      $(updateWidget).find('.score-' + userScore).addClass('score-selected');
+    }
+    else {
+      label.text('');
+    }
   }
 
-  // Same as score, except for the indicator for the user-selected score.
-  /*
-  if (userScore !== 0) {
-    $(selector).find('.uw-sel-' + userScore).prevAll().andSelf().children().addClass('sw-user-score-selected');
-    $(selector).find('.uw-sel-' + userScore).nextAll().children().removeClass('sw-user-score-selected');
-  } else {
-    $(selector).children().first().removeClass('sw-user-score-selected');
+  for (var i = 0; i < scoreList.length; i++) {
+    var bar = updateWidget.find('.bar-' + (i+1));
+    var percent = scoreList[i] / totalVotes;
+
+    bar.find('.bar-label').text(scoreLabels[i]);
+    bar.find('.bar-full').css('width', (percent*100) + '%');
+    bar.find('.bar-count').text(scoreList[i] + ' Votes');
   }
-  */
+
 }
 
 /**
@@ -277,9 +241,60 @@ $(document).ready( function() {
     txrxScore($(widget), outData, ynw_set_score);
   });
 
+  $('.score-stats-toggle').bind('click', function() {
+    $(this).parent().find('.score-stats').toggleClass('score-stats-hidden');
+  });
+
   // Only bind events if updates haven't been disabled (usually because no user
   // is signed in).
   if ( $("#location-page").length > 0 && $("#location-page").hasClass("updates-disabled") == false ) {
+
+
+    $('.score-select-circle').bind('click', function() {
+      var scoreWidget = $(this).closest('.score-widget');
+      var uscore = $(this).attr('class').charAt(6);
+
+
+      // Setup data to send to server.
+      var outData = {
+        uw_id     : $(scoreWidget).attr('id'),
+        userScore : uscore
+      };
+
+      // Send data to server and get updated info.
+      txrxScore(scoreWidget, outData, set_score);
+    });
+
+
+    $('.score-select-circle').hover(
+      // Handles the mouseover
+      function() {
+        var label = $(this).parent().parent().find('.score-circle-value');
+        var labelList = $(this).closest('.score-widget').data('fsr').scoreLabels.split(';');
+
+        var score = parseInt($(this).attr('class').charAt(6));
+        label.text(labelList[score-1]);
+        hoveringScoreWidget = this;
+      },
+      // Handles the mouseout
+      function() {
+        var label = $(this).parent().parent().find('.score-circle-value');
+        var scoreWidget = $(this).closest('.score-widget');
+        var labelList = $(scoreWidget).data('fsr').scoreLabels.split(';');
+        var userScore = parseInt($(scoreWidget).data('fsr').userScore);
+
+        if (userScore > 0) {
+          label.text(labelList[userScore-1]);
+        }
+        else {
+          label.text('');
+        }
+
+        hoveringScoreWidget = null;
+      }
+    );
+
+
 
     $('.uw-select').bind('click', function() {
       // Each of the five buttons has a 'uw-sel-x' class (where x = [1,5]). We

@@ -168,6 +168,7 @@ public class Feature extends Model implements UpdateInterface {
     data.put("score", Integer.toString(score));
     data.put("userScore", Integer.toString(userScore));
     data.put("accuracy", Integer.toString(accuracy));
+    data.put("totalVotes", Integer.toString(score1+score2+score3+score4+score5));
 
     if (score == 0) {
       data.put("scoreLabel", "No Info");
@@ -178,6 +179,7 @@ public class Feature extends Model implements UpdateInterface {
     }
 
     data.put("scoreList", scores);
+    data.put("scoreLabels", scoreValues);
   }
 
   /**
