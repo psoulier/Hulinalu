@@ -84,6 +84,11 @@ function set_score(updateWidget) {
     }
   }
 
+  // Avoid divide-by-zero error in histogram bar width calculation.
+  if (totalVotes == 0) {
+    totalVotes = 1;
+  }
+
   for (var i = 0; i < scoreList.length; i++) {
     var bar = updateWidget.find('.bar-' + (i+1));
     var percent = scoreList[i] / totalVotes;
@@ -243,6 +248,8 @@ $(document).ready( function() {
 
   $('.score-stats-toggle').bind('click', function() {
     $(this).parent().find('.score-stats').toggleClass('score-stats-hidden');
+    $(this).find('.toggle-up').toggleClass('toggle-hidden');
+    $(this).find('.toggle-down').toggleClass('toggle-hidden');
   });
 
   // Only bind events if updates haven't been disabled (usually because no user
@@ -365,7 +372,7 @@ $(document).ready( function() {
     $('.score-widget').find('.uw-main').css('display', 'none');
   }
   
-  setTimeout(pollForUpdates, 5000);
+  setTimeout(pollForUpdates, 60000);
 });
 
 $(document).ready(function() {

@@ -79,6 +79,9 @@
 
 @score-circle-radius: 40px;
 @score-selector-radius: 30px;
+@histogram-bar-height: 10px;
+@score-heading-margin: 5px;
+@score-select-color: #B0CDD6;
 
 
 .score-circle {
@@ -86,71 +89,33 @@
   width: @score-circle-radius;
   border-radius: @score-circle-radius;
   background-color: #0578A9;
-  border: solid 2px @accuracy-color-average;
+  border: solid 2px @deep-blue;
   box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.50);
-  margin: 0 auto;
+  margin: @score-heading-margin auto;
 
   p {
     color: @sea-foam-white;
     font-family: "Open Sans";
     font-size: 24px;
+    font-weight: 700;
     line-height: @score-circle-radius - 4px;
     text-align: center;
   }
 }
 
+.score-heading {
+  font-family: "Open Sans";
+  font-weight: 700;
+  text-align: center;
+  color: @deep-blue;
+  margin-bottom: @score-heading-margin;
+}
 
 .score-widget {
   background: transparent;
   width: 300px;
   font-family: "Muli";
   margin-bottom: 4px;
-
-  .score-stats-toggle {
-    width: 100%;
-    text-align: right;
-  }
-
-  .score-stats {
-    margin-top: 20px;
-    overflow: hidden;
-    height: 120px;
-    width: 100%;
-    transition: height .3s;
-
-    .histogram-box {
-      .bar-chart {
-        .bar-label {
-          display: inline-block;
-          width: 60px;
-        }
-
-        .bar-box {
-          display: inline-block;
-          height: 15px;
-          width: 100px;
-          border: solid 1px @deep-blue;
-          border-radius: 3px;
-
-          .bar-full {
-            background-color: @deep-blue;
-            width: 33%;
-            height: 100%;
-          }
-        }
-
-        .bar-count {
-          display: inline-block;
-          width: 80px;
-        }
-      }
-
-    }
-  }
-
-  .score-stats-hidden {
-    height: 0;
-  }
 
   .score-title {
     width: 100%;
@@ -163,33 +128,36 @@
       padding: 2px 10px;
     }
   }
+  
+
+
 
   .score-box {
 
     .score-display {
       display: inline-block;
       margin-right: 5px;
+      width: 60px;
 
       .score-votes {
-        margin-top: 5px;
+        margin-top: 0;
         text-align: center;
         font-size: 75%;
         font-family: "Muli";
       }
 
       .score-value {
+        margin-bottom: 0;
         font-family: "Open Sans";
         text-align: center;
       }
     }
 
-
-
-
     .score-selector {
       float: right;
 
       .score-label {
+        margin-bottom: @score-heading-margin;
         font-family: "Open Sans";
         text-align: center;
         width: 100%;
@@ -204,24 +172,27 @@
 
       .score-selector-box {
         margin-top: 5px;
+        height: @score-selector-radius + 15;
         
         .score-select-circle {
           position: relative;
-          display: inline-block;
+          float: left;
+          top: 5px;
+          //display: inline-block;
           height: @score-selector-radius;
           width: @score-selector-radius;
-          border: solid 2px @deep-blue;
+          border: solid 2px @score-select-color;
           border-radius: @score-selector-radius;
-          background-color: @sea-foam-white;
-          bottom: 5px;
+          background-color: @score-select-color;
           transition: 0.3s ease;
           cursor: default;
-
-            color: @deep-blue;
-            font-family: "Open Sans";
-            font-size: 14px;
-            text-align: center;
-            line-height: @score-selector-radius - 4;
+          color: @sea-foam-white;
+          font-family: "Open Sans";
+          font-size: 15px;
+          font-weight: 700;
+          text-align: center;
+          line-height: @score-selector-radius - 4;
+          margin: 1px;
         }
 
         .score-select-circle:hover {
@@ -230,88 +201,85 @@
         }
 
         .score-selected {
-          bottom: 0;
+          top: 0;
           height: @score-selector-radius + 10;
           width: @score-selector-radius + 10;
           margin: 0;
           font-size: 24px;
+          font-weight: 700;
           line-height: 36px;
           color: white;
           background-color: @deep-blue;
         }
- 
-     }
-
+      }
     }
   }
 
+  .score-stats-toggle {
+    width: 100%;
+    text-align: right;
+    transition: 0.2s linear;
 
+    .toggle-hidden {
+      display: none;
+    }
+  }
 
+  .score-stats-toggle:hover {
+    color: #089DCC;
+  }
 
-  .score-graph {
-    float: left;
-    height: 40px;
-    width: 50px;
-    margin-top: 10px;
+  .score-stats {
 
-    .score-bar-graph {
-      margin-bottom: 3px;
+    margin: 5px 0 0 10px;
+    overflow: hidden;
+    height: 75px;
+    width: 100%;
+    transition: height .3s;
 
-      .bar {
-        height: 30px;
-        bottom: 0;
-        width: 5px;
-        margin-right: -1px;
-        display: inline-block;
-        position: relative;
-
-        .bar-top {
-          background-color: fade(@deep-blue, 10%);
+    .histogram-box {
+      .bar-chart {
+        height: @histogram-bar-height;
+        margin: 2px;
+        .bar-label {
+          float: left;
+          height: 100%;
+          width: 60px;
+          line-height: @histogram-bar-height;
+          font-size: 80%;
         }
 
-        .bar-bottom {
-          background-color: @deep-blue;
+        .bar-box {
+          float: left;
+          height: 100%;
+          width: 100px;
+          border: solid 1px @deep-blue;
+
+          .bar-full {
+            background-color: #72C0E1;
+            height: 100%;
+          }
+        }
+
+        .bar-count {
+          margin-left: 10px;
+          float: left;
+          height: 100%;
+          line-height: @histogram-bar-height;
+          font-size: 80%;
+          width: 80px;
         }
       }
-    }
 
-    .score-accuracy {
-      width: 50px;
-      height: 8px;
-      border: solid 1px @deep-blue;
-      border-radius: 2px;
-
-      .value {
-        float: left;
-        height: 100%;
-      }
-
-      .space {
-        float: left;
-        background-color: transparent;
-        height: 100%;
-      }
     }
   }
 
-  .uw-main {
-    float: right;
-
-    .uw-selector {
-      display: inline-block;
-      overflow: visible;
-      position: relative;
-      height: 25px;
-      background: transparent;
-    }
-
-    .user-selection {
-      width: 100%;
-      text-align: center;
-      font-family: "Open Sans";
-    }
-    
+  .score-stats-hidden {
+    height: 0;
   }
+
+
+
 }
 
 .score-widget::after {
