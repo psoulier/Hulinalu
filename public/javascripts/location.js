@@ -369,7 +369,7 @@ $(document).ready( function() {
     );
   }
   else {
-    $('.score-widget').find('.uw-main').css('display', 'none');
+    $('.score-widget').find('.score-selector').css('display', 'none');
   }
   
   setTimeout(pollForUpdates, 60000);

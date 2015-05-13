@@ -5,6 +5,15 @@
 
   @NavBar(true, "")
 
+  @if(Application.getCurrentAccount() == null) {
+    <div class="not-signed-in">
+      <div class="bubble">
+        <div><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
+        <p>Sign in to vote, comment and other stuff.</p>
+      </div>
+    </div>
+  }
+
   <div id="location-page" class="container location-container @if(Application.getCurrentAccount() == null) {updates-disabled}">
 
     <div class="row">
